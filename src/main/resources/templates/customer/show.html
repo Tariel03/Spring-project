@@ -1,0 +1,29 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="customer : ${customerList}">
+  <a th:href="@{customer/{id}(id=${customer.getId()})}"
+     th:text="${customer.getName() + ', ' + customer.getPosition()}">user</a>
+</div>
+
+
+<form th:method="POST" th:action="@{/manager/customer/show}">
+    <input type="text" name="login" placeholder="Введите ваш логин">
+    <input type="text" name="name" placeholder="Введите ваш name">
+    <input type="text" name="password" placeholder="Введите ваш password">
+    <input type="text" name="position" placeholder="Введите ваш position">
+    <input type="text" name="salary" placeholder="Введите ваш salary">
+
+
+
+
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>
