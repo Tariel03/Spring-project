@@ -27,7 +27,7 @@ public class Director implements User{
         this.salary = salary;
         this.login = login;
         this.password = password;
-        this.type = type;
+        this.type = "director";
     }
 
     public Director() {

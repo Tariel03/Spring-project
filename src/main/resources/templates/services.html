@@ -1,0 +1,15 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="service : ${serviceList}">
+    <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
+</div>
+<a href = "home">Link to main</a>
+
+</body>
+</html>

@@ -34,24 +34,21 @@ public class ManagerController {
     @GetMapping("/customer/{id}")
     public String getCustomer(Model model, @ModelAttribute("customer") Customer customer, @PathVariable Long id){
         Optional<Customer> customerOptional = customerRepository.findById(id);
+        if(customerOptional.isPresent()) customer = customerOptional.get();
         model.addAttribute(customer);
         return "customer/index";
 
     }
 
-    @PostMapping
-    public String create(@RequestParam("login") String login, @RequestParam("name")String name, @RequestParam("password")String password, @RequestParam("position")String position, @RequestParam("salary")int salary) throws Exception {
-        Customer customer = new Customer(login,position,salary,login,password);
+    @PostMapping("/customer/show")
+    public String createCustomer(@RequestParam("login") String login, @RequestParam("name")String name, @RequestParam("password")String password, @RequestParam("email")String email) throws Exception {
+        Customer customer = new Customer(login,name,password,email);
         customerRepository.save(customer);
-        return "redirect:manager/customer/show";
+        return "redirect:/";
     }
 
-    @PostMapping("/customer/show")
-    public String createForm(@RequestParam("login") String login, @RequestParam("name")String name, @RequestParam("password")String password, @RequestParam("position")String position, @RequestParam("salary")int salary) throws Exception {
-        Customer customer = new Customer(login,position,salary,login,password);
-        customerRepository.save(customer);
-        return "redirect:/manager/customer";
-    }
+
+
 
 
 

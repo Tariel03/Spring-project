@@ -23,8 +23,6 @@ public class DirectorConfig {
 //        private String login;
 //        private String password;
         return args -> {
-            Customer customer1 = new Customer("tar","tar",50000,"tar","tar");
-            customerRepository.save(customer1);
 
 
         };

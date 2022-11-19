@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:object = "${customer}">
+    <p class="fs-3"
+       th:text="${customer.getName() + ', ' + customer.getLogin() + ', '+customer.getEmail()}">VALUE</p>
+</div>
+<img th:src="@{tempaltes/user.png}" width="128" height="128">
+<a href = "/manager/customer/" class="btn btn-primary">Link to customer</a>
+<a href = "edit" class="btn btn-primary">Edit</a>
+<a href = "home" class="btn btn-primary">Home</a>
+
+</body>
+</html>

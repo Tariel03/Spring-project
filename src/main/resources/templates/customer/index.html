@@ -5,10 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<!--    <p th:text="${personOptional.getName() + ', ' + person.getAge()}">VALUE</p>-->
-<!--    <p th:text="${'Email: ' + person.getEmail()}">VALUE</p>-->
-<!--    <p th:text="${person.getId()}">VALUE</p>-->
-    <P>Tariel</P>
+    <div th:object = "${customer}">
+        <p th:text="${customer.getName() + ', ' + customer.getLogin()}">VALUE</p>
+        <a href = "/manager/customer/">Link to customer</a>
+    </div>
+<!--    <P>Tariel</P>-->
 
 </body>
 </html>

@@ -6,39 +6,15 @@
 </head>
 <body>
 
-<form th:method="POST" th:action="@{/customer}" th:object="${customer}">
-  <label for="name">Enter name: </label>
-  <input type="text" th:field="*{name}" id="name"/>
-  <br/>
-<label for="name">Enter name:</label>
-  <div th:if="${#fields.hasErrors('name')} " th:errors="*{name} " style="color:red">Name error </div>
-  <label for="age">Enter position: </label>
-  <div th:if="${#fields.hasErrors('position')} "th:errors="*{position}"  style="color:red">Position error </div>
-  <input type="text" th:field="*{position}" id="age"/>
-  <br/>
-  <div th:if="${#fields.hasErrors('salary')} "th:errors="*{salary}"  style="color:red">Salary error </div>
-  <label for="email">Enter email: </label>
-  <input type="text" th:field="*{salary}" id="email"/>
-
-  <div th:if="${#fields.hasErrors('login')} "th:errors="*{login}"  style="color:red">Login error </div>
-  <label for="login">Enter login: </label>
-  <input type="text" th:field="*{login}" id="login"/>
-
-  <div th:if="${#fields.hasErrors('password')} "th:errors="*{password}"  style="color:red">Login error </div>
-  <label for="password">Enter login: </label>
-  <input type="text" th:field="*{login}" id="password"/>
-
-
+<form th:method="POST" th:action="@{/manager/customer/show}">
+  <input type="text" name="login" placeholder="Введите ваш логин">
+  <input type="text" name="name" placeholder="Введите ваш name">
+  <input type="text" name="password" placeholder="Введите ваш password">
   <br/>
   <input type="submit" value="Create!"/>
 </form>
 
+<a href = "/manager/customer">Link to Customers</a>
+
 </body>
 </html>
-
-private Long id;
-private String name;
-private String position;
-private int salary;
-private String login;
-private String password;

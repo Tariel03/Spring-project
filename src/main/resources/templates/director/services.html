@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="service : ${servicelist}">
+  <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
+</div>
+
+
+<a href = "directorMenu">Link to main</a>
+
+</body>
+</html>

@@ -1,10 +1,7 @@
 package com.example.springproject.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Customer implements User{
@@ -12,15 +9,26 @@ public class Customer implements User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-   private String position;
-    private int salary;
     private String login;
     private String password;
+    private String type;
+    private String email;
+
+    public Customer(String login, String name, String password, String email) {
+
+    }
 
     public Customer() {
 
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
@@ -36,22 +44,6 @@ public class Customer implements User{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
     }
 
     public String getLogin() {
@@ -90,11 +82,31 @@ public class Customer implements User{
         return null;
     }
 
-    public Customer(String name, String position, int salary, String login, String password) {
+    public Customer(String name, String login, String password) {
         this.name = name;
-        this.position = position;
-        this.salary = salary;
         this.login = login;
         this.password = password;
+        this.type = "customer";
+
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
