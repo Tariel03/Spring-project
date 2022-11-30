@@ -1,7 +1,7 @@
 package com.example.springproject.models;
 
 
-public class Manager implements User{
+public class Manager implements Us{
     private Long id;
 
     String name;

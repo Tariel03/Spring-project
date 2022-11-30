@@ -5,10 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-<div th:each="service : ${servicelist}">
-  <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
+<div th:each="service : ${serviceList}">
+    <form th:method="POST" th:object="${service}" th:action="@{/director/service/{id}(id=${service.getId()})}">
+        <input type="submit" value="Delete"/>
+    </form>
+    <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
 </div>
 
+<form th:method="POST" th:action="@{/director/service/createService}">
+    <input type = "text" name ="name" placeholder="Name: ">
+    <input type="text" name="platform" placeholder="Platform: ">
+    <input type="number" name="price" placeholder="Price: ">
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
 
 <a href = "directorMenu">Link to main</a>
 

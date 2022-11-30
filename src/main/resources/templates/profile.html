@@ -10,7 +10,7 @@
     <p class="fs-3"
        th:text="${customer.getName() + ', ' + customer.getLogin() + ', '+customer.getEmail()}">VALUE</p>
 </div>
-<img th:src="@{tempaltes/user.png}" width="128" height="128">
+<img th:src="@{user.png}" width="128" height="128">
 <a href = "/manager/customer/" class="btn btn-primary">Link to customer</a>
 <a href = "edit" class="btn btn-primary">Edit</a>
 <a href = "home" class="btn btn-primary">Home</a>

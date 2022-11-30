@@ -8,6 +8,9 @@
 
 <div th:each="service : ${serviceList}">
     <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
+    <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${service.getId()})}">
+        <input type="submit" value="Order"/>
+    </form>
 </div>
 <a href = "home">Link to main</a>
 

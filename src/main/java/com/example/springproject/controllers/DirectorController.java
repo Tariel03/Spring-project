@@ -28,26 +28,44 @@ public class DirectorController {
     }
 
 
+    @GetMapping
+    public String director() {
+        return "director/directorMenu";
+    }
 
     @GetMapping("/comments")
-    public String getComments(Model model, @ModelAttribute("comment")Comment comment) {
+    public String getComments(Model model, @ModelAttribute("comment") Comment comment) {
         List<Comment> commentList = commentRepository.findAll();
         model.addAttribute(commentList);
         System.out.println(commentList);
         return "director/comments";
     }
+
     @GetMapping("/services")
     public String getServices(Model model, @ModelAttribute("customer") Customer customer) {
         List<Service> serviceList = serviceRepository.findAll();
         model.addAttribute(serviceList);
         System.out.println(serviceList);
-        return "services";
+        return "director/services";
     }
 
-    @DeleteMapping("/service/{id}")
-    public String deleteService(@PathVariable("id") Long id) throws SQLException, ClassNotFoundException {
+
+    @PostMapping("/service/{id}")
+    public String deleteService(@PathVariable("id") Long id) {
         serviceRepository.deleteById(id);
-        return "redirect:/people";
+        return "redirect:/director/services";
     }
+
+    @PostMapping("/service/createService")
+    public String createService(@RequestParam("name")String name, @RequestParam("platform") String platform, @RequestParam("price") int price){
+        Service service = new Service();
+        service.setName(name);
+        service.setPlatform(platform);
+        service.setPrice(price);
+        serviceRepository.save(service);
+        return "redirect:/director/services";
+
+    }
+
 
 }

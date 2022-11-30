@@ -4,7 +4,7 @@ package com.example.springproject.models;
 import javax.persistence.*;
 
 @Entity
-public class Director implements User{
+public class Director implements Us{
     @Id
     private Long id;
 

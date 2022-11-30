@@ -4,18 +4,20 @@ package com.example.springproject.models;
 import javax.persistence.*;
 
 @Entity
-public class Customer implements User{
+public class Customer implements Us{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String login;
     private String password;
-    private String type;
     private String email;
 
-    public Customer(String login, String name, String password, String email) {
-
+    public Customer(String name, String login, String password, String email) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
+        this.email = email;
     }
 
     public Customer() {
@@ -82,22 +84,6 @@ public class Customer implements User{
         return null;
     }
 
-    public Customer(String name, String login, String password) {
-        this.name = name;
-        this.login = login;
-        this.password = password;
-        this.type = "customer";
-
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
         return "Customer{" +
@@ -105,7 +91,6 @@ public class Customer implements User{
                 ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", type='" + type + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }

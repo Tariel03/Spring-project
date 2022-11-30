@@ -1,6 +1,6 @@
 package com.example.springproject.models;
 
-public interface User {
+public interface Us {
     String TypeOfAc();
     void menu();
     String login(String login,String password);

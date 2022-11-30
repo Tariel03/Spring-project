@@ -8,14 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Configuration
     @EnableWebSecurity
@@ -46,7 +50,7 @@ import java.util.List;
         public UserDetailsService userDetailsService() {
 //            UserDetails user =
 //                    User.withDefaultPasswordEncoder()
-//                            .username("Tariel")
+//                            .username("tariel")
 //                            .password("4508")
 //                            .roles("Manager")
 //                            .build();
@@ -62,10 +66,12 @@ import java.util.List;
                 users.add(User.withDefaultPasswordEncoder().
                         username(customer.getLogin())
                         .password(customer.getPassword())
-                        .roles(customer.getType())
+                        .roles("user")
                         .build());
             }
             return new InMemoryUserDetailsManager(users);
+
+
         }
 
 

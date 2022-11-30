@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="style.css">
 
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
@@ -21,7 +22,10 @@
                     <a class="nav-link disabled text-danger">Hello [[${#httpServletRequest.remoteUser}]]</a>
                 </li>
                 <li class="nav-item">
-                    <a class = "nav-link text-danger" href = "services">Link to services</a>
+                    <a class = "nav-link text-danger" href = "director/services">Link to services</a>
+                </li>
+                <li class="nav-item">
+                    <a class = "nav-link text-danger" href = "director/comments">Link to comments</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -82,3 +86,4 @@
     </div>
 </div>
 </div>
+</body>

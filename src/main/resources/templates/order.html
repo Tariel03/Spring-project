@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:each="zakaz: ${zakazList}">
+    <p th:text = "${zakaz.getCustomer().getName() + ', '+zakaz.getDate() + ', '+zakaz.getService().getName()  + ', '+zakaz.getService().getPrice()}"></p>
+</div>
+<a href = "home">Link to main</a>
+
+</body>
+</html>

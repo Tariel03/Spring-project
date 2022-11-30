@@ -79,10 +79,10 @@
                         <div class="col">
                             <div class="row flex-column">
                                 <form th:method="POST" th:action="@{/manager/customer/show}">
+                                    <input type = "email" name = "email" placeholder="Введите ваш email ">
                                     <input type="text" name="login" placeholder="Введите ваш логин">
                                     <input type="text" name="name" placeholder="Введите ваш name">
                                     <input type="text" name="password" placeholder="Введите ваш password">
-                                    <input type="text" name="email" placeholder="Введите ваш email">
                                     <br/>
                                     <input type="submit" value="Create!"/>
                                 </form>
@@ -102,16 +102,6 @@
     </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-<p th:text="'Good morning, ' + ${title} + '!'" />
 
 
 </body>
