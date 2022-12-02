@@ -5,6 +5,7 @@ import com.example.springproject.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
@@ -13,9 +14,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -48,21 +51,10 @@ import java.util.stream.Collectors;
 
         @Bean
         public UserDetailsService userDetailsService() {
-//            UserDetails user =
-//                    User.withDefaultPasswordEncoder()
-//                            .username("tariel")
-//                            .password("4508")
-//                            .roles("Manager")
-//                            .build();
-//            UserDetails user1 = User.withDefaultPasswordEncoder()
-//                    .username("Aizat")
-//                    .password("3000")
-//                    .roles("Customer")
-//                    .build();
             List<UserDetails> users = new ArrayList<>();
             List<Customer> customerList = customerRepository.findAll();
-            for (Customer customer:customerList
-                 ) {
+            for (Customer customer : customerList
+            ) {
                 users.add(User.withDefaultPasswordEncoder().
                         username(customer.getLogin())
                         .password(customer.getPassword())
@@ -70,8 +62,6 @@ import java.util.stream.Collectors;
                         .build());
             }
             return new InMemoryUserDetailsManager(users);
-
-
         }
 
 

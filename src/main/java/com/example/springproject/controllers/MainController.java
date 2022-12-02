@@ -183,6 +183,11 @@ import java.util.Optional;
 
     }
 
+    @GetMapping("/aboutUs")
+    public String aboutUs(){
+        return "aboutUs";
+    }
+
 
 }
 
