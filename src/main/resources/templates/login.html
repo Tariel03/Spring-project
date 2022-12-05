@@ -3,19 +3,49 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <title>Spring Security Example </title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-<div th:if="${param.error}">
-  Invalid username and password.
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+<!--<div th:if="${param.error}">-->
+<!--  Invalid username and password.-->
+<!--</div>-->
+<!--<div th:if="${param.logout}">-->
+<!--  You have been logged out.-->
+<!--</div>-->
+
+<!--  <form th:action="@{/login}" method="post">-->
+<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
+<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
+<!--  </form>-->
+
+
+<div class="container-sm">
+  <div class="text-center">
+    <div th:if="${param.error}">
+      Invalid username and password.
+    </div>
+    <div th:if="${param.logout}">
+      You have been logged out.
+    </div>
+  </div>
+  <form th:action="@{/login}" method="post">
+    <div class="mb-3">
+      <label for="exampleInputName" class="form-label">Login</label>
+      <input type="username" name="username" class="form-control" id="exampleInputName" aria-describedby="loginHelp">
+      <div id="loginHelp" class="form-text">We'll never share your login with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <a href = "forgetPassword"> Forget your password</a>
+
 </div>
-<div th:if="${param.logout}">
-  You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-  <div><label> User Name : <input type="text" name="username"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
-  <div><input type="submit" value="Sign In"/></div>
-</form>
-<a href = "forgetPassword"> Forget your password</a>
+
+
+
 </body>
 </html>

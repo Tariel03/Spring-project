@@ -5,6 +5,7 @@ import com.example.springproject.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -50,6 +51,7 @@ import java.util.stream.Collectors;
         }
 
         @Bean
+        @Lazy
         public UserDetailsService userDetailsService() {
             List<UserDetails> users = new ArrayList<>();
             List<Customer> customerList = customerRepository.findAll();

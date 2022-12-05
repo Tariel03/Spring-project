@@ -11,6 +11,18 @@ public class Comment {
     private String comment;
     private LocalDate date;
 
+    public Comment getCommentt() {
+        return commentt;
+    }
+
+    public void setCommentt(Comment commentt) {
+        this.commentt = commentt;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment commentt;
+
     public String getComment() {
         return comment;
     }
@@ -43,6 +55,13 @@ public class Comment {
         this.comment = comment;
         this.customer = customer;
         this.date = LocalDate.now();
+    }
+
+    public Comment(String comment, Comment commentt, Customer customer) {
+        this.comment = comment;
+        this.date = LocalDate.now();
+        this.commentt = commentt;
+        this.customer = customer;
     }
 
     public Comment() {

@@ -22,11 +22,13 @@
                     <a class="nav-link disabled text-danger">Hello [[${#httpServletRequest.remoteUser}]]</a>
                 </li>
                 <li class="nav-item">
-                    <a class = "nav-link text-danger" href = "director/services">Link to services</a>
+                    <a class = "nav-link text-danger" href = "services">Link to services</a>
                 </li>
                 <li class="nav-item">
                     <a class = "nav-link text-danger" href = "director/comments">Link to comments</a>
                 </li>
+
+
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -36,54 +38,24 @@
     </div>
 </nav>
 
-<br><br><br>
 
 
-
-
-
-
-
-<div class="modal fade" id="gridSystemModal" tabindex="-1" aria-labelledby="gridModalLabel" style="display: none;" aria-hidden="true" width = "100%">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-secondary">
-                <h1 class="modal-title fs-5 fw-bold" id="gridModalLabel">contact us</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid bd-example-row">
-                    <div class="row flex-column">
-                        <div class="col">
-                            <div class="row text-center flex-column">
-                                <div class="col pb-5 h1">
-                                    Sign UP</div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="row flex-column">
-                                <form th:method="POST" th:action="@{/manager/customer/show}">
-                                    <input type="text" name="login" placeholder="Введите ваш логин">
-                                    <input type="text" name="name" placeholder="Введите ваш name">
-                                    <input type="text" name="password" placeholder="Введите ваш password">
-                                    <input type="text" name="email" placeholder="Введите ваш email">
-                                    <br/>
-                                    <input type="submit" value="Create!"/>
-                                </form>
-                            </div>
-
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-
-            </div>
-        </div>
-    </div>
+<div class= "row pt-5 mt-5" >
+    <form th:method="POST" th:action="@{/director/create/Account}" th:object="${type}">
+        <input type = "email" name = "email" placeholder="Введите ваш email ">
+        <input type="text" name="login" placeholder="Введите ваш логин">
+        <input type="text" name="name" placeholder="Введите ваш name">
+        <input type="text" name="password" placeholder="Введите ваш password">
+        <br/>
+            <select th:field="*{type}">
+                <option th:each="type : ${typesList}"
+                        th:value="${type.getTypeName()}"
+                        th:text="${type.getType()}">Options</option>
+            </select>
+        <input type="submit" value="Create!"/>
+    </form>
 </div>
-</div>
+
+
+
 </body>

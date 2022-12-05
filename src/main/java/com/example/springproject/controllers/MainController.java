@@ -63,16 +63,16 @@ import java.util.Optional;
         return "services";
     }
     @GetMapping("/forgetPassword")
-    public String getForgetPassword(){
+    public String getForgetPassword(Model model){
+
         return "forgetPassword";
 
     }
     @PostMapping("/forgetPassword")
-    public String forgetPassword(Model model, @RequestParam("email")String email){
+    public void forgetPassword(Model model, @RequestParam("email")String email) {
         model.getAttribute(email);
         Optional<Customer> customerOptional = customerRepository.findByEmail(email);
-        if(customerOptional.isPresent()) return "redirect:/login";
-        return "redirect:/";
+        model.addAttribute(customerOptional.get());
 
     }
     @PostMapping("/writeComment")
@@ -99,7 +99,7 @@ import java.util.Optional;
     @GetMapping("/profile")
     public String getProfile(Model model,@ModelAttribute("customer")Customer customer){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
-        String username = new String();
+        String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
 
@@ -134,7 +134,7 @@ import java.util.Optional;
             System.out.println(updatedCustomer.getLogin());
             customerRepository.save(updatedCustomer);
         }
-        return "redirect:/profile";
+        return "redirect:/login";
 
     }
     @GetMapping("/edit")

@@ -4,6 +4,7 @@ package com.example.springproject.models;
 import javax.persistence.*;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
 public class Customer implements Us{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,12 +14,22 @@ public class Customer implements Us{
     private String login;
     private String password;
     private String email;
+    private String type;
 
-    public Customer(String name, String login, String password, String email) {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Customer(String name, String login, String password, String email, String type) {
         this.name = name;
         this.login = login;
         this.password = password;
         this.email = email;
+        this.type = type;
     }
 
     public Customer() {
