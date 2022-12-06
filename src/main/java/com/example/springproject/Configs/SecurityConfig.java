@@ -38,11 +38,12 @@ import java.util.stream.Collectors;
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests((requests) -> requests
-                            .antMatchers("/", "/home","main","forgetPassword").permitAll()
+                            .antMatchers("/home", "/index","main","forgetPassword").permitAll()
                             .anyRequest().authenticated()
                     )
                     .formLogin((form) -> form
                             .loginPage("/login")
+                            .defaultSuccessUrl("/index")
                             .permitAll()
                     )
                     .logout(LogoutConfigurer::permitAll);
@@ -65,6 +66,7 @@ import java.util.stream.Collectors;
             }
             return new InMemoryUserDetailsManager(users);
         }
+
 
 
 }

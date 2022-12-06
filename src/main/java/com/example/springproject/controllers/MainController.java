@@ -48,6 +48,16 @@ import java.util.Optional;
         System.out.println(httpServletRequest.getRemoteUser().getClass().getName());
         return "home";
     }
+    @GetMapping("/index")
+    public String index(Model model){
+        List<Service> serviceList = serviceRepository.findAll();
+        model.addAttribute(serviceList);
+        List<Comment> commentList = commentRepository.findAll();
+        model.addAttribute(commentList);
+        System.out.println(serviceList.size());
+        return "index";
+    }
+
 
     @GetMapping("/manager")
     public String managerMenu(Model model) {
@@ -89,7 +99,7 @@ import java.util.Optional;
             System.out.println(optionalCustomer.get());
             Comment com = new Comment(comment,optionalCustomer.get());
             commentRepository.save(com);
-            return "redirect:/director/comments";
+            return "redirect:/index";
         }
         else {
             return "redirect:/";
