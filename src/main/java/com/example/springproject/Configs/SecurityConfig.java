@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http
                     .authorizeHttpRequests((requests) -> requests
-                            .antMatchers("/home", "/index","/forgetPassword").permitAll()
+                            .antMatchers("/", "/index","/forgetPassword").permitAll()
                             .anyRequest().authenticated()
                     )
                     .formLogin((form) -> form

@@ -37,13 +37,7 @@ import java.util.Optional;
         this.commentRepository = commentRepository;
         this.zakazRepository = zakazRepository;
     }
-    @GetMapping("/")
-    public String home(Model model, @ModelAttribute("comment")Comment comment) {
-        model.addAttribute("title", "Main page");
-        System.out.println(httpServletRequest.getRemoteUser().getClass().getName());
-        return "index";
-    }
-    @GetMapping("/index")
+    @GetMapping({"/index", "/"})
     public String index(Model model){
         List<Service> serviceList = serviceRepository.findAll();
         model.addAttribute(serviceList);
