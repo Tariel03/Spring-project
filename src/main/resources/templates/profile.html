@@ -7,8 +7,22 @@
 </head>
 <body>
 <div th:object = "${customer}">
-    <p class="fs-3"
-       th:text="${customer.getName() + ', ' + customer.getLogin() + ', '+customer.getEmail()}">VALUE</p>
+    <p class="fs-3" th:text="${'Name: '+customer.getName()}">VALUE</p>
+    <p class="fs-3" th:text="${'Login: '+customer.getLogin()}">VALUE</p>
+    <p class="fs-3" th:text="${'Email: '+customer.getEmail()}">VALUE</p>
+    <form th:method="POST" th:action="@{/edit}">
+        <label>
+            <input type="text" name="login" placeholder="Введите ваш login">
+        </label>
+        <label>
+            <input type="text" name="name" placeholder="Введите ваш name">
+        </label>
+        <label>
+            <input  type="text" name="email" placeholder="Введите ваш email">
+        </label>
+        <br/>
+        <input type="submit" class="btn btn-primary" value="Create!"/>
+    </form>
 </div>
 <img src="photos/img/pic3.jpg" width="128" height="128">
 <a href = "/manager/customer/" class="btn btn-primary">Link to customer</a>

@@ -17,6 +17,11 @@ public class DirectorConfig {
     CommandLineRunner commandLineRunner(DirectorRepository directorRepository, Director director,CustomerRepository customerRepository, Customer customer
     ) {
 
+//        private String name;
+//        private String position;
+//        private int salary;
+//        private String login;
+//        private String password;
         return args -> {
 
 
