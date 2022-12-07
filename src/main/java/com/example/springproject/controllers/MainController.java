@@ -41,7 +41,7 @@ import java.util.Optional;
     public String home(Model model, @ModelAttribute("comment")Comment comment) {
         model.addAttribute("title", "Main page");
         System.out.println(httpServletRequest.getRemoteUser().getClass().getName());
-        return "home";
+        return "index";
     }
     @GetMapping("/index")
     public String index(Model model){
