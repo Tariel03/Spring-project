@@ -37,11 +37,6 @@ import java.util.Optional;
         this.commentRepository = commentRepository;
         this.zakazRepository = zakazRepository;
     }
-
-
-
-
-
     @GetMapping("/")
     public String home(Model model, @ModelAttribute("comment")Comment comment) {
         model.addAttribute("title", "Main page");
@@ -55,7 +50,25 @@ import java.util.Optional;
         List<Comment> commentList = commentRepository.findAll();
         model.addAttribute(commentList);
         System.out.println(serviceList.size());
+        currentUser(model);
         return "index";
+    }
+
+    private void currentUser(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()) {
+            model.addAttribute(optionalCustomer.get());
+            System.out.println(optionalCustomer.get());
+        }
+        return;
     }
 
 
@@ -74,7 +87,6 @@ import java.util.Optional;
     }
     @GetMapping("/forgetPassword")
     public String getForgetPassword(Model model){
-
         return "forgetPassword";
 
     }
@@ -108,19 +120,7 @@ import java.util.Optional;
     }
     @GetMapping("/profile")
     public String getProfile(Model model,@ModelAttribute("customer")Customer customer){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-
-        } else {
-            username = principal.toString();
-        }
-        Optional<Customer>optionalCustomer = customerRepository.findByLogin(username);
-        if(optionalCustomer.isPresent()) {
-            model.addAttribute(optionalCustomer.get());
-            System.out.println(optionalCustomer.get());
-        }
+        currentUser(model);
         return "profile";
 
     }

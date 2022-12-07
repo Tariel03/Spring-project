@@ -7,15 +7,19 @@
 <body>
 
 <form th:method="POST" th:action="@{/edit}">
-    <label>
-        <input type="text" name="login" placeholder="Введите ваш login">
-    </label>
-    <label>
-        <input type="text" name="name" placeholder="Введите ваш name">
-    </label>
-    <label>
-        <input  type="text" name="email" placeholder="Введите ваш email">
-    </label>
+    <div class="mb-3">
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name = "login">
+    </div>
+
+    <div class="mb-3">
+        <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="login" name = "login">
+    </div>
+    <div class="mb-3">
+        <input type="email" class="form-control" id="exampleFormControlInput3" placeholder="Name" name = "name">
+    </div>
+
+
+
 
     <br/>
   <input type="submit" value="Create!"/>
@@ -23,4 +27,5 @@
 
 
 </body>
+
 </html>

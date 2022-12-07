@@ -56,46 +56,45 @@
 </div>
 <!-- header section end -->
 <!-- services section start -->
-<div class="services_section layout_padding">
+<div id="servicess" class="services_section layout_padding">
     <div class="container" th:object="${serviceList}">
         <h1 class="services_taital">Services </h1>
         <p class="services_text">There are many variations of services you can purchase</p>
-        <div class="services_section_2">
+        <div class="container-lg">
             <div class="row">
-                <div class="col-md-4">
-                    <div><img src="images/advertising.png" class="services_img pb-5" alt="" ></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/advertising.png" class="pb-5" alt="" ></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${serviceList.get(0).getName()}">
                         </button></div>
 
                 </div>
-                <div class="col-md-4">
-                    <div><img src="images/instagram.png" class="services_img mb-5"></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/instagram.png" class="pb-5"></div>
                     <div class="btn_main active"><div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal1" th:text="${serviceList.get(1).getName()}">
                     </button>
                     </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div><img src="images/tik-tok.png" class="services_img pb-5"></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/tik-tok.png" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal2" th:text="${serviceList.get(2).getName()}">
                     </button></div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-4">
-                    <div><img src="images/radio.png" class="services_img pb-5"></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/radio.png" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal3" th:text="${serviceList.get(3).getName()}">
                     </button></div>
                 </div>
-                <div class="col-md-4">
-                    <div><img src="images/smart-tv.png" class="services_img pb-5"></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/smart-tv.png" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal4" th:text="${serviceList.get(4).getName()}">
                     </button></div>
                 </div>
-                <div class="col-md-4">
-
-                    <div><img src="images/youtube.png" class="services_img pb-5"></div>
+                <div class="col-md-4 text-center pt-5">
+                    <div><img src="images/youtube.png" class=" pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal5" th:text="${serviceList.get(5).getName()}">
                     </button></div>
                 </div>
@@ -264,7 +263,7 @@
 
         <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content " th:object="${serviceList}">
+                <div class="modal-content " th:object="${serviceList}" id="services">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel5">Modal title</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -293,6 +292,62 @@
             </div>
         </div>
     </div>
+
+
+
+<div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel6">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" th:object="${customer}">
+                    <p class="fs-3" th:text="${'Name: '+customer.getName()}">VALUE</p>
+                    <p class="fs-3" th:text="${'Login: '+customer.getLogin()}">VALUE</p>
+                    <p class="fs-3" th:text="${'Email: '+customer.getEmail()}">VALUE</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal7" >Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel7">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:method="POST" th:action="@{/edit}">
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name = "email">
+                </div>
+                    <br/>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="login" name = "login">
+                </div>
+                    <br/>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="exampleFormControlInput3" placeholder="Name" name = "name">
+                </div>
+                    <div class="text-center mt-5">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <input type="submit"  class="btn btn-secondary" value="Create!"/>
+                    </div>
+
+                    <br/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -421,9 +476,9 @@
         </div>
         <div class="text-center container-sm ">
             <div th:each="comment: ${commentList}" class= "border border-dark p-2 mb-2 text-white bg-dark rounded-pill w-50" >
-                <div>User : <p th:text = "${comment.getCustomer().getName()}" class="fw-bolder" ></p></div>
-                <div th:text="${comment.getComment()}"><p>Comment :</p></div>
-                <div th:text="${comment.getDate()}"> Date : </div>
+                <div th:text = "${'Username: '+comment.getCustomer().getName()}" class="fw-bolder" ></div>
+                <div th:text="${'Comment: '+comment.getComment()}"><p>Comment :</p></div>
+                <div th:text="${'Date: '+comment.getDate()}"> Date : </div>
             </div>
         </div>
 
