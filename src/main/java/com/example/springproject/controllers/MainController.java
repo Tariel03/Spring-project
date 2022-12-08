@@ -9,6 +9,7 @@ import com.example.springproject.models.Customer;
 import com.example.springproject.models.Service;
 import com.example.springproject.models.Zakaz;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
