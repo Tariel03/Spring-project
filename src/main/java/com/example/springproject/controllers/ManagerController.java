@@ -53,7 +53,7 @@ public class ManagerController {
             customerRepository.save(customer);
             return "redirect:/login";
         }
-        return "redirect:/home";
+        return "redirect:/index";
     }
 
 
