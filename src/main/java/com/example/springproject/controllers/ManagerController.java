@@ -43,6 +43,7 @@ public class ManagerController {
     @PostMapping("/customer/show")
     public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, Model model) throws Exception {
         Customer customer = new Customer();
+        model.addAttribute(customer);
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
         if(optionalCustomer.isEmpty()) {
             customer.setEmail(email);
@@ -53,7 +54,7 @@ public class ManagerController {
             customerRepository.save(customer);
             return "redirect:/login";
         }
-        return "redirect:/index";
+        return "redirect:/login?success";
     }
 
 
