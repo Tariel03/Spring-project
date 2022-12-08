@@ -489,7 +489,7 @@
         </div>
         <div class="text-center container-sm ">
             <div th:each="comment: ${commentList}" class= "border border-dark p-2 mb-2 text-white bg-dark rounded-pill w-50" >
-                <div th:text = "${'Username: '+comment.getCustomer().getName()}" class="fw-bolder" ></div>
+                <div th:text = "${'Username: '+comment.getCustomer().getLogin()}" class="fw-bolder" ></div>
                 <div th:text="${'Comment: '+comment.getComment()}"><p>Comment :</p></div>
                 <div th:text="${'Date: '+comment.getDate()}"> Date : </div>
             </div>
