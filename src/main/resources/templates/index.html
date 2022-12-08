@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-md-4 text-center pt-5">
                     <div><img src="images/instagram.png" class="pb-5"></div>
-                    <div class="btn_main active"><div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal1" th:text="${serviceList.get(1).getName()}">
+                    <div class="btn_main"><div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal1" th:text="${serviceList.get(1).getName()}">
                     </button>
                     </div>
                     </div>
@@ -94,7 +94,7 @@
                     </button></div>
                 </div>
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/youtube.png" class=" pb-5"></div>
+                    <div><img src="images/youtube.png" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal5" th:text="${serviceList.get(5).getName()}">
                     </button></div>
                 </div>
@@ -159,8 +159,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(1).getId()})}" class="btn btn-primary">
-                            <input type="submit" value="Order"/>
+                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(1).getId()})}">
+                            <input type="submit" class="btn btn-primary" value="Order"/>
                         </form>
                     </div>
                 </div>
@@ -191,8 +191,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(2).getId()})}" class="btn btn-primary">
-                            <input type="submit" value="Order"/>
+                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(2).getId()})}">
+                            <input type="submit" value="Order" class="btn btn-primary">
                         </form>
                     </div>
                 </div>
@@ -222,8 +222,8 @@
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(3).getId()})}" class="btn btn-primary">
-                            <input type="submit" value="Order"/>
+                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(3).getId()})}">
+                            <input type="submit" value="Order" class="btn btn-primary"/>
                         </form>
                     </div>
                 </div>
@@ -253,13 +253,14 @@
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(4).getId()})}" class="btn btn-primary">
-                            <input type="submit" value="Order"/>
+                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(4).getId()})}">
+                            <input type="submit" value="Order" class="btn btn-primary"/>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -283,8 +284,8 @@
                     </div>
                     <div class="modal-footer">
                         <div class="text-center">
-                            <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(5).getId()})}" class="btn btn-primary">
-                                <input type="submit" value="Order"/>
+                            <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(5).getId()})}">
+                                <input type="submit" value="Order" class="btn btn-primary"/>
                             </form>
                         </div>
                     </div>
@@ -358,14 +359,26 @@
 
 <!-- services section end -->
 <!-- about section start -->
-<div class="about_section layout_padding">
+<div class="about_section layout_padding" id="aboutUs">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div class="about_taital_main">
                     <h1 class="about_taital">About Us</h1>
-                    <p class="about_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All </p>
-                    <div class="readmore_bt"><a href="#">Read More</a></div>
+<!--                    <p class="about_text">There are many variations of passages of Lorem Ipsum available, -->
+<!--                        but the majority have suffered alteration in some form, by injected humour, -->
+<!--                        or randomised words which don't look even slightly believable. If you are going to-->
+<!--                        use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden -->
+<!--                        in the middle of text. All-->
+<!--                    </p>-->
+
+                    <p class="about_text">
+                        We are a team. We have been in this business not for a long time, but still we managed to
+                        gather positive reviews and get lots of orders done. If you are interested in purchasing
+                        an advertisement, you have found the website you need. The photo you see on the right is the
+                        representation of our team. We are bold as a young man climbing a mountain.
+                    </p>
+<!--                    <div class="readmore_bt"><a href="#">Read More</a></div>-->
                 </div>
             </div>
             <div class="col-md-6 padding_right_0">
@@ -488,16 +501,16 @@
 
         <div class="location_main">
             <div class="call_text"><img src="images/call-icon.png"></div>
-            <div class="call_text"><a href="#">Call +01 1234567890</a></div>
+            <div class="call_text"><a href="#">Call 0700024498</a></div>
             <div class="call_text"><img src="images/mail-icon.png"></div>
-            <div class="call_text"><a href="#">demo@gmail.com</a></div>
+            <div class="call_text"><a>tariel.akmatov@gmail.com</a></div>
         </div>
         <div class="social_icon">
             <ul>
                 <li><a href="#"><img src="images/fb-icon.png"></a></li>
                 <li><a href="#"><img src="images/twitter-icon.png"></a></li>
                 <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                <li><a href="#"><img src="images/instagram-icon.png"></a></li>
+                <li><a href="https://www.instagram.com/akmatov.tariel/"><img src="images/instagram-icon.png"></a></li>
             </ul>
         </div>
     </div>
