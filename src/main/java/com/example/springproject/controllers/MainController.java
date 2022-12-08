@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,7 +43,11 @@ import java.util.Optional;
         List<Service> serviceList = serviceRepository.findAll();
         model.addAttribute(serviceList);
         List<Comment> commentList = commentRepository.findAll();
-        model.addAttribute(commentList);
+        List<Comment> commentArrayList = new ArrayList<>();
+        for (int i = commentList.size()-1; i > commentList.size()- 6; i--) {
+            commentArrayList.add(commentList.get(i));
+        }
+        model.addAttribute(commentArrayList);
         System.out.println(serviceList.size());
         currentUser(model);
         return "index";
