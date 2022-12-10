@@ -22,14 +22,15 @@
     <!-- /Breadcrumb -->
 
     <div class="row gutters-sm">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-4 mb-3" th:object="${director}">
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
               <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
-              <div class="mt-3" th:object="${customer}">
-                <h4 th:text="${customer.getLogin()}">John Doe</h4>
-                <p class="text-secondary mb-1" th:text="${customer.getType()}">Full Stack Developer</p>
+              <div class="mt-3">
+                <h4 th:text="${director.getCustomer().getName()+ ' '+director.getLastname()}">John Doe</h4>
+                <p class="text-secondary mb-1" th:text="${director.getCustomer().getType()}">Full Stack Developer</p>
+                <p class="text-muted font-size-sm" th:text="${director.getAddress()}">Bay Area, San Francisco, CA</p>
               </div>
             </div>
           </div>
@@ -64,36 +65,27 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Full Name</h6>
+                <h6 class="mb-0" >Email</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
-                Kenneth Valdez
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <h6 class="mb-0">Email</h6>
-              </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary" th:text="${director.getCustomer().getEmail()}">
                 fip@jukmuh.al
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Phone</h6>
+                <h6  class="mb-0">Username</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary"  th:text="${director.getCustomer().getLogin()}">
                 (239) 816-9029
               </div>
             </div>
             <hr>
             <div class="row">
               <div class="col-sm-3">
-                <h6 class="mb-0">Mobile</h6>
+                <h6 class="mb-0" >Mobile</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary" th:text="${director.getNumber()}">
                 (320) 380-4539
               </div>
             </div>
@@ -102,7 +94,7 @@
               <div class="col-sm-3">
                 <h6 class="mb-0">Address</h6>
               </div>
-              <div class="col-sm-9 text-secondary">
+              <div class="col-sm-9 text-secondary" th:text="${director.getAddress()}">
                 Bay Area, San Francisco, CA
               </div>
             </div>

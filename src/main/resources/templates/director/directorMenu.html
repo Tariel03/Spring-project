@@ -41,7 +41,7 @@
 
 
 <div class= "row pt-5 mt-5" >
-    <form th:method="POST" th:action="@{/director/create/Account}" th:object="${type}">
+    <form th:method="POST" th:action="@{/director/create/Account}" th:object="${types}">
         <input type = "email" name = "email" placeholder="Введите ваш email ">
         <input type="text" name="login" placeholder="Введите ваш логин">
         <input type="text" name="name" placeholder="Введите ваш name">

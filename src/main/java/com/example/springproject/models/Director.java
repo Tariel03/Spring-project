@@ -6,29 +6,97 @@ import javax.persistence.*;
 @Entity
 public class Director implements Us{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "name",nullable = false,length = 30,insertable = false,updatable = false)
-    String name;
-    @Column(name = "position",nullable = false,length = 30)
-    String position;
-    @Column(name = "name", nullable = false)
     int salary;
-    @Column(name = "login", nullable = false,length = 30)
-    String login;
-    @Column(name = "password", nullable = false,length = 30)
-    String password;
-    @Column(name = "type",nullable = false,length = 30)
-    String type;
+    String lastname;
+    String number;
+    String address;
+    String instagram;
+    String github;
+    String facebook ;
 
-    public Director(String name, String position, int salary, String login, String password, String type) {
-        this.name = name;
-        this.position = position;
+    public Director(int salary, String lastname, String number, String address, String instagram, String github, String facebook, Customer customer) {
         this.salary = salary;
-        this.login = login;
-        this.password = password;
-        this.type = "director";
+        this.lastname = lastname;
+        this.number = number;
+        this.address = address;
+        this.instagram = instagram;
+        this.github = github;
+        this.facebook = facebook;
+        this.customer = customer;
     }
+
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getInstagram() {
+        return instagram;
+    }
+
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
+
+    public String getGithub() {
+        return github;
+    }
+
+    public void setGithub(String github) {
+        this.github = github;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+
 
     public Director() {
 
@@ -40,54 +108,6 @@ public class Director implements Us{
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     @Override

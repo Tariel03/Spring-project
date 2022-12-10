@@ -55,6 +55,13 @@ import java.util.Optional;
         return "index";
     }
 
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model){
+        Customer customer = new Customer();
+        model.addAttribute("customer", customer);
+        return "login";
+    }
+
     private void currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;

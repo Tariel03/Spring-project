@@ -2,11 +2,9 @@ package com.example.springproject.controllers;
 
 import com.example.springproject.Repository.CommentRepository;
 import com.example.springproject.Repository.CustomerRepository;
+import com.example.springproject.Repository.DirectorRepository;
 import com.example.springproject.Repository.ServiceRepository;
-import com.example.springproject.models.Comment;
-import com.example.springproject.models.Customer;
-import com.example.springproject.models.Service;
-import com.example.springproject.models.Type;
+import com.example.springproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,20 +22,47 @@ public class DirectorController {
     CommentRepository commentRepository;
     ServiceRepository serviceRepository;
     CustomerRepository customerRepository;
+    DirectorRepository directorRepository;
 
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository ,CustomerRepository customerRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
+        this.directorRepository = directorRepository;
     }
+
+
 
 
     @GetMapping
     public String director(Model model, @ModelAttribute("type")Type type) {
         List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
         model.addAttribute("typesList",typesList);
-        return "director/directorMenu";
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()) {
+            model.addAttribute(optionalCustomer.get());
+            System.out.println(optionalCustomer.get());
+            Optional<Director> directorOptional = directorRepository.findDirectorByCustomer(optionalCustomer.get());
+            if (directorOptional.isPresent()) {
+                Director director = directorOptional.get();
+                model.addAttribute(director);
+                return "director/director";
+            } else {
+                return "redirect:/index";
+            }
+        }
+
+        return username;
     }
 
     @GetMapping("/comments")

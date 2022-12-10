@@ -1,7 +1,6 @@
 package com.example.springproject.models;
 
 import javax.persistence.*;
-
 @Entity
 public class Service {
     @Id
