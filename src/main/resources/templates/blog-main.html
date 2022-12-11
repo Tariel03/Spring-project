@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог сайта</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" type="text/css" media="all"-->
+<!--          href="../../templates/style.css" th:href="@{/templates/style.css}" />-->
+</head>
+<body>
+    <header th:insert="blocks/header_for_manager.html :: header"></header>
+    <br><br><br>
+    <div class = "container mt-5">
+        <h1>Site blog</h1>
+        <div th:each="el : ${posts}" class = "alert alert-info mt-2">
+            <h3 th:text = "${el.title}"/>
+            <p th:text = "${el.anons}"/>
+            <a th:href="'/manager/' + ${el.id}">Детальнее</a>
+        </div>
+    </div>
+
+    <div class = "container mt-5">
+        <h1>Info about workers</h1>
+        <div th:each="el : ${workersInfos}" class = "alert alert-info mt-2">
+            <h3 th:text = "Employee ${el.name}"/>
+            <p th:text = "${el.name}"/>
+            <p th:text = "${el.surname}"/>
+            <p th:text = "${el.salary}"/>
+            <a th:href="'/manager/about_employee' + ${el.id}">Детальнее</a>
+        </div>
+    </div>
+
+</body>
+</html>

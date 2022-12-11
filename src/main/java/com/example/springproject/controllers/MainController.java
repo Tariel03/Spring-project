@@ -80,11 +80,11 @@ import java.util.Optional;
     }
 
 
-    @GetMapping("/manager")
-    public String managerMenu(Model model) {
-        model.addAttribute("Name", "Manager");
-        return "manager";
-    }
+//    @GetMapping("/manager")
+//    public String managerMenu(Model model) {
+//        model.addAttribute("Name", "Manager");
+//        return "manager";
+//    }
 
     @GetMapping("/services")
     public String getServices(Model model, @ModelAttribute("customer") Customer customer) {
