@@ -1,5 +1,7 @@
 package com.example.springproject.controllers;
 
+import com.example.springproject.Repository.CustomerRepository;
+import com.example.springproject.models.Customer;
 import com.example.springproject.models.Post;
 import com.example.springproject.models.Workers_info;
 import com.example.springproject.Repository.PostRepository;
@@ -7,10 +9,7 @@ import com.example.springproject.Repository.Workers_infoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -19,13 +18,14 @@ import java.util.Optional;
 public class ManagerController {
 
     private PostRepository postRepository;
-
+    private Workers_infoRepository workersInfoRepository;
+    private CustomerRepository customerRepository;
     @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository) {
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
+        this.customerRepository = customerRepository;
     }
-
     @GetMapping("/manager")
     public String blogMain(Model model){
         Iterable<Post> posts = postRepository.findAll();
@@ -88,13 +88,27 @@ public class ManagerController {
         return "redirect:/blog";
     }
 
-    @Autowired
-    private Workers_infoRepository workersInfoRepository;
-
     @GetMapping("/manager/about_employee")
     public String employeeMain(Model model){
         Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
         model.addAttribute("workersInfos", workersInfos);
         return "blog-main";
     }
+    @PostMapping("/manager/customer/show")
+    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, Model model) throws Exception {
+        Customer customer = new Customer();
+        model.addAttribute(customer);
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
+        if(optionalCustomer.isEmpty()) {
+            customer.setEmail(email);
+            customer.setName(name);
+            customer.setLogin(login);
+            customer.setPassword(password);
+            customer.setType("customer");
+            customerRepository.save(customer);
+            return "redirect:/login";
+        }
+        return "redirect:/login?success";
+    }
+
 }

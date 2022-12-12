@@ -35,15 +35,11 @@
 
 
       <div>
-        <form id="register" class="input-group" method="post" role="form" th:action="@{manager/customer/show}">
+        <form id="register" class="input-group" method="POST" role="form" th:action="@{manager/customer/show}">
           <input type="text" class="input-field" id="log" name="login" placeholder="Login"  required/>
-
-          <input type="text" class="input-field" id="name" name="name"    placeholder="Enter Pass" required/>
-
+          <input type="text" class="input-field" id="name" name="name"    placeholder="Enter Name" required/>
           <input type="email" class="input-field"  id="email" name="email"   placeholder="Email Id" required/>
-
-          <input type="password" class="input-field" id="password" name="password"    placeholder="Enter Pass" required/>
-
+          <input type="password" class="input-field" id="password" name="password"  placeholder="Enter Pass" required/>
 
           <button type="submit" class="form-control btn btn-primary submit px-3 submit-btn">Register</button>
         </form>
