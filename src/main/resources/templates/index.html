@@ -63,20 +63,20 @@
         <div class="container-lg">
             <div class="row">
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/advertising.png" class="pb-5" alt="" ></div>
+                    <div><img src="images/advertising.png" th:src="@{images/advertising.png}" class="pb-5" alt="" ></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal" th:text="${serviceList.get(0).getName()}">
                         </button></div>
 
                 </div>
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/instagram.png" class="pb-5"></div>
+                    <div><img src="images/instagram.png" th:src="@{images/instagram.png}" class="pb-5"></div>
                     <div class="btn_main"><div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal1" th:text="${serviceList.get(1).getName()}">
                     </button>
                     </div>
                     </div>
                 </div>
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/tik-tok.png" class="pb-5"></div>
+                    <div><img src="images/tik-tok.png" th:src="@{images/tik-tok.png}" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal2" th:text="${serviceList.get(2).getName()}">
                     </button></div>
                 </div>
@@ -84,17 +84,17 @@
 
             <div class="row">
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/radio.png" class="pb-5"></div>
+                    <div><img src="images/radio.png" th:src="@{images/radio.png}" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal3" th:text="${serviceList.get(3).getName()}">
                     </button></div>
                 </div>
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/smart-tv.png" class="pb-5"></div>
+                    <div><img src="images/smart-tv.png" th:src="@{images/smart-tv.png}" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal4" th:text="${serviceList.get(4).getName()}">
                     </button></div>
                 </div>
                 <div class="col-md-4 text-center pt-5">
-                    <div><img src="images/youtube.png" class="pb-5"></div>
+                    <div><img src="images/youtube.png" th:src="@{images/youtube.png}" class="pb-5"></div>
                     <div class="btn_main"><button type="button" class="btn btn-primary mb-5" data-bs-toggle="modal" data-bs-target="#exampleModal5" th:text="${serviceList.get(5).getName()}">
                     </button></div>
                 </div>
@@ -120,6 +120,8 @@
                         <div class="col" th:text="${serviceList.get(0).getPlatform()}">
                         </div>
                         <div class="col" th:text="${serviceList.get(0).getPrice()}">
+                        </div>
+                        <div class="col" th:text="${serviceList.get(0).getLength() +' days'}">
                         </div>
                     </div>
                 </div>
@@ -153,6 +155,9 @@
                             </div>
                             <div class="col" th:text="${serviceList.get(1).getPrice()}">
                             </div>
+                            <div class="col" th:text="${serviceList.get(1).getLength() +' days'}">
+                            </div>
+
                         </div>
                     </div>
                     ...
@@ -185,6 +190,8 @@
                             </div>
                             <div class="col" th:text="${serviceList.get(2).getPrice()}">
                             </div>
+                            <div class="col" th:text="${serviceList.get(2).getLength() +' days'}">
+                            </div>
                         </div>
                     </div>
                     ...
@@ -215,6 +222,8 @@
                             <div class="col" th:text="${serviceList.get(3).getPlatform()}">
                             </div>
                             <div class="col" th:text="${serviceList.get(3).getPrice()}">
+                            </div>
+                            <div class="col" th:text="${serviceList.get(3).getLength() +' days'}">
                             </div>
                         </div>
                     </div>
@@ -247,6 +256,8 @@
                             </div>
                             <div class="col" th:text="${serviceList.get(4).getPrice()}">
                             </div>
+                            <div class="col" th:text="${serviceList.get(4).getLength() +' days'}">
+                            </div>
                         </div>
                     </div>
                     ...
@@ -277,6 +288,8 @@
                                 <div class="col" th:text="${serviceList.get(5).getPlatform()}">
                                 </div>
                                 <div class="col" th:text="${serviceList.get(5).getPrice()}">
+                                </div>
+                                <div class="col" th:text="${serviceList.get(5).getLength() +' days'}">
                                 </div>
                             </div>
                         </div>
@@ -382,7 +395,7 @@
                 </div>
             </div>
             <div class="col-md-6 padding_right_0">
-                <div><img src="images/about-img.png" class="about_img"></div>
+                <div><img src="images/about-img.png" th:src="@{images/about-img.png}" class="about_img"></div>
             </div>
         </div>
     </div>
@@ -394,7 +407,7 @@
         <h1 class="blog_taital">See Our  Video</h1>
         <p class="blog_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which</p>
         <div class="play_icon_main">
-            <div class="play_icon"><a href="#"><img src="images/play-icon.png"></a></div>
+            <div class="play_icon"><a href="#"><img src="images/play-icon.png" th:src="@{images/play-icon.png}"></a></div>
         </div>
     </div>
 </div>
@@ -418,8 +431,8 @@
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -435,8 +448,8 @@
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -452,8 +465,8 @@
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/client-img.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -500,9 +513,9 @@
         </form>
 
         <div class="location_main">
-            <div class="call_text"><img src="images/call-icon.png"></div>
+            <div class="call_text"><img src="images/call-icon.png" th:src="@{images/call-icon.png}"></div>
             <div class="call_text"><a href="#">Call 0700024498</a></div>
-            <div class="call_text"><img src="images/mail-icon.png"></div>
+            <div class="call_text"><img src="images/mail-icon.png" th:src="@{images/mail-icon.png}"></div>
             <div class="call_text"><a>tariel.akmatov@gmail.com</a></div>
         </div>
         <div class="social_icon">
@@ -510,7 +523,7 @@
                 <li><a href="#"><img src="images/fb-icon.png"></a></li>
                 <li><a href="#"><img src="images/twitter-icon.png"></a></li>
                 <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                <li><a href="https://www.instagram.com/akmatov.tariel/"><img src="images/instagram-icon.png"></a></li>
+                <li><a href="https://www.instagram.com/akmatov.tariel/"><img src="images/instagram-icon.png" th:src="@{images/instagram-icon.png}"></a></li>
             </ul>
         </div>
     </div>
@@ -521,17 +534,17 @@
 
 <!-- copyright section end -->
 
-<script src="js/jquery.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/jquery-3.0.0.min.js"></script>
-<script src="js/plugin.js"></script>
+<script src="js/jquery.min.js" th:src="@{js/jquery.min.js}"></script>
+<script src="js/popper.min.js" th:src="@{js/popper.min.js}"></script>
+<script src="js/bootstrap.bundle.min.js" th:src="@{js/bootstrap.bundle.min.js}"></script>
+<script src="js/jquery-3.0.0.min.js" th:src="@{js/jquery-3.0.0.min.js}"></script>
+<script src="js/plugin.js" th:src="@{js/plugin.js}"></script>
 <!-- sidebar -->
-<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/jquery.mCustomScrollbar.concat.min.js" th:src="@{js/jquery.mCustomScrollbar.concat.min.js}"></script>
+<script src="js/custom.js" th:src="@{js/custom.js}"></script>
 <!-- javascript -->
-<script src="js/owl.carousel.js"></script>
-<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+<script src="js/owl.carousel.js" th:src="@{js/owl.carousel.js}"></script>
+<script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js" th:src="@{https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js}"></script>
 
 
 </body>

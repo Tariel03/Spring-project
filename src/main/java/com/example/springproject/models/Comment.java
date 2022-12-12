@@ -2,6 +2,8 @@ package com.example.springproject.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 public class Comment {
@@ -13,6 +15,14 @@ public class Comment {
 
     public Comment getCommentt() {
         return commentt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setCommentt(Comment commentt) {
@@ -39,9 +49,10 @@ public class Comment {
         this.date = date;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
 
     public Customer getCustomer() {
         return customer;

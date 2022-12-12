@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface DirectorRepository extends JpaRepository<Director,Long> {
 
     Optional<Director> findDirectorByCustomer(Customer customer);
+
 }

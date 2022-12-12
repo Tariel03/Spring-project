@@ -3,6 +3,8 @@ package com.example.springproject.models;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(schema = "zakaz")
@@ -38,13 +40,24 @@ public class Zakaz {
         this.localDate = localDate;
     }
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
+    private Set<Comment> comments = new LinkedHashSet<>();
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "service_id")
     private Service service;
+
+    public Service getOrder() {
+        return service;
+    }
+
+    public void setOrder(Service service) {
+        this.service =service;
+    }
 
 
     public Customer getCustomer() {

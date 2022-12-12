@@ -32,14 +32,10 @@ public class DirectorController {
         this.directorRepository = directorRepository;
     }
 
-
-
-
     @GetMapping
     public String director(Model model, @ModelAttribute("type")Type type) {
         List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
         model.addAttribute("typesList",typesList);
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -56,11 +52,18 @@ public class DirectorController {
             if (directorOptional.isPresent()) {
                 Director director = directorOptional.get();
                 model.addAttribute(director);
+                List<Service> serviceList = serviceRepository.findAll();
+                model.addAttribute(serviceList);
+                List<Comment> commentList = commentRepository.findAll();
+                model.addAttribute(commentList);
+                List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                model.addAttribute(customerList);
                 return "director/director";
             } else {
                 return "redirect:/index";
             }
         }
+
 
         return username;
     }
@@ -87,14 +90,27 @@ public class DirectorController {
         serviceRepository.deleteById(id);
         return "redirect:/director/services";
     }
+    @PostMapping("/deleteComment/{id}")
+    public String deleteComment(@PathVariable("id") Long id) {
+        commentRepository.deleteById(id);
+        return "redirect:/director";
+    }
+
+    @PostMapping("/deleteCustomer/{id}")
+    public String deleteCustomer(@PathVariable("id") Long id) {
+        customerRepository.deleteById(id);
+        return "redirect:/director";
+    }
+
 
 
     @PostMapping("/service/createService")
-    public String createService(@RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price) {
+    public String createService(@RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price, @RequestParam("length") int length) {
         Service service = new Service();
         service.setName(name);
         service.setPlatform(platform);
         service.setPrice(price);
+        service.setLength(length);
         serviceRepository.save(service);
         return "redirect:/director/services";
 

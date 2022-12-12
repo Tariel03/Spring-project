@@ -2,107 +2,111 @@
 <html  lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Spring Security Example </title>
+
+  <link rel="stylesheet" type="text/css" media="all"
+        href="/static/css/style.css" th:href="@{/css/style.css}" />
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
-<!--<link rel="stylesheet" type="text/css" media="all"-->
-<!--href="/static/css/style.css" th:href="@{css/style.css}">-->
 
-<!--<div class="hero">-->
-<!--  <div class="form-box">-->
-<!--    <div class="button-box">-->
-<!--      <div id="btn"></div>-->
-<!--      <button type="button" class="toggle-btn" onclick="login()">Log In</button>-->
-<!--      <button type="button" class="toggle-btn" onclick="register()">Register</button>-->
-<!--    </div>-->
-<!--    <div class="social-icons">-->
-<!--      <img th:src="@{images/fb-png.png}">-->
-<!--      <img th:src="@{images/tw-png.png}">-->
-<!--      <img th:src="@{images/gp-png.png}">-->
-
-<!--    </div>-->
-<!--    <div>-->
-<!--      <form id="login" class="input-group" method="post" th:action="@{/login} " >-->
-<!--        <input type="text" class="input-field"  id="username" name="username" placeholder="Login"  required/>-->
-<!--        <input type="password" class="input-field"  id="passwor" name="password" placeholder="Enter Pass" required/>-->
-<!--        <input type="checkbox"  class="check-box"/><span>Remember Password</span>-->
-<!--        <button type="submit" class=" btn btn-primary submit px-3 submit-btn">Log in</button>-->
-<!--        <br>-->
-<!--        <div th:if="${param.error}">-->
-<!--          <div class="alert-danger">Invalid Email and Password.</div>-->
-<!--        </div>-->
-<!--      </form>-->
-
-
-<!--      <div>-->
-<!--        <form id="register" class="input-group" method="post" role="form" th:action="@{manager/customer/show}">-->
-<!--          <input type="text" class="input-field" id="log" name="login" placeholder="Login"  required/>-->
-
-<!--          <input type="text" class="input-field" id="name" name="name"    placeholder="Enter Pass" required/>-->
-
-<!--          <input type="email" class="input-field"  id="email" name="email"   placeholder="Email Id" required/>-->
-
-<!--          <input type="password" class="input-field" id="password" name="password"    placeholder="Enter Pass" required/>-->
-
-
-<!--          <button type="submit" class="form-control btn btn-primary submit px-3 submit-btn">Register</button>-->
-<!--        </form>-->
-
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<script>-->
-<!--  var x=document.getElementById("login");-->
-<!--  var y=document.getElementById("register");-->
-<!--  var z=document.getElementById("btn");-->
-
-<!--  function register(){-->
-<!--    x.style.left="-400px";-->
-<!--    y.style.left="50px";-->
-<!--    z.style.left="110px";-->
-<!--  }-->
-<!--  function login(){-->
-<!--    x.style.left="50px";-->
-<!--    y.style.left="450px";-->
-<!--    z.style.left="0";-->
-<!--  }-->
-<!--</script>-->
-<div class="container-sm">
-  <div class="text-center">
-    <div th:if="${param.error}">
-      Invalid username and password.
+<div class="hero">
+  <div class="form-box">
+    <div class="button-box">
+      <div id="btn"></div>
+      <button type="button" class="toggle-btn" th:onclick="login()" onclick="login()">Log In</button>
+      <button type="button" class="toggle-btn" th:onclick="register()" onclick="register()">Register</button>
     </div>
-    <div th:if="${param.logout}">
-      You have been logged out.
+    <div class="social-icons">
+      <img src="/images/fb-png.png" th:src="@{/images/fb-png.png}">
+      <img src="/images/tw-png.png" th:src="@{/images/tw-png.png}">
+      <img src="/images/gp-png.png" th:src="@{/images/gp-png.png}">
+
+    </div>
+    <div>
+      <form id="login" class="input-group" method="post" th:action="@{/login} " >
+        <input type="text" class="input-field"  id="username" name="username" placeholder="Login"  required/>
+        <input type="password" class="input-field"  id="passwor" name="password" placeholder="Enter Pass" required/>
+        <input type="checkbox"  class="check-box"/><span>Remember Password</span>
+        <button type="submit" class=" btn btn-primary submit px-3 submit-btn">Log in</button>
+        <br>
+      </form>
+      <div th:if="${param.error}">
+        <div class="alert-danger">Invalid Email and Password.</div>
+      </div>
+
+
+      <div>
+        <form id="register" class="input-group" method="post" role="form" th:action="@{manager/customer/show}">
+          <input type="text" class="input-field" id="log" name="login" placeholder="Login"  required/>
+
+          <input type="text" class="input-field" id="name" name="name"    placeholder="Enter Pass" required/>
+
+          <input type="email" class="input-field"  id="email" name="email"   placeholder="Email Id" required/>
+
+          <input type="password" class="input-field" id="password" name="password"    placeholder="Enter Pass" required/>
+
+
+          <button type="submit" class="form-control btn btn-primary submit px-3 submit-btn">Register</button>
+        </form>
+
+      </div>
     </div>
   </div>
-  <form th:action="@{/login}" method="post">
-    <div class="mb-3">
-      <label for="exampleInputName" class="form-label">Login</label>
-      <input type="text" name="username" class="form-control" id="exampleInputName" aria-describedby="loginHelp">
-      <div id="loginHelp" class="form-text">We'll never share your login with anyone else.</div>
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-  <a href = "forgetPassword"> Forget your password</a>
-
+</div>
 </div>
 
-  <form th:method="POST" th:action="@{/manager/customer/show}">
-    <input type = "email" name = "email" placeholder="Введите ваш email ">
-    <input type="text" name="login" placeholder="Введите ваш логин">
-    <input type="text" name="name" placeholder="Введите ваш name">
-    <input type="text" name="password" placeholder="Введите ваш password">
-    <br/>
-    <input type="submit" value="Create!"/>
-  </form>
+<script >
+  const x = document.getElementById("login");
+  const y = document.getElementById("register");
+  const z = document.getElementById("btn");
+
+  function register(){
+    x.style.left="-400px";
+    y.style.left="50px";
+    z.style.left="110px";
+  }
+  function login(){
+    x.style.left="50px";
+    y.style.left="450px";
+    z.style.left="0";
+  }
+</script>
+<!--<div class="container-sm">-->
+<!--  <div class="text-center">-->
+<!--    <div th:if="${param.error}">-->
+<!--      Invalid username and password.-->
+<!--    </div>-->
+<!--    <div th:if="${param.logout}">-->
+<!--      You have been logged out.-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <form th:action="@{/login}" method="post">-->
+<!--    <div class="mb-3">-->
+<!--      <label for="exampleInputName" class="form-label">Login</label>-->
+<!--      <input type="text" name="username" class="form-control" id="exampleInputName" aria-describedby="loginHelp">-->
+<!--      <div id="loginHelp" class="form-text">We'll never share your login with anyone else.</div>-->
+<!--    </div>-->
+<!--    <div class="mb-3">-->
+<!--      <label for="exampleInputPassword1" class="form-label">Password</label>-->
+<!--      <input type="password" name="password" class="form-control" id="exampleInputPassword1">-->
+<!--    </div>-->
+<!--    <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--  </form>-->
+<!--  <a href = "forgetPassword"> Forget your password</a>-->
+
+<!--</div>-->
+
+<!--  <form th:method="POST" th:action="@{/manager/customer/show}">-->
+<!--    <input type = "email" name = "email" placeholder="Введите ваш email ">-->
+<!--    <input type="text" name="login" placeholder="Введите ваш логин">-->
+<!--    <input type="text" name="name" placeholder="Введите ваш name">-->
+<!--    <input type="text" name="password" placeholder="Введите ваш password">-->
+<!--    <br/>-->
+<!--    <input type="submit" value="Create!"/>-->
+<!--  </form>-->
+
+
+
+
 
 
 

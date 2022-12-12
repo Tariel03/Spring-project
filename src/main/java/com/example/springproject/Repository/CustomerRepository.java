@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -20,6 +21,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     Optional<Customer>findByEmail(String email);
     @Query("SELECT s from Customer s where s.login=?1 and s.password=?2")
     Optional<Customer>findByLoginAndPassword(String login, String password);
+
+    List<Customer> findCustomerByTypeNot(String type);
 
 
 }

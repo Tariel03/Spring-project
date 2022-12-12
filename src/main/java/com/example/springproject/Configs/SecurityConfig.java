@@ -49,7 +49,6 @@ import java.util.stream.Collectors;
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/index")
                         .permitAll()
                 )

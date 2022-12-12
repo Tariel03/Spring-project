@@ -18,8 +18,13 @@ import java.util.Optional;
 @Controller
 public class ManagerController {
 
-    @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository) {
+        this.postRepository = postRepository;
+        this.workersInfoRepository = workersInfoRepository;
+    }
 
     @GetMapping("/manager")
     public String blogMain(Model model){
