@@ -9,9 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +32,10 @@ public class DesignerController{
         List<Zakaz> zakazList = zakazRepository.findAll();
         currentUser(model);
         model.addAttribute(zakazList);
-        int counter=0;
-        for(int i=0;i<zakazList.size();i++){
-            counter++;
-        }
-        model.addAttribute(counter);
+        int counter= zakazList.size();
+        model.addAttribute("counter",counter);
+        List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
+        model.addAttribute("countCustomers",CustomerList.size());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -63,7 +60,16 @@ public class DesignerController{
         }
         return username;
     }
+@PostMapping("process/{id}")
+public String process(@PathVariable(value = "id")Long id,Model model){
+        Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+        if(zakazOptional.isPresent()){
+            Zakaz zakaz=zakazOptional.get();
+            zakaz.setStatus("processing");
+            zakazRepository.save(zakaz);
+        }return "redirect:/designer";
 
+    }
 
 
 
@@ -73,7 +79,6 @@ public class DesignerController{
         String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
-
         } else {
             username = principal.toString();
         }
@@ -102,6 +107,4 @@ public class DesignerController{
         currentUser(model);
         return "designer/profiledes";
     }
-
-
 }
