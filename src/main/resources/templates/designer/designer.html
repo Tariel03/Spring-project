@@ -116,7 +116,7 @@
       <li>
         <i class='bx bxs-calendar-check' ></i>
         <span class="text">
-						<h3>1020</h3>
+						<h3 th:text="${counter}"></h3>
 						<p>New Order</p>
 					</span>
       </li>
@@ -153,46 +153,14 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
+          <tr th:each="zakaz: ${zakazList}">
             <td>
               <img src="images/people.jpg">
-              <div th:each="zakaz: ${zakazList}"><p th:text="${zakaz.getCustomer().getName()}">Aman</p></div>
+              <p th:text="${zakaz.getCustomer().getName()}"></p>
 
             </td>
-            <td>02-02-2022</td>
-            <td><span class="status completed">Completed</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="images/people.jpg">
-              <p>Emir</p>
-            </td>
-            <td>01-11-2022</td>
-            <td><span class="status pending">Pending</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="images/people.jpg">
-              <p>Djuurat</p>
-            </td>
-            <td>01-10-2022</td>
-            <td><span class="status process">Process</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="images/people.jpg">
-              <p>Tariel</p>
-            </td>
-            <td>12-10-2022</td>
-            <td><span class="status pending">Pending</span></td>
-          </tr>
-          <tr>
-            <td>
-              <img src="images/people.jpg">
-              <p>Erbol</p>
-            </td>
-            <td>12-12-2022</td>
-            <td><span class="status completed">Completed</span></td>
+            <td><p th:text="${zakaz.getDate()}"></p></td>
+            <td><span class="status pending" th:text="${zakaz.getStatus()}"></span></td>
           </tr>
           </tbody>
         </table>

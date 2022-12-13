@@ -126,7 +126,7 @@ public class DirectorController {
         if(optionalCustomer.isPresent()){
             System.out.println(optionalCustomer.get());
             Comment com = new Comment(comment,optionalCustomer.get());
-            com.setCommentt(optionalComment.get());
+
             commentRepository.save(com);
             return "redirect:/director/comments";
         }
