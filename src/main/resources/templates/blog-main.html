@@ -30,5 +30,9 @@
         </div>
     </div>
 
+    <div th:text="${manager.getCustomer().getName() +' '+  manager.getCustomer().getEmail() +' '+manager.getSalary()}">
+        Info about manager's account
+    </div>
+
 </body>
 </html>

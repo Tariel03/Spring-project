@@ -1,9 +1,6 @@
 package com.example.springproject.controllers;
 
-import com.example.springproject.Repository.CommentRepository;
-import com.example.springproject.Repository.CustomerRepository;
-import com.example.springproject.Repository.DirectorRepository;
-import com.example.springproject.Repository.ServiceRepository;
+import com.example.springproject.Repository.*;
 import com.example.springproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,13 +20,15 @@ public class DirectorController {
     ServiceRepository serviceRepository;
     CustomerRepository customerRepository;
     DirectorRepository directorRepository;
+    ZakazRepository zakazRepository;
 
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
         this.directorRepository = directorRepository;
+        this.zakazRepository = zakazRepository;
     }
 
     @GetMapping
@@ -55,9 +54,16 @@ public class DirectorController {
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
                 List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                model.addAttribute(customerList);
+
                 List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
                 model.addAttribute("typesList",typesList);
-                model.addAttribute(customerList);
+
+                List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
+                model.addAttribute("zakazCompletedList",zakazCompletedList);
+
+                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("not completed");
+                model.addAttribute("zakazProcessList", zakazProcessList);
                 return "director/director";
             } else {
                 return "redirect:/index";

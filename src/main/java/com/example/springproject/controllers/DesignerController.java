@@ -30,15 +30,6 @@ public class DesignerController{
 
 
 
-    @GetMapping
-    public String designer(Model model){
-        currentUser(model);
-        return "designer/designer";
-    }
-
-
-
-
     private void currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
@@ -56,8 +47,9 @@ public class DesignerController{
         return;
     }
 
-    @GetMapping("/designer")
+    @GetMapping()
     public String showOrder(@ModelAttribute("order") Zakaz zakaz, Model model) {
+        currentUser(model);
         List<Zakaz> zakazList = zakazRepository.findAll();
         model.addAttribute(zakazList);
         return "designer/designer";

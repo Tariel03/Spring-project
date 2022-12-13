@@ -14,6 +14,33 @@ public class Zakaz {
     Long id;
     LocalDate localDate;
 
+    String status;
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+
     public Zakaz(Customer customer, Service service) {
         this.customer = customer;
         this.service = service;

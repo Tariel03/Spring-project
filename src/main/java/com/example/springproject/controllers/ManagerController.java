@@ -1,12 +1,16 @@
 package com.example.springproject.controllers;
 
 import com.example.springproject.Repository.CustomerRepository;
+import com.example.springproject.Repository.ManagerRepository;
 import com.example.springproject.models.Customer;
+import com.example.springproject.models.Manager;
 import com.example.springproject.models.Post;
 import com.example.springproject.models.Workers_info;
 import com.example.springproject.Repository.PostRepository;
 import com.example.springproject.Repository.Workers_infoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,16 +24,36 @@ public class ManagerController {
     private PostRepository postRepository;
     private Workers_infoRepository workersInfoRepository;
     private CustomerRepository customerRepository;
+    ManagerRepository managerRepository;
     @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository) {
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
+        this.managerRepository = managerRepository;
     }
+
+
     @GetMapping("/manager")
     public String blogMain(Model model){
         Iterable<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()){
+            Optional<Manager> optionalManager = managerRepository.findByCustomer(optionalCustomer.get());
+            if(optionalManager.isPresent()){
+                model.addAttribute(optionalManager.get());
+            }
+        }
         return "blog-main";
     }
 

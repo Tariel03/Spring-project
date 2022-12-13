@@ -12,5 +12,7 @@ public interface ZakazRepository extends JpaRepository<Zakaz, Long> {
     @Query("SELECT z FROM Zakaz z where z.customer = ?1")
     List<Zakaz>findZakazByCustomer_Id(Customer customer);
 
+    List<Zakaz> findZakazByStatusLike(String status);
+
 
 }
