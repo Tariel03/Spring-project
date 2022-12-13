@@ -29,25 +29,7 @@ public class Comment {
         this.commentt = commentt;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id")
-    private Comment commentt;
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "customer_id")
@@ -76,6 +58,25 @@ public class Comment {
     }
 
     public Comment() {
+    }
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment commentt;
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
 

@@ -1,7 +1,11 @@
 package com.example.springproject.models;
 
+import javax.persistence.*;
 
+@Entity
 public class Manager implements Us{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     String name;
@@ -23,6 +27,9 @@ public class Manager implements Us{
         this.type = type;
     }
 
+    public Manager() {
+
+    }
 
 
     public Long getId() {
@@ -112,5 +119,17 @@ public class Manager implements Us{
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

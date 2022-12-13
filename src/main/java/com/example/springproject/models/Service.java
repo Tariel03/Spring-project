@@ -12,16 +12,7 @@ public class Service {
     String name;
     int price;
     String platform;
-
     int length;
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
 
     public Service(String name, int price, String platform, int length) {
         this.name = name;
@@ -64,5 +55,13 @@ public class Service {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 }

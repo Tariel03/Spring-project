@@ -1,17 +1,20 @@
 package com.example.springproject.controllers;
 
 import com.example.springproject.Repository.CustomerRepository;
-import com.example.springproject.models.Customer;
-import com.example.springproject.models.Post;
-import com.example.springproject.models.Workers_info;
+import com.example.springproject.Repository.ManagerRepository;
+import com.example.springproject.models.*;
 import com.example.springproject.Repository.PostRepository;
 import com.example.springproject.Repository.Workers_infoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -20,17 +23,56 @@ public class ManagerController {
     private PostRepository postRepository;
     private Workers_infoRepository workersInfoRepository;
     private CustomerRepository customerRepository;
+    private ManagerRepository managerRepository;
+
     @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository) {
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
+        this.managerRepository = managerRepository;
     }
+
+
     @GetMapping("/manager")
     public String blogMain(Model model){
         Iterable<Post> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
-        return "blog-main";
+        return "manager";
+    }
+
+    @GetMapping("/manager_profile")
+    public String manager(Model model, @ModelAttribute("type") Type type) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()) {
+            model.addAttribute(optionalCustomer.get());
+            System.out.println(optionalCustomer.get());
+            Optional<Manager> managerOptional = managerRepository.findManagerByCustomer(optionalCustomer.get());
+            if (managerOptional.isPresent()) {
+                Manager manager = managerOptional.get();
+                model.addAttribute(manager);
+//                List<Service> serviceList = serviceRepository.findAll();
+//                model.addAttribute(serviceList);
+//                List<Comment> commentList = commentRepository.findAll();
+//                model.addAttribute(commentList);
+                List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
+                model.addAttribute("typesList",typesList);
+                model.addAttribute(customerList);
+                return "manager_profile";
+            } else {
+                return "redirect:/index";
+            }
+        }
+        return username;
     }
 
     @GetMapping("/manager/add")
