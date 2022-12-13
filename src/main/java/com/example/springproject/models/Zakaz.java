@@ -15,16 +15,6 @@ public class Zakaz {
     LocalDate localDate;
     String status;
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    String status;
-
     public LocalDate getLocalDate() {
         return localDate;
     }
