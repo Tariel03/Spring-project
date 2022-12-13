@@ -56,11 +56,11 @@ public class DesignerController{
         return;
     }
 
-    @GetMapping("order")
+    @GetMapping("/designer")
     public String showOrder(@ModelAttribute("order") Zakaz zakaz, Model model) {
         List<Zakaz> zakazList = zakazRepository.findAll();
         model.addAttribute(zakazList);
-        return "order";
+        return "designer/designer";
     }
     @GetMapping ("/profiledes")
     public String profildes(Model model){

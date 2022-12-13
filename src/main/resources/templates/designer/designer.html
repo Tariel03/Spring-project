@@ -156,7 +156,8 @@
           <tr>
             <td>
               <img src="images/people.jpg">
-              <p>Aman</p>
+              <div th:each="zakaz: ${zakazList}"><p th:text="${zakaz.getCustomer().getName()}">Aman</p></div>
+
             </td>
             <td>02-02-2022</td>
             <td><span class="status completed">Completed</span></td>
