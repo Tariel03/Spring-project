@@ -54,42 +54,42 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0" >Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="${manager.getCustomer().getEmail()}">
+                                fip@jukmuh.al
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6  class="mb-0">Username</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary"  th:text="${manager.getCustomer().getLogin()}">
+                                (239) 816-9029
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0" >Position</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary" th:text="${manager.getPosition()}">
+                                (320) 380-4539
+                            </div>
+                        </div>
+                        <hr>
 <!--                        <div class="row">-->
 <!--                            <div class="col-sm-3">-->
-<!--                                <h6 class="mb-0" >Email</h6>-->
+<!--                                <h6 class="mb-0">Address</h6>-->
 <!--                            </div>-->
-<!--                            <div class="col-sm-9 text-secondary" th:text="${director.getCustomer().getEmail()}">-->
-<!--                                fip@jukmuh.al-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <hr>-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-sm-3">-->
-<!--                                <h6  class="mb-0">Username</h6>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-9 text-secondary"  th:text="${manager.getCustomer().getLogin()}">-->
-<!--                                (239) 816-9029-->
+<!--                            <div class="col-sm-9 text-secondary" th:text="${director.getAddress()}">-->
+<!--                                Bay Area, San Francisco, CA-->
 <!--                            </div>-->
 <!--                        </div>-->
-<!--                        <hr>-->
-<!--                        <div class="row">-->
-<!--                            <div class="col-sm-3">-->
-<!--                                <h6 class="mb-0" >Mobile</h6>-->
-<!--                            </div>-->
-<!--                            <div class="col-sm-9 text-secondary" th:text="${manager.getPosition()}">-->
-<!--                                (320) 380-4539-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <hr>-->
-<!--&lt;!&ndash;                        <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="col-sm-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <h6 class="mb-0">Address</h6>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="col-sm-9 text-secondary" th:text="${director.getAddress()}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                Bay Area, San Francisco, CA&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
-<!--                        <hr>-->
+                        <hr>
                         <div class="row">
                             <div class="col-sm-12">
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" target="__blank" >Create an account</a>

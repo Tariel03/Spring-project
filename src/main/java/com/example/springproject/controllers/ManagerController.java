@@ -41,6 +41,17 @@ public class ManagerController {
         return "manager";
     }
 
+    @GetMapping("/manager_blog-main")
+    public String manager_blogMain(Model model){
+        Iterable<Post> posts = postRepository.findAll();
+        model.addAttribute("posts", posts);
+
+        Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
+        model.addAttribute("workersInfos", workersInfos);
+
+        return "blog-main";
+    }
+
     @GetMapping("/manager_profile")
     public String manager(Model model, @ModelAttribute("type") Type type) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
@@ -130,12 +141,11 @@ public class ManagerController {
         return "redirect:/blog";
     }
 
-    @GetMapping("/manager/about_employee")
-    public String employeeMain(Model model){
-        Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
-        model.addAttribute("workersInfos", workersInfos);
-        return "blog-main";
-    }
+//    @GetMapping("/manager/blog-main")
+//    public String employeeMain(Model model){
+//
+//        return "blog-main";
+//    }
     @PostMapping("/manager/customer/show")
     public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, Model model) throws Exception {
         Customer customer = new Customer();

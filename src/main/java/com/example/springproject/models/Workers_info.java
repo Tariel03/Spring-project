@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Workers_info {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name, surname, orders;
     private int salary, bonus, taxes, work_experience;
