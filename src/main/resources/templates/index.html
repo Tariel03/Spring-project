@@ -103,6 +103,7 @@
         </div>
     </div>
 </div>
+
 <!--Modal views -->
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -313,13 +314,21 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel6">Modal title</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel6">Your profile</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" th:object="${customer}">
-                    <p class="fs-3" th:text="${'Name: '+customer.getName()}">VALUE</p>
-                    <p class="fs-3" th:text="${'Login: '+customer.getLogin()}">VALUE</p>
-                    <p class="fs-3" th:text="${'Email: '+customer.getEmail()}">VALUE</p>
+                <div class="text-center">
+                    <p  th:text="${'Name: '+customer.getName()}">VALUE</p>
+                    <p th:text="${'Login: '+customer.getLogin()}">VALUE</p>
+                    <p th:text="${'Email: '+customer.getEmail()}">VALUE</p>
+                    <hr>
+                    <h5 class="text-center">Your orders:</h5>
+                    <div th:each="zakaz: ${zakazList}">
+                        <p th:text = "${zakaz.getCustomer().getName() + ', '+zakaz.getDate() + ', '+zakaz.getService().getName()  + ', '+zakaz.getService().getPrice()}"></p>
+                    </div>
+                    <hr>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -336,6 +345,7 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel7">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal8" >Edit</button>
             </div>
             <div class="modal-body">
                 <form th:method="POST" th:action="@{/edit}">
@@ -369,7 +379,6 @@
 
 
 
-
 <!-- services section end -->
 <!-- about section start -->
 <div class="about_section layout_padding" id="aboutUs">
@@ -378,13 +387,6 @@
             <div class="col-md-6">
                 <div class="about_taital_main">
                     <h1 class="about_taital">About Us</h1>
-<!--                    <p class="about_text">There are many variations of passages of Lorem Ipsum available, -->
-<!--                        but the majority have suffered alteration in some form, by injected humour, -->
-<!--                        or randomised words which don't look even slightly believable. If you are going to-->
-<!--                        use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden -->
-<!--                        in the middle of text. All-->
-<!--                    </p>-->
-
                     <p class="about_text">
                         We are a team. We have been in this business not for a long time, but still we managed to
                         gather positive reviews and get lots of orders done. If you are interested in purchasing
@@ -407,7 +409,7 @@
         <h1 class="blog_taital">See Our  Video</h1>
         <p class="blog_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which</p>
         <div class="play_icon_main">
-            <div class="play_icon"><a href="#"><img src="images/play-icon.png" th:src="@{images/play-icon.png}"></a></div>
+            <div class="play_icon"><a href="#"><img src="/images/play-icon.png" th:src="@{images/play-icon.png}"></a></div>
         </div>
     </div>
 </div>
@@ -424,15 +426,15 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div class="carousel-item active">
+                    <div class="carousel-item ">
                         <div class="client_main">
                             <div class="box_left">
                                 <p class="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugia</p>
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
+                                    <div class="client_img"><img src="/images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="/images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -448,8 +450,8 @@
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
+                                    <div class="client_img"><img src="/images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="/images/quick-icon.png" th:src="@{images/quick-icon.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -465,8 +467,8 @@
                             </div>
                             <div class="box_right">
                                 <div class="client_taital_left">
-                                    <div class="client_img"><img src="images/client-img.png" th:src="@{images/client-img.png}"></div>
-                                    <div class="quick_icon"><img src="images/quick-icon.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="client_img"><img src="/images/client-img.png" th:src="@{images/client-img.png}"></div>
+                                    <div class="quick_icon"><img src="/images/quick-icon.png" th:src="@{images/client-img.png}"></div>
                                 </div>
                                 <div class="client_taital_right">
                                     <h4 class="client_name">Dame</h4>
@@ -513,17 +515,17 @@
         </form>
 
         <div class="location_main">
-            <div class="call_text"><img src="images/call-icon.png" th:src="@{images/call-icon.png}"></div>
+            <div class="call_text"><img src="/images/call-icon.png" th:src="@{images/call-icon.png}"></div>
             <div class="call_text"><a href="#">Call 0700024498</a></div>
-            <div class="call_text"><img src="images/mail-icon.png" th:src="@{images/mail-icon.png}"></div>
+            <div class="call_text"><img src="/images/mail-icon.png" th:src="@{images/mail-icon.png}"></div>
             <div class="call_text"><a>tariel.akmatov@gmail.com</a></div>
         </div>
         <div class="social_icon">
             <ul>
-                <li><a href="#"><img src="images/fb-icon.png"></a></li>
-                <li><a href="#"><img src="images/twitter-icon.png"></a></li>
-                <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                <li><a href="https://www.instagram.com/akmatov.tariel/"><img src="images/instagram-icon.png" th:src="@{images/instagram-icon.png}"></a></li>
+                <li><a href="#"><img src="/images/fb-icon.png"></a></li>
+                <li><a href="#"><img src="/images/twitter-icon.png"></a></li>
+                <li><a href="#"><img src="/images/linkedin-icon.png"></a></li>
+                <li><a href="https://www.instagram.com/akmatov.tariel/"><img src="/images/instagram-icon.png" th:src="@{images/instagram-icon.png}"></a></li>
             </ul>
         </div>
     </div>

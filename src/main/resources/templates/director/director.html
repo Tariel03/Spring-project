@@ -178,18 +178,22 @@
       </div>
       <div class="modal-body">
         <div class= "row text-center" >
-          <form th:method="POST" th:action="@{/director/create/Account}" th:object="${typesList}">
+          <form th:method="POST" th:action="@{/director/create/Account}">
             <input type = "email" name = "email"  placeholder="Введите ваш email ">
             <input type="text" name="login" class="mt-2 mb-2" placeholder="Введите ваш логин">
             <input type="text" name="name" class="mt-2 mb-2" placeholder="Введите ваш name">
             <input type="text" name="password" placeholder="Введите ваш password">
             <br><br>
+            <label>
+              <select th:field="${typesList}" name="type" >
+                <option th:each="type : ${typesList}"
+                        th:value="${type.getTypeName()}"
+                        th:text="${type.getType()}" name="type">Options</option>
 
-            <select th:field="${type}">
-              <option th:each="type : ${typesList}"
-                      th:value="${type.getTypeName()}"
-                      th:text="${type.getType()}">Options</option>
-            </select>
+              </select>
+
+
+            </label>
             <hr>
             <input type="submit" class="btn btn-primary w-50" value="Create!"/>
             <br>

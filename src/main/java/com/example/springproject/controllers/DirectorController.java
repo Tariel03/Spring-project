@@ -34,8 +34,6 @@ public class DirectorController {
 
     @GetMapping
     public String director(Model model, @ModelAttribute("type")Type type) {
-        List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
-        model.addAttribute("typesList",typesList);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -57,14 +55,14 @@ public class DirectorController {
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
                 List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
+                model.addAttribute("typesList",typesList);
                 model.addAttribute(customerList);
                 return "director/director";
             } else {
                 return "redirect:/index";
             }
         }
-
-
         return username;
     }
 
@@ -83,7 +81,6 @@ public class DirectorController {
         System.out.println(serviceList);
         return "director/services";
     }
-
 
     @PostMapping("/service/{id}")
     public String deleteService(@PathVariable("id") Long id) {
@@ -139,7 +136,7 @@ public class DirectorController {
 
     }
     @PostMapping("/create/Account")
-    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, Model model, @ModelAttribute("type")Type type) throws Exception {
+    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")Type type)  {
         Customer customer = new Customer();
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
         if(optionalCustomer.isEmpty()) {
@@ -150,9 +147,9 @@ public class DirectorController {
             customer.setType(type.getType());
             System.out.println(type.getType());
             customerRepository.save(customer);
-            return "redirect:/login";
+            return "redirect:/director";
         }
-        return "redirect:/home";
+        return "redirect:/director";
     }
 
 
