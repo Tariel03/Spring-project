@@ -1,9 +1,6 @@
 package com.example.springproject.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Workers_info {
@@ -89,5 +86,17 @@ public class Workers_info {
         this.taxes = taxes;
         this.work_experience = work_experience;
         this.orders = orders;
+    }
+
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
