@@ -9,7 +9,6 @@ import com.example.springproject.models.Customer;
 import com.example.springproject.models.Service;
 import com.example.springproject.models.Zakaz;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,8 +48,12 @@ import java.util.Optional;
             commentArrayList.add(commentList.get(i));
         }
         model.addAttribute(commentArrayList);
+
+        List<Zakaz> zakazList = zakazRepository.findZakazByCustomer_Id(currentUser(model));
+        model.addAttribute(zakazList);
         System.out.println(serviceList.size());
         currentUser(model);
+
         return "index";
     }
 
@@ -62,7 +64,7 @@ import java.util.Optional;
         return "login";
     }
 
-    private void currentUser(Model model) {
+    private Customer currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -76,7 +78,7 @@ import java.util.Optional;
             model.addAttribute(optionalCustomer.get());
             System.out.println(optionalCustomer.get());
         }
-        return;
+        return optionalCustomer.get();
     }
 
 
