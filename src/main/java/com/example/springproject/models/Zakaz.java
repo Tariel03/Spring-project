@@ -13,6 +13,15 @@ public class Zakaz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     LocalDate localDate;
+    String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     String status;
 
@@ -45,10 +54,12 @@ public class Zakaz {
         this.customer = customer;
         this.service = service;
         this.localDate = LocalDate.now();
+        this.status=status;
     }
 
     public Zakaz() {
         this.localDate = LocalDate.now();
+        this.status="No completed";
     }
 
     public Long getId() {
