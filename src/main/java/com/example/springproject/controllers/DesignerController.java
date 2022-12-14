@@ -28,7 +28,9 @@ public class DesignerController{
 
     }
     @GetMapping
-    public String designer(Model model, @ModelAttribute("type") Type type,Zakaz zakaz) {
+    public String designer(Model model, @ModelAttribute("type") Type type, Zakaz zakaz) {
+        List<Zakaz> zakazs=zakazRepository.findZakazByStatusLike("processing");
+        model.addAttribute("zakazs",zakazs);
         List<Zakaz> zakazList = zakazRepository.findAll();
         currentUser(model);
         model.addAttribute(zakazList);
@@ -74,6 +76,11 @@ public String process(@PathVariable(value = "id")Long id,Model model){
 
 
 
+
+
+
+
+
     private void currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
@@ -102,9 +109,31 @@ public String process(@PathVariable(value = "id")Long id,Model model){
 //        model.addAttribute(counter);
 //        return "designer/designer";
 //    }
-    @GetMapping ("/profiledes")
-    public String profildes(Model model){
+
+    @GetMapping("/profiledes")
+    public String manager(Model model, @ModelAttribute("type") Type type) {
         currentUser(model);
-        return "designer/profiledes";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()) {
+            model.addAttribute(optionalCustomer.get());
+            System.out.println(optionalCustomer.get());
+            Optional<Designer> managerOptional = designerRepository.findDesignerByCustomer(optionalCustomer.get());
+            if (managerOptional.isPresent()) {
+                Designer designer = managerOptional.get();
+                model.addAttribute(designer);
+                return "designer/profiledes";
+            } else {
+                return "redirect:/index";
+            }
+        }
+        return username;
     }
 }
