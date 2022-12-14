@@ -173,10 +173,13 @@
           <i class='bx bx-plus' ></i>
           <i class='bx bx-filter' ></i>
         </div>
-        <ul class="todo-list" th:each="zakaz : ${zakazs}">
+        <ul  class="todo-list" th:each="zakaz : ${zakazs}">
           <li class="completed">
-            <p th:text="${zakaz.getStatus()}">Todo List</p>
-            <i class='bx bx-dots-vertical-rounded' ></i>
+            <p>Todo List</p>
+            <i>
+              <form th:method="POST" th:object="${zakaz}" th:action="@{/designer/to_do/{id}(id=${zakaz.getId()})}" class="btn btn-primary">
+                <button  class="bx bx-save" type="submit"></button>
+            </form></i>
           </li>
           <br>
         </ul>
