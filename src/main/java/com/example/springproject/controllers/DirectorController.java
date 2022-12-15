@@ -62,7 +62,7 @@ public class DirectorController {
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
 
-                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("not completed");
+                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
                 return "director/director";
             } else {

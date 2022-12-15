@@ -2,6 +2,7 @@ package com.example.springproject.controllers;
 
 import com.example.springproject.Repository.CustomerRepository;
 import com.example.springproject.Repository.ManagerRepository;
+import com.example.springproject.Repository.ZakazRepository;
 import com.example.springproject.models.*;
 import com.example.springproject.Repository.PostRepository;
 import com.example.springproject.Repository.Workers_infoRepository;
@@ -24,15 +25,16 @@ public class ManagerController {
     private Workers_infoRepository workersInfoRepository;
     private CustomerRepository customerRepository;
     private ManagerRepository managerRepository;
+    private ZakazRepository zakazRepository;
 
-    @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository) {
+  @Autowired
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
         this.managerRepository = managerRepository;
+        this.zakazRepository = zakazRepository;
     }
-
 
     @GetMapping("/manager")
     public String blogMain(Model model){
@@ -70,6 +72,12 @@ public class ManagerController {
             if (managerOptional.isPresent()) {
                 Manager manager = managerOptional.get();
                 model.addAttribute(manager);
+
+                Iterable<Post> posts = postRepository.findAll();
+                model.addAttribute("posts", posts);
+
+                Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
+                model.addAttribute("workersInfos", workersInfos);
 //                List<Service> serviceList = serviceRepository.findAll();
 //                model.addAttribute(serviceList);
 //                List<Comment> commentList = commentRepository.findAll();
@@ -78,6 +86,13 @@ public class ManagerController {
                 List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
                 model.addAttribute("typesList",typesList);
                 model.addAttribute(customerList);
+
+                List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
+                model.addAttribute("zakazCompletedList",zakazCompletedList);
+
+                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
+                model.addAttribute("zakazProcessList", zakazProcessList);
+
                 return "manager_profile";
             } else {
                 return "redirect:/index";
