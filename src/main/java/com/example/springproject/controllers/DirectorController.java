@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostRemove;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class DirectorController {
                 model.addAttribute(serviceList);
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
-                List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNot("customer", "director");
                 model.addAttribute(customerList);
 
                 List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
@@ -79,6 +80,30 @@ public class DirectorController {
         System.out.println(commentList);
         return "director/comments";
     }
+
+    @PostMapping("edit/service/{id}")
+        public String edit(Model model, @RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price, @RequestParam("length") int length, @PathVariable("id")Long id){
+
+        Optional<Service> optionalService = serviceRepository.findById(id);
+        if(optionalService.isPresent()) {
+            Service service = optionalService.get();
+            service.setName(name);
+            service.setPlatform(platform);
+            service.setLength(length);
+            service.setPrice(price);
+            serviceRepository.save(service);
+            model.addAttribute(service);
+        }
+
+        return "redirect:/director";
+
+
+
+
+
+
+    }
+
 
     @GetMapping("/services")
     public String getServices(Model model, @ModelAttribute("customer") Customer customer) {

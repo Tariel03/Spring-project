@@ -9,9 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,15 +28,16 @@ public class DesignerController{
 
     }
     @GetMapping
-    public String designer(Model model, @ModelAttribute("type") Type type,Zakaz zakaz) {
+    public String designer(Model model, @ModelAttribute("type") Type type, Zakaz zakaz) {
+        List<Zakaz> zakazs=zakazRepository.findZakazByStatusLike("processing");
+        model.addAttribute("zakazs",zakazs);
         List<Zakaz> zakazList = zakazRepository.findAll();
         currentUser(model);
         model.addAttribute(zakazList);
-        int counter=0;
-        for(int i=0;i<zakazList.size();i++){
-            counter++;
-        }
-        model.addAttribute(counter);
+        int counter= zakazList.size();
+        model.addAttribute("counter",counter);
+        List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
+        model.addAttribute("countCustomers",CustomerList.size());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -63,6 +62,20 @@ public class DesignerController{
         }
         return username;
     }
+@PostMapping("process/{id}")
+public String process(@PathVariable(value = "id")Long id,Model model){
+        Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+        if(zakazOptional.isPresent()){
+            Zakaz zakaz=zakazOptional.get();
+            zakaz.setStatus("processing");
+            zakazRepository.save(zakaz);
+        }return "redirect:/designer";
+
+    }
+
+
+
+
 
 
 
@@ -73,7 +86,6 @@ public class DesignerController{
         String username;
         if (principal instanceof UserDetails) {
             username = ((UserDetails)principal).getUsername();
-
         } else {
             username = principal.toString();
         }
@@ -97,11 +109,31 @@ public class DesignerController{
 //        model.addAttribute(counter);
 //        return "designer/designer";
 //    }
-    @GetMapping ("/profiledes")
-    public String profildes(Model model){
+
+    @GetMapping("/profiledes")
+    public String manager(Model model, @ModelAttribute("type") Type type) {
         currentUser(model);
-        return "designer/profiledes";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()) {
+            model.addAttribute(optionalCustomer.get());
+            System.out.println(optionalCustomer.get());
+            Optional<Designer> managerOptional = designerRepository.findDesignerByCustomer(optionalCustomer.get());
+            if (managerOptional.isPresent()) {
+                Designer designer = managerOptional.get();
+                model.addAttribute(designer);
+                return "designer/profiledes";
+            } else {
+                return "redirect:/index";
+            }
+        }
+        return username;
     }
-
-
 }

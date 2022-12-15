@@ -24,5 +24,12 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
     List<Customer> findCustomerByTypeNot(String type);
 
+    List<Customer> findCustomerByType(String type);
+
+    List<Customer>findCustomersByTypeNotAndTypeNot(String type1, String type2);
+
+    Optional<Customer> findCustomersByEmailAndLogin(String login, String email);
+
+
 
 }
