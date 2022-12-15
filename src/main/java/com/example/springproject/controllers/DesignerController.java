@@ -67,24 +67,12 @@ public String process(@PathVariable(value = "id")Long id,Model model){
         Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
         if(zakazOptional.isPresent()){
             Zakaz zakaz=zakazOptional.get();
-            if (!zakaz.getStatus().equals("completed")) {
-                zakaz.setStatus("processing");
-                zakazRepository.save(zakaz);
-            }
-
-        }return "redirect:/designer";
-
-    }
-    @PostMapping("to_do/{id}")
-    public String to_do(@PathVariable(value = "id")Long id,Model model){
-        Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
-        if(zakazOptional.isPresent()){
-            Zakaz zakaz=zakazOptional.get();
-            zakaz.setStatus("completed");
+            zakaz.setStatus("processing");
             zakazRepository.save(zakaz);
         }return "redirect:/designer";
 
     }
+
 
 
 
