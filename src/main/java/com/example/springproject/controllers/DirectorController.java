@@ -82,14 +82,10 @@ public class DirectorController {
     }
 
     @PostMapping("edit/service/{id}")
-        public String edit(Model model, @RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price, @RequestParam("length") int length, @PathVariable("id")Long id){
-
+        public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
         Optional<Service> optionalService = serviceRepository.findById(id);
         if(optionalService.isPresent()) {
             Service service = optionalService.get();
-            service.setName(name);
-            service.setPlatform(platform);
-            service.setLength(length);
             service.setPrice(price);
             serviceRepository.save(service);
             model.addAttribute(service);
@@ -167,7 +163,7 @@ public class DirectorController {
 
     }
     @PostMapping("/create/Account")
-    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")Type type)  {
+    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")String type)  {
         Customer customer = new Customer();
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
         if(optionalCustomer.isEmpty()) {
@@ -175,8 +171,7 @@ public class DirectorController {
             customer.setName(name);
             customer.setLogin(login);
             customer.setPassword(password);
-            customer.setType(type.getType());
-            System.out.println(type.getType());
+            customer.setType(type);
             customerRepository.save(customer);
             return "redirect:/director";
         }

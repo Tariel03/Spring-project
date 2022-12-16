@@ -1,5 +1,7 @@
 package com.example.springproject.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,6 +11,7 @@ public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long Id;
+
     String name;
     int price;
     String platform;

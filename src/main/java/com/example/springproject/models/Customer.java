@@ -1,10 +1,16 @@
 package com.example.springproject.models;
 
 
+import com.sun.istack.NotNull;
+import org.hibernate.annotations.NotFound;
+
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
+@Table(name = "Customer", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"login"}),
+        @UniqueConstraint(name = "uc_customer_email_login", columnNames = {"email", "login"})
+})
 public class Customer implements Us{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +20,7 @@ public class Customer implements Us{
     private String login;
     private String password;
     private String email;
+
     private String type;
 
     public String getType() {
