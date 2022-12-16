@@ -43,17 +43,6 @@ public class ManagerController {
         return "manager";
     }
 
-    @GetMapping("/manager_blog-main")
-    public String manager_blogMain(Model model){
-        Iterable<Post> posts = postRepository.findAll();
-        model.addAttribute("posts", posts);
-
-        Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
-        model.addAttribute("workersInfos", workersInfos);
-
-        return "blog-main";
-    }
-
     @GetMapping("/manager_profile")
     public String manager(Model model, @ModelAttribute("type") Type type) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
@@ -86,6 +75,9 @@ public class ManagerController {
                 List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
                 model.addAttribute("typesList",typesList);
                 model.addAttribute(customerList);
+
+                List<Workers_info> workers_infos = workersInfoRepository.findWorkers_infoByavailableLike("yes");
+                model.addAttribute("workers_infos",workers_infos);
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
@@ -176,6 +168,22 @@ public class ManagerController {
             return "redirect:/login";
         }
         return "redirect:/login?success";
+    }
+
+    @PostMapping("/create/Account")
+    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")String type)  {
+        Customer customer = new Customer();
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
+        if(optionalCustomer.isEmpty()) {
+            customer.setEmail(email);
+            customer.setName(name);
+            customer.setLogin(login);
+            customer.setPassword(password);
+            customer.setType(type);
+            customerRepository.save(customer);
+            return "redirect:/manager_profile";
+        }
+        return "redirect:/manager_profile";
     }
 
 }
