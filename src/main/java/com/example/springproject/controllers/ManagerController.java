@@ -81,7 +81,7 @@ public class ManagerController {
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
 
-                List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findAll();
+                List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByCustomer(optionalCustomer.get());
                 model.addAttribute("suggestWorkerList",suggestWorkerList);
 
 

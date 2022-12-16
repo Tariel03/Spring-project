@@ -24,9 +24,9 @@ public class DirectorController {
     ZakazRepository zakazRepository;
     SuggestWorkerRepository suggestWorkerRepository;
     DesignerRepository designerRepository;
-
+    ManagerRepository managerRepository;
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, ManagerRepository managerRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
@@ -34,6 +34,7 @@ public class DirectorController {
         this.zakazRepository = zakazRepository;
         this.suggestWorkerRepository = suggestWorkerRepository;
         this.designerRepository = designerRepository;
+        this.managerRepository = managerRepository;
     }
 
     @GetMapping
@@ -70,6 +71,14 @@ public class DirectorController {
 
                 List<Designer> designers = designerRepository.findDesignersByCustomerEquals(null);
                 model.addAttribute(designers);
+
+//                List<Designer> designerList = designerRepository.findDesignersByCustomerNot(null);
+//                model.addAttribute("designerList2",designerList);
+//
+//                List<Manager>managerList = managerRepository.findManagersByCustomerNot(null);
+//                model.addAttribute(managerList);
+//
+
 
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
@@ -132,13 +141,18 @@ public class DirectorController {
             SuggestWorker suggestWorker1 =suggestWorker.get();
             suggestWorker1.setStatus("approved");
             suggestWorker1.setAnswer("Approved, thanks!");
-            if(suggestWorker1.getType().equals("designer")){
+            if(suggestWorker1.getType().equals("designer") ){
                 Designer designer = new Designer();
                 designer.setLastname(suggestWorker1.getLastname());
                 designer.setSalary(suggestWorker1.getSalary());
                 designer.setAddress(suggestWorker1.getAddress());
                 designerRepository.save(designer);
-
+            }
+            else if(suggestWorker1.getType().equals("manager")){
+                Manager manager = new Manager();
+                manager.setName(suggestWorker1.getLastname());
+                manager.setSalary(suggestWorker1.getSalary());
+                managerRepository.save(manager);
             }
         }
         return "redirect:/director";
