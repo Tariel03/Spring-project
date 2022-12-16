@@ -54,7 +54,8 @@ import java.util.Optional;
         List<Zakaz> zakazList = zakazRepository.findZakazByCustomer_Id(currentUser(model));
         model.addAttribute(zakazList);
         System.out.println(serviceList.size());
-        currentUser(model);
+        Customer customer = currentUser(model);
+
 
         return "index";
     }
