@@ -33,7 +33,7 @@ public class DirectorController {
     }
 
     @GetMapping
-    public String director(Model model, @ModelAttribute("type")Type type) {
+    public String director(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -57,8 +57,6 @@ public class DirectorController {
                 List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNot("customer", "director");
                 model.addAttribute(customerList);
 
-                List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
-                model.addAttribute("typesList",typesList);
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
