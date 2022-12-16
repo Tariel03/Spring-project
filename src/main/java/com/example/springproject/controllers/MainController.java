@@ -210,15 +210,11 @@ import java.util.Optional;
             zakaz.setService(optionalService.get());
             zakazRepository.save(zakaz);
         }
-        return "redirect:/order/show";
+        return "redirect:/index";
 
 
     }
 
-    @GetMapping("/aboutUs")
-    public String aboutUs(){
-        return "aboutUs";
-    }
 
 
 }

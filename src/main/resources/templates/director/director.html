@@ -28,6 +28,7 @@
                 <h4 th:text="${director.getCustomer().getName()+ ' '+director.getLastname()}">John Doe</h4>
                 <p class="text-secondary mb-1" th:text="${director.getCustomer().getType()}">Full Stack Developer</p>
                 <p class="text-muted font-size-sm" th:text="${director.getAddress()}">Bay Area, San Francisco, CA</p>
+
               </div>
             </div>
           </div>
@@ -87,6 +88,16 @@
               </div>
               <div class="col-sm-9 text-secondary" th:text="${director.getAddress()}">
                 Bay Area, San Francisco, CA
+              </div>
+            </div>
+            <hr>
+
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Salary</h6>
+              </div>
+              <div class="col-sm-9 text-secondary" th:text="${director.getSalary()+'$'}">
+                1233$
               </div>
             </div>
             <hr>
@@ -150,18 +161,10 @@
             <input type = "email" name = "email"  placeholder="Введите ваш email ">
             <input type="text" name="login" class="mt-2 mb-2" placeholder="Введите ваш логин">
             <input type="text" name="name" class="mt-2 mb-2" placeholder="Введите ваш name">
-            <input type="text" name="password" placeholder="Введите ваш password">
+            <input type="text" name="password"  class="mt-2 mb-2" placeholder="Введите ваш password">
+            <input type="text" name="type"  class="mt-2 mb-2" placeholder="Введите ваш type of account">
             <br><br>
-            <label>
-              <select th:field="${typesList}" name="type" >
-                <option th:each="type : ${typesList}"
-                        th:value="${type.getTypeName()}"
-                        th:text="${type.getType()}">Options</option>
 
-              </select>
-
-
-            </label>
             <hr>
             <input type="submit" class="btn btn-primary w-50" value="Create!"/>
             <br>
@@ -187,7 +190,10 @@
       <div class="modal-body">
         <div th:each="service : ${serviceList}" class="text-center">
           <div class="row ">
-            <div class="col" th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()+','+service.getLength() +' (in days)'}"></div>
+            <div class="col" th:text = "${service.getName() + ','+service.getPlatform() +','+service.getLength() +' (in days)'}"></div>
+            <form th:method="POST" th:object="${service}" th:action="@{/director/edit/service/{id}(id=${service.getId()})}">
+              <input type="number" name="price" class="fw-bolder"  th:placeholder="${service.getPrice()}">
+            </form>
             <div class="col">
               <form th:method="POST" th:object="${service}" th:action="@{/director/service/{id}(id=${service.getId()})}">
                 <input type="submit" class="btn btn-secondary btn-sm " value="Delete" />
@@ -255,7 +261,7 @@
       <div class="modal-body justify-content-center">
         <div class="text-center container-sm">
           <div th:each="customer: ${customerList}" >
-            <div th:text = "${'Username: '+customer.getLogin()+', Name: ' +customer.getName() + ', Email: '+customer.getEmail()}" class="fw-bolder" ></div>
+            <div th:text = "${'Username: '+customer.getLogin()+', Name: ' +customer.getName() + ', Email: '+customer.getEmail() +', Account type: '+customer.getType()}" class="fw-bolder" ></div>
             <br>
             <form th:method="POST" th:object="${customer}" th:action="@{/director/deleteCustomer/{id}(id=${customer.getId()})}">
               <input type="submit" class="btn btn-secondary " value="Delete"/>
