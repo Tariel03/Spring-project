@@ -22,14 +22,18 @@ public class DirectorController {
     CustomerRepository customerRepository;
     DirectorRepository directorRepository;
     ZakazRepository zakazRepository;
+    SuggestWorkerRepository suggestWorkerRepository;
+    DesignerRepository designerRepository;
 
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
         this.directorRepository = directorRepository;
         this.zakazRepository = zakazRepository;
+        this.suggestWorkerRepository = suggestWorkerRepository;
+        this.designerRepository = designerRepository;
     }
 
     @GetMapping
@@ -57,9 +61,15 @@ public class DirectorController {
                 List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNot("customer", "director");
                 model.addAttribute(customerList);
 
+                List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByStatusLike("sent");
+                model.addAttribute("suggestWorkerList",suggestWorkerList);
+
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
+
+                List<Designer> designers = designerRepository.findDesignersByCustomerEquals(null);
+                model.addAttribute(designers);
 
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
@@ -79,6 +89,17 @@ public class DirectorController {
         return "director/comments";
     }
 
+    @PostMapping("add/customer/{id}")
+    public String addCustomerId(Model model,@RequestParam("customer_id") Customer customer, @PathVariable("id")Long id){
+        Optional<Designer> designer = designerRepository.findById(id);
+        if(designer.isPresent()){
+            Designer designer1 = designer.get();
+            designer1.setCustomer(customer);
+            designerRepository.save(designer1);
+        }
+        return "redirect:/director";
+    }
+
     @PostMapping("edit/service/{id}")
         public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
         Optional<Service> optionalService = serviceRepository.findById(id);
@@ -91,11 +112,36 @@ public class DirectorController {
 
         return "redirect:/director";
 
+    }
 
+    @PostMapping("delete/suggestWorker/{id}")
+    public String deleteSuggestWorker(@PathVariable("id") Long id){
+        Optional<SuggestWorker> suggestWorkerOptional = suggestWorkerRepository.findById(id);
+        if(suggestWorkerOptional.isPresent()){
+            SuggestWorker suggestWorker = suggestWorkerOptional.get();
+            suggestWorker.setStatus("declined");
+            suggestWorker.setAnswer("Do not need this person");
+            suggestWorkerRepository.save(suggestWorker);
+        }
+        return "redirect:/director";
+    }
+    @PostMapping("approve/suggestWorker/{id}")
+    public String approveSuggestWorker(@PathVariable("id") Long id){
+        Optional<SuggestWorker> suggestWorker = suggestWorkerRepository.findById(id);
+        if(suggestWorker.isPresent()){
+            SuggestWorker suggestWorker1 =suggestWorker.get();
+            suggestWorker1.setStatus("approved");
+            suggestWorker1.setAnswer("Approved, thanks!");
+            if(suggestWorker1.getType().equals("designer")){
+                Designer designer = new Designer();
+                designer.setLastname(suggestWorker1.getLastname());
+                designer.setSalary(suggestWorker1.getSalary());
+                designer.setAddress(suggestWorker1.getAddress());
+                designerRepository.save(designer);
 
-
-
-
+            }
+        }
+        return "redirect:/director";
     }
 
 

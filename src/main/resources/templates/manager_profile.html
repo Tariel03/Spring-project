@@ -95,6 +95,8 @@
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" target="__blank" >Suggest new worker</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" target="__blank" >Available workers</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" target="__blank" >Employee</a>
+                                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Suggest a worker</a>
+
                             </div>
                         </div>
                     </div>
@@ -144,30 +146,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class= "row text-center" >
-                    <form th:method="POST" th:action="@{/director/create/Account}">
-                        <input type = "email" name = "email"  placeholder="Введите ваш email ">
-                        <input type="text" name="login" class="mt-2 mb-2" placeholder="Введите ваш логин">
-                        <input type="text" name="name" class="mt-2 mb-2" placeholder="Введите ваш name">
-                        <input type="text" name="password" placeholder="Введите ваш password">
-                        <br><br>
-                        <label>
-                            <select th:field="${typesList}" name="type" >
-                                <option th:each="type : ${typesList}"
-                                        th:value="${type.getTypeName()}"
-                                        th:text="${type.getType()}" name="type">Options</option>
-
-                            </select>
-
-
-                        </label>
-                        <hr>
-                        <input type="submit" class="btn btn-primary w-50" value="Create!"/>
-                        <br>
-                        <br>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                    </form>
+                <div th:each="suggestWorker:${suggestWorkerList}">
+                    <div th:text="${'Last Name: '+ suggestWorker.getLastname()+' ,Salary:  '+suggestWorker.getSalary()+', Type: ' + suggestWorker.getType()+' ,Answer: '+suggestWorker.getAnswer()+ ' ,Status: '+ suggestWorker.getStatus()}"></div>
+                    <hr>
                 </div>
 
             </div>
@@ -232,6 +213,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel4">Info about workers</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <form th:method="POST" th:action="@{/manager/suggest/worker}" class="text-center">
+                    <input type = "text" name ="lastname" placeholder="Last name: ">
+                    <input type="number" name="salary" class="mt-2 mb-2" placeholder="Salary: ">
+                    <input type="text" name="address" class="mb-3" placeholder="Address: ">
+                    <input type="text" name="type" class="mb-3" placeholder="type: ">
+                    <br/>
+                    <input type="submit" class="btn btn-secondary" value="Create!"/>
+                </form>
+
             </div>
         </div>
     </div>

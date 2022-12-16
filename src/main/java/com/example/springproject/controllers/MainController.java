@@ -210,6 +210,7 @@ import java.util.Optional;
             zakaz.setCustomer(optionalCustomer.get());
             zakaz.setService(optionalService.get());
             zakazRepository.save(zakaz);
+            zakaz.setStatus("received");
         }
         return "redirect:/index";
 

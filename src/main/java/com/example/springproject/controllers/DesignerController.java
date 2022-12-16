@@ -62,16 +62,16 @@ public class DesignerController{
         }
         return username;
     }
-@PostMapping("process/{id}")
-public String process(@PathVariable(value = "id")Long id,Model model){
-        Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
-        if(zakazOptional.isPresent()){
-            Zakaz zakaz=zakazOptional.get();
-            zakaz.setStatus("processing");
-            zakazRepository.save(zakaz);
-        }return "redirect:/designer";
+    @PostMapping("process/{id}")
+    public String process(@PathVariable(value = "id")Long id,Model model){
+            Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+            if(zakazOptional.isPresent()){
+                Zakaz zakaz=zakazOptional.get();
+                zakaz.setStatus("processing");
+                zakazRepository.save(zakaz);
+            }return "redirect:/designer";
 
-    }
+        }
 
 
 

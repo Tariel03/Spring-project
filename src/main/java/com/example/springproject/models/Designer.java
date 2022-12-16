@@ -18,6 +18,7 @@ public class Designer implements Us {
     String github;
     String facebook ;
 
+
     public Designer(int salary, String lastname, String number, String address, String instagram, String github, String facebook, Customer customer) {
         this.salary = salary;
         this.lastname = lastname;

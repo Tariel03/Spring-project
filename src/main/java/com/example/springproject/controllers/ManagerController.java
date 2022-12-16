@@ -1,11 +1,7 @@
 package com.example.springproject.controllers;
 
-import com.example.springproject.Repository.CustomerRepository;
-import com.example.springproject.Repository.ManagerRepository;
-import com.example.springproject.Repository.ZakazRepository;
+import com.example.springproject.Repository.*;
 import com.example.springproject.models.*;
-import com.example.springproject.Repository.PostRepository;
-import com.example.springproject.Repository.Workers_infoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostRemove;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,13 +24,16 @@ public class ManagerController {
     private ManagerRepository managerRepository;
     private ZakazRepository zakazRepository;
 
-  @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository) {
+    private SuggestWorkerRepository suggestWorkerRepository;
+
+    @Autowired
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
         this.managerRepository = managerRepository;
         this.zakazRepository = zakazRepository;
+        this.suggestWorkerRepository = suggestWorkerRepository;
     }
 
     @GetMapping("/manager")
@@ -67,10 +67,6 @@ public class ManagerController {
 
                 Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
                 model.addAttribute("workersInfos", workersInfos);
-//                List<Service> serviceList = serviceRepository.findAll();
-//                model.addAttribute(serviceList);
-//                List<Comment> commentList = commentRepository.findAll();
-//                model.addAttribute(commentList);
                 List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
                 List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
                 model.addAttribute("typesList",typesList);
@@ -84,6 +80,11 @@ public class ManagerController {
 
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
+
+                List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findAll();
+                model.addAttribute("suggestWorkerList",suggestWorkerList);
+
+
 
                 return "manager_profile";
             } else {
@@ -104,6 +105,37 @@ public class ManagerController {
         postRepository.save(post);
         return "redirect:/blog";
     }
+    @PostMapping("/manager/suggest/worker")
+    public String suggestWorker(Model model, @RequestParam("type") String type,@RequestParam("salary") int salary, @RequestParam("address")String address,@RequestParam("lastname")String lastname){
+        SuggestWorker suggestWorker = new SuggestWorker();
+        if(type.equals("designer") || type.equals("manager")){
+            suggestWorker.setMessage("Please create an account , if you agree to hire!");
+        }else {
+            suggestWorker.setMessage("No need to create an account!");
+
+        }
+        suggestWorker.setLastname(lastname);
+        suggestWorker.setSalary(salary);
+        suggestWorker.setAddress(address);
+        suggestWorker.setType(type);
+        suggestWorker.setStatus("sent");
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+
+        } else {
+            username = principal.toString();
+        }
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        optionalCustomer.ifPresent(suggestWorker::setCustomer);
+
+        suggestWorkerRepository.save(suggestWorker);
+        return "redirect:/manager_profile";
+
+
+    }
+
 
     @GetMapping("/manager/{id}")
     public String blogDetails(@PathVariable(value = "id") long id, Model model){
