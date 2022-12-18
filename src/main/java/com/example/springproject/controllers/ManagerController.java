@@ -75,8 +75,6 @@ public class ManagerController {
                 model.addAttribute("typesList",typesList);
                 model.addAttribute(customerList);
 
-                List<Workers_info> workers_infos = workersInfoRepository.findWorkers_infoByavailableLike("yes");
-                model.addAttribute("workers_infos",workers_infos);
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
@@ -93,11 +91,26 @@ public class ManagerController {
                 List<Director> directorList = directorRepository.findAll();
                 model.addAttribute(directorList);
 
+                List<Workers_info> workers_infoList = workersInfoRepository.findAll();
+                model.addAttribute(workers_infoList);
 
+                int salary = 0;
+                int customer_q = customerRepository.findAll().size();
+                int workers = 0;
+                int zakaz_cq = zakazCompletedList.size();
+                int zakaz_pq = zakazProcessList.size();
 
-
-
-
+                for (Designer design:designerList
+                     ) {
+                    salary += design.getSalary();
+                    workers ++;
+                }
+                model.addAttribute("salary",salary);
+                model.addAttribute("workers",workers);
+                model.addAttribute("customer_q", customer_q);
+                model.addAttribute("zakaz_q",zakaz_pq);
+                model.addAttribute("zakaz_cq",zakaz_cq);
+                model.addAttribute("zakaz_q",zakaz_pq+zakaz_cq);
 
                 return "manager_profile";
             } else {

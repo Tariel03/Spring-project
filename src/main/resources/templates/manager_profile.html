@@ -27,7 +27,6 @@
                             <div class="mt-3">
                                 <h4 th:text="${manager.getCustomer().getName()}">John Doe</h4>
                                 <p class="text-secondary mb-1" th:text="${manager.getCustomer().getType()}">Full Stack Developer</p>
-                                <p class="text-muted font-size-sm" th:text="${manager.getPosition()}">Bay Area, San Francisco, CA</p>
                             </div>
                         </div>
                     </div>
@@ -96,6 +95,8 @@
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" target="__blank" >Suggest a worker</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" target="__blank" >Designers</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" target="__blank" >Directors</a>
+                                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Other workers</a>
+
 
                             </div>
                         </div>
@@ -174,7 +175,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel2">Info about designers</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel1">Info about designers</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body justify-content-center">
@@ -206,7 +207,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel3">Info about directors</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel2">Info about directors</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body justify-content-center">
@@ -237,7 +238,7 @@
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel4">Suggesting a worker</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel3">Suggesting a worker</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body justify-content-center">
@@ -254,6 +255,40 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel4">Info about designers</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body justify-content-center">
+                <div class="modal-body justify-content-center">
+                    <div class="text-center container-lg">
+                        <div class="row gutters-sm" style="margin-left: 60px">
+                            <div class="col-md-auto ms-8">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i></h6>
+                                        <div th:each="el : ${workers_infoList}" class = "alert alert-info mt-2 text-center">
+                                            <p th:text = "'Name: ' + ${el.getLastname()}"/>
+                                            <p th:text="'Salary: '+${el.getSalary()+' $'}"></p>
+                                            <p th:text="'Type: '+${el.getType()}"></p>
+                                            <p th:text="'Address: '+${el.getAddress()}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
