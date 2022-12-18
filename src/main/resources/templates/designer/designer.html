@@ -29,12 +29,7 @@
         <span class="text">Message</span>
       </a>
     </li>
-    <li>
-      <a href="#">
-        <i class='bx bxs-group' ></i>
-        <span class="text">Team</span>
-      </a>
-    </li>
+
   </ul>
   <ul class="side-menu">
     <li>
@@ -63,10 +58,7 @@
     </form>
     <input type="checkbox" id="switch-mode" hidden>
     <label for="switch-mode" class="switch-mode"></label>
-    <a href="#" class="notification">
-      <i class='bx bxs-bell' ></i>
-      <span class="num">8</span>
-    </a>
+
     <a href="designer/profiledes" class="profile">
       <img src="images/people.jpg">
     </a>
@@ -75,31 +67,13 @@
 
   <!-- MAIN -->
   <main>
-    <div class="head-title">
-      <div class="left">
-        <h1>Dashboard</h1>
-        <ul class="breadcrumb">
-          <li>
-            <a href="#">Dashboard</a>
-          </li>
-          <li><i class='bx bx-chevron-right' ></i></li>
-          <li>
-            <a class="active" href="#">Home</a>
-          </li>
-        </ul>
-      </div>
-      <a href="#" class="btn-download">
-        <i class='bx bxs-cloud-download' ></i>
-        <span class="text">Download PDF</span>
-      </a>
-    </div>
 
     <ul class="box-info">
       <li>
         <i class='bx bxs-calendar-check' ></i>
         <span class="text">
 						<h3 th:text="${counter}"></h3>
-						<p>New Order</p>
+						<p>New Orders</p>
 					</span>
       </li>
       <li>
@@ -113,7 +87,7 @@
         <i class='bx bxs-dollar-circle' ></i>
         <span class="text" >
 						<h3 th:text="${countcompleted}">$2543</h3>
-						<p>Total Sales</p>
+						<p>Completed Orders</p>
 					</span>
       </li>
     </ul>
@@ -128,7 +102,9 @@
         <thead>
         <tr>
           <th>User</th>
+          <th>Type of service</th>
           <th>Date Order</th>
+          <th>Deadline</th>
           <th>Status</th>
         </tr>
         </thead>
@@ -139,7 +115,9 @@
             <p th:text="${nocompleted.getCustomer().getName()}"></p>
 
           </td>
+          <td><p th:text="${nocompleted.getService().getName()}"></p></td>
           <td><p th:text="${nocompleted.getDate()}"></p></td>
+          <td><p th:text="${nocompleted.getService().getLength()}+'days'"></p></td>
           <td><form th:method="POST" th:object="${nocompleted}" th:action="@{/designer/process/{id}(id=${nocompleted.getId()})}" class="btn btn-primary">
             <input  class="status process" type="submit" th:value="${nocompleted.getStatus()}"/>
           </form></td>
@@ -185,8 +163,8 @@
           <i class='bx bx-filter' ></i>
         </div>
         <ul  class="todo-list" th:each="zakaz : ${zakazs}">
-          <li class="completed">
-            <p>Todo List</p>
+          <li class="completed" th:object="${zakaz}">
+            <p th:text="${zakaz.getService().getName()}"></p>
             <i>
               <form th:method="POST" th:object="${zakaz}" th:action="@{/designer/to_do/{id}(id=${zakaz.getId()})}" class="btn btn-primary">
                 <button  class="bx bx-save" type="submit"></button>
