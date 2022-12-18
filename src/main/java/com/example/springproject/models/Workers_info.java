@@ -5,14 +5,24 @@ import javax.persistence.*;
 @Entity
 public class Workers_info {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name, surname, orders;
-    private int salary, bonus, taxes, work_experience;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    Long id;
+    String message;
+    String type;
+    int salary;
+    String lastname;
+    String address;
 
-    private String available;
+    public Workers_info(String message, String type, int salary, String lastname, String address) {
+        this.message = message;
+        this.type = type;
+        this.salary = salary;
+        this.lastname = lastname;
+        this.address = address;
+    }
 
-
+    public Workers_info() {
+    }
 
     public Long getId() {
         return id;
@@ -22,20 +32,20 @@ public class Workers_info {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getType() {
+        return type;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getSalary() {
@@ -46,72 +56,19 @@ public class Workers_info {
         this.salary = salary;
     }
 
-    public int getBonus() {
-        return bonus;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setBonus(int bonus) {
-        this.bonus = bonus;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public int getTaxes() {
-        return taxes;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTaxes(int taxes) {
-        this.taxes = taxes;
-    }
-
-    public int getWork_experience() {
-        return work_experience;
-    }
-
-    public void setWork_experience(int work_experience) {
-        this.work_experience = work_experience;
-    }
-
-    public String getOrders() {
-        return orders;
-    }
-
-    public void setOrders(String orders) {
-        this.orders = orders;
-    }
-
-    public Workers_info() {
-
-    }
-
-    public String get_available() {
-        return available;
-    }
-
-    public void set_available(String available) {
-        this.available = available;
-    }
-
-    public Workers_info(Long id, String name, String surname, String orders, int salary, int bonus, int taxes, int work_experience, String available, Customer customer) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.orders = orders;
-        this.salary = salary;
-        this.bonus = bonus;
-        this.taxes = taxes;
-        this.work_experience = work_experience;
-        this.available = available;
-        this.customer = customer;
-    }
-
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

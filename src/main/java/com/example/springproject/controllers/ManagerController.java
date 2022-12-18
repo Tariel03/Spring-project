@@ -23,17 +23,20 @@ public class ManagerController {
     private CustomerRepository customerRepository;
     private ManagerRepository managerRepository;
     private ZakazRepository zakazRepository;
-
     private SuggestWorkerRepository suggestWorkerRepository;
+    private DesignerRepository designerRepository;
+    private DirectorRepository directorRepository;
 
     @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository) {
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, DirectorRepository directorRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
         this.managerRepository = managerRepository;
         this.zakazRepository = zakazRepository;
         this.suggestWorkerRepository = suggestWorkerRepository;
+        this.designerRepository = designerRepository;
+        this.directorRepository = directorRepository;
     }
 
     @GetMapping("/manager")
@@ -72,8 +75,6 @@ public class ManagerController {
                 model.addAttribute("typesList",typesList);
                 model.addAttribute(customerList);
 
-                List<Workers_info> workers_infos = workersInfoRepository.findWorkers_infoByavailableLike("yes");
-                model.addAttribute("workers_infos",workers_infos);
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
@@ -84,7 +85,40 @@ public class ManagerController {
                 List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByCustomer(optionalCustomer.get());
                 model.addAttribute("suggestWorkerList",suggestWorkerList);
 
+                List<Designer> designerList = designerRepository.findAll();
+                model.addAttribute(designerList);
 
+                List<Director> directorList = directorRepository.findAll();
+                model.addAttribute(directorList);
+
+                List<Workers_info> workers_infoList = workersInfoRepository.findAll();
+                model.addAttribute(workers_infoList);
+
+                int salary = 0;
+                int customer_q = customerRepository.findAll().size();
+                int workers = 0;
+                int zakaz_cq = zakazCompletedList.size();
+                int zakaz_pq = zakazProcessList.size();
+                for (Designer design:designerList
+                     ) {
+                    salary += design.getSalary();
+                    workers ++;
+                }
+                for(Manager manager1 : managerRepository.findAll()){
+                    salary += manager1.getSalary();
+                    workers ++;
+                }
+                for (Workers_info el: workers_infoList
+                     ) {
+                    salary += el.getSalary();
+                    workers++;
+                }
+                model.addAttribute("salary",salary);
+                model.addAttribute("workers",workers);
+                model.addAttribute("customer_q", customer_q);
+                model.addAttribute("zakaz_q",zakaz_pq);
+                model.addAttribute("zakaz_cq",zakaz_cq);
+                model.addAttribute("zakaz_q",zakaz_pq+zakaz_cq);
 
                 return "manager_profile";
             } else {

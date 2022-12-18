@@ -30,23 +30,20 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="container">
-                        <h1 class="banner_taital">Adventure</h1>
-                        <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have sufferedThere are ma available, but the majority have suffered</p>
-                        <div class="read_bt"><a href="#">Get A Quote</a></div>
+                        <h1 class="banner_taital">DJETE</h1>
+                        <p class="banner_text">This is a website where you can order advertisement services</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="container">
-                        <h1 class="banner_taital">Adventure</h1>
-                        <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have sufferedThere are ma available, but the majority have suffered</p>
-                        <div class="read_bt"><a href="#">Get A Quote</a></div>
+                        <h1 class="banner_taital">DJETE</h1>
+                        <p class="banner_text">This is a website where you can order advertisement services</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="container">
-                        <h1 class="banner_taital">Adventure</h1>
-                        <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority have sufferedThere are ma available, but the majority have suffered</p>
-                        <div class="read_bt"><a href="#">Get A Quote</a></div>
+                        <h1 class="banner_taital">DJETE</h1>
+                        <p class="banner_text">This is a website where you can order advertisement services</p>
                     </div>
                 </div>
             </div>
@@ -130,8 +127,8 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center">
-                    <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(0).getId()})}" class="btn btn-primary">
-                        <input type="submit" value="Order"/>
+                    <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${serviceList.get(0).getId()})}">
+                        <input type="submit" class="btn btn-primary" value="Order"/>
                     </form>
                 </div>
             </div>
@@ -404,15 +401,6 @@
 </div>
 <!-- about section end -->
 <!-- blog section start -->
-<div class="blog_section layout_padding">
-    <div class="container">
-        <h1 class="blog_taital">See Our  Video</h1>
-        <p class="blog_text">many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which</p>
-        <div class="play_icon_main">
-            <div class="play_icon"><a href="#"><img src="/images/play-icon.png" th:src="@{images/play-icon.png}"></a></div>
-        </div>
-    </div>
-</div>
 <!-- blog section end -->
 <!-- client section start -->
 
@@ -468,8 +456,8 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
 
-                        <div class="section-title center">
-                            <h2>Feel free to <strong>contact us</strong></h2>
+                        <div class="section-title center text-light" >
+                            <h2 class="text-light">Feel free to <strong class="text-light">contact us</strong></h2>
                             <div class="line">
                                 <hr>
                             </div>

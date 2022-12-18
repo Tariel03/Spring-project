@@ -25,8 +25,9 @@ public class DirectorController {
     SuggestWorkerRepository suggestWorkerRepository;
     DesignerRepository designerRepository;
     ManagerRepository managerRepository;
+    Workers_infoRepository workersInfoRepository;
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, ManagerRepository managerRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, ManagerRepository managerRepository, Workers_infoRepository workersInfoRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
@@ -35,7 +36,9 @@ public class DirectorController {
         this.suggestWorkerRepository = suggestWorkerRepository;
         this.designerRepository = designerRepository;
         this.managerRepository = managerRepository;
+        this.workersInfoRepository = workersInfoRepository;
     }
+
 
     @GetMapping
     public String director(Model model) {
@@ -59,7 +62,7 @@ public class DirectorController {
                 model.addAttribute(serviceList);
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
-                List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNot("customer", "director");
+                List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNotOrderById("customer", "director");
                 model.addAttribute(customerList);
 
                 List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByStatusLike("sent");
@@ -72,13 +75,8 @@ public class DirectorController {
                 List<Designer> designers = designerRepository.findDesignersByCustomerEquals(null);
                 model.addAttribute(designers);
 
-//                List<Designer> designerList = designerRepository.findDesignersByCustomerNot(null);
-//                model.addAttribute("designerList2",designerList);
-//
-//                List<Manager>managerList = managerRepository.findManagersByCustomerNot(null);
-//                model.addAttribute(managerList);
-//
-
+                List<Manager> managerList = managerRepository.findManagersByCustomerEquals(null);
+                model.addAttribute(managerList);
 
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
@@ -110,7 +108,7 @@ public class DirectorController {
     }
 
     @PostMapping("edit/service/{id}")
-        public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
+    public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
         Optional<Service> optionalService = serviceRepository.findById(id);
         if(optionalService.isPresent()) {
             Service service = optionalService.get();
@@ -154,6 +152,16 @@ public class DirectorController {
                 manager.setSalary(suggestWorker1.getSalary());
                 managerRepository.save(manager);
             }
+            else{
+                Workers_info workersInfo = new Workers_info();
+                workersInfo.setSalary(suggestWorker1.getSalary());
+                workersInfo.setLastname(suggestWorker1.getLastname());
+                workersInfo.setType(suggestWorker1.getType());
+                workersInfo.setAddress(suggestWorker1.getAddress());
+                workersInfoRepository.save(workersInfo);
+
+
+            }
         }
         return "redirect:/director";
     }
@@ -183,8 +191,6 @@ public class DirectorController {
         customerRepository.deleteById(id);
         return "redirect:/director";
     }
-
-
 
     @PostMapping("/service/createService")
     public String createService(@RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price, @RequestParam("length") int length) {

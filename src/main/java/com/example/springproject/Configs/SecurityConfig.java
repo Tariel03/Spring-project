@@ -1,5 +1,4 @@
 package com.example.springproject.Configs;
-
 import com.example.springproject.Repository.CustomerRepository;
 import com.example.springproject.models.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Configuration
-    @EnableWebSecurity
-   public class SecurityConfig {
+@EnableWebSecurity
+public class SecurityConfig {
     CustomerRepository customerRepository;
 
     @Autowired

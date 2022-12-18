@@ -302,10 +302,16 @@
 
           <hr>
           <div th:each="designer:${designerList}">
-            <p th:text="${'Lastname: '+designer.getLastname() +', '+designer.getAddress()}"></p>
+            <p th:text="${'Lastname: '+designer.getLastname() +', Salary: '+designer.getSalary()+', Type: designer '}"></p>
             <form th:method="POST" th:object="${designer}" th:action="@{/director/add/customer/{id}(id=${designer.getId()})}">
               <input type="number" name="customer_id" class="mt-2 mb-2" placeholder="Введите ваш id acc">
-              <input type="submit" class="btn btn-secondary " value="Delete"/>
+            </form>
+          </div>
+          <hr>
+          <div th:each="manager:${managerList}">
+            <p th:text="${'Lastname: '+manager.getName() +',Salary: '+manager.getSalary()+', Type: manager'}"></p>
+            <form th:method="POST" th:object="${manager}" th:action="@{/director/add/customer/{id}(id=${manager.getId()})}">
+              <input type="number" name="customer_id" class="mt-2 mb-2" placeholder="Введите ваш id acc">
             </form>
           </div>
           <hr>

@@ -8,7 +8,5 @@ import java.util.Optional;
 
 
 public interface Workers_infoRepository extends JpaRepository<Workers_info, Long> {
-    List<Workers_info> findWorkers_infoByavailableLike(String ava);
 
-    Optional<Workers_info>findWorkers_infoById(Long id);
 }
