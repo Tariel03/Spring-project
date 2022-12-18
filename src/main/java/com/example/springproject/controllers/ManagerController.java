@@ -23,17 +23,20 @@ public class ManagerController {
     private CustomerRepository customerRepository;
     private ManagerRepository managerRepository;
     private ZakazRepository zakazRepository;
-
     private SuggestWorkerRepository suggestWorkerRepository;
+    private DesignerRepository designerRepository;
+    private DirectorRepository directorRepository;
 
     @Autowired
-    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository) {
+    public ManagerController(PostRepository postRepository, Workers_infoRepository workersInfoRepository, CustomerRepository customerRepository, ManagerRepository managerRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, DirectorRepository directorRepository) {
         this.postRepository = postRepository;
         this.workersInfoRepository = workersInfoRepository;
         this.customerRepository = customerRepository;
         this.managerRepository = managerRepository;
         this.zakazRepository = zakazRepository;
         this.suggestWorkerRepository = suggestWorkerRepository;
+        this.designerRepository = designerRepository;
+        this.directorRepository = directorRepository;
     }
 
     @GetMapping("/manager")
@@ -83,6 +86,16 @@ public class ManagerController {
 
                 List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByCustomer(optionalCustomer.get());
                 model.addAttribute("suggestWorkerList",suggestWorkerList);
+
+                List<Designer> designerList = designerRepository.findAll();
+                model.addAttribute(designerList);
+
+                List<Director> directorList = directorRepository.findAll();
+                model.addAttribute(directorList);
+
+
+
+
 
 
 

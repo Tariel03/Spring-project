@@ -28,12 +28,11 @@ import java.util.Optional;
     CustomerRepository customerRepository;
     CommentRepository commentRepository;
     ZakazRepository zakazRepository;
-    static String email = "2@gmail.com";
+    static Customer realCustomer;
 
 
     @Autowired
-    public MainController(HttpServletRequest httpServletRequest, ServiceRepository serviceRepository, CustomerRepository customerRepository, CommentRepository commentRepository, ZakazRepository zakazRepository) {
-        this.httpServletRequest = httpServletRequest;
+    public MainController(ServiceRepository serviceRepository, CustomerRepository customerRepository, CommentRepository commentRepository, ZakazRepository zakazRepository) {
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
         this.commentRepository = commentRepository;
@@ -55,20 +54,9 @@ import java.util.Optional;
         model.addAttribute(zakazList);
         System.out.println(serviceList.size());
         Customer customer = currentUser(model);
-
-
         return "index";
     }
 
-    @GetMapping("/login")
-    public String showRegistrationForm(Model model){
-        Optional<Customer> customerOptional = customerRepository.findByEmail(email);
-        if(customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            model.addAttribute(customer);
-        }
-        return "login";
-    }
 
 
     private Customer currentUser(Model model) {
@@ -96,25 +84,12 @@ import java.util.Optional;
         System.out.println(serviceList);
         return "services";
     }
+
     @GetMapping("/forgetPassword")
-    public String getForgetPassword(Model model){
-        Optional<Customer> customerOptional = customerRepository.findByEmail(email);
-        if(customerOptional.isPresent()) {
-            Customer customer = customerOptional.get();
-            model.addAttribute(customer);
-        }
-
-        return "forgetPassword";
-
-    }
-    @PostMapping("/forgetPassword")
-    public String forgetPassword(Model model, @RequestParam("email")String email1) {
-        email = email1;
-        Optional<Customer> customerOptional = customerRepository.findByEmail(email);
-        if(customerOptional.isPresent()){
-            Customer customer = customerOptional.get();
-            model.addAttribute(customer);
-        }
+    public String forgetPassword(Model model) {
+        String status = "Hello!";
+        model.addAttribute("status", status);
+        System.out.println(status);
         return "/forgetPassword";
 
     }
@@ -215,6 +190,35 @@ import java.util.Optional;
         return "redirect:/index";
 
 
+    }
+
+    @PostMapping("/changePassword")
+    public String changePassword(Model model,@RequestParam("login")String login, @RequestParam("password")String password){
+        Customer customer = realCustomer;
+        customer.setLogin(login);
+        customer.setPassword(password);
+        customerRepository.save(customer);
+        System.out.println(customer);
+        return "redirect:/login";
+
+    }
+
+    @PostMapping("/findByEmail")
+    public String findByEmail(Model model,@RequestParam("email")String email) {
+        Optional<Customer> customer = customerRepository.findByEmail(email);
+        String status = new String();
+        if(customer.isPresent()){
+            realCustomer = customer.get();
+            status = "Success";
+        }
+        else {
+            status = "No such email";
+        }
+        model.addAttribute(status);
+        System.out.println(status);
+        System.out.println(realCustomer);
+
+        return "redirect:/forgetPassword";
     }
 
 

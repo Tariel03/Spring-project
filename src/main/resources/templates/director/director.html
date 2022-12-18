@@ -308,6 +308,14 @@
               <input type="submit" class="btn btn-secondary " value="Delete"/>
             </form>
           </div>
+
+          <div th:each="manager:${managerList}">
+            <p th:text="${'Lastname: '+manager.getLastname() +', '+designer.getAddress()}"></p>
+            <form th:method="POST" th:object="${designer}" th:action="@{/director/add/customer/{id}(id=${designer.getId()})}">
+              <input type="number" name="customer_id" class="mt-2 mb-2" placeholder="Введите ваш id acc">
+              <input type="submit" class="btn btn-secondary " value="Delete"/>
+            </form>
+          </div>
           <hr>
         </div>
       </div>

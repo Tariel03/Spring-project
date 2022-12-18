@@ -72,12 +72,9 @@ public class DirectorController {
                 List<Designer> designers = designerRepository.findDesignersByCustomerEquals(null);
                 model.addAttribute(designers);
 
-//                List<Designer> designerList = designerRepository.findDesignersByCustomerNot(null);
-//                model.addAttribute("designerList2",designerList);
-//
-//                List<Manager>managerList = managerRepository.findManagersByCustomerNot(null);
-//                model.addAttribute(managerList);
-//
+                List<Manager> managerList = managerRepository.findManagersByCustomerEquals(null);
+                model.addAttribute(managerList);
+
 
 
                 List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
@@ -110,7 +107,7 @@ public class DirectorController {
     }
 
     @PostMapping("edit/service/{id}")
-        public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
+    public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
         Optional<Service> optionalService = serviceRepository.findById(id);
         if(optionalService.isPresent()) {
             Service service = optionalService.get();
@@ -183,8 +180,6 @@ public class DirectorController {
         customerRepository.deleteById(id);
         return "redirect:/director";
     }
-
-
 
     @PostMapping("/service/createService")
     public String createService(@RequestParam("name") String name, @RequestParam("platform") String platform, @RequestParam("price") int price, @RequestParam("length") int length) {

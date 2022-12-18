@@ -104,10 +104,6 @@ public String process(@PathVariable(value = "id")Long id,Model model){
 
 
 
-
-
-
-
     private void currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
@@ -121,21 +117,9 @@ public String process(@PathVariable(value = "id")Long id,Model model){
             model.addAttribute(optionalCustomer.get());
             System.out.println(optionalCustomer.get());
         }
-        return;
+        return ;
     }
 
-//    @GetMapping()
-//    public String showOrder(@ModelAttribute("order") Zakaz zakaz, Model model) {
-//        List<Zakaz> zakazList = zakazRepository.findAll();
-//        currentUser(model);
-//        model.addAttribute(zakazList);
-//        int counter=0;
-//        for(int i=0;i<zakazList.size();i++){
-//            counter++;
-//        }
-//        model.addAttribute(counter);
-//        return "designer/designer";
-//    }
 
     @GetMapping("/profiledes")
     public String manager(Model model, @ModelAttribute("type") Type type) {

@@ -29,9 +29,11 @@
         <button type="submit" class=" btn btn-primary submit px-3 submit-btn">Log in</button>
         <br>
       </form>
+      <a th:href="forgetPassword" style="margin-top: 800px">Forget password</a>
+
       <div th:if="${param.error}">
-        <a href="/forgetPassword">Forget password</a>
       </div>
+
 
 
       <div>
@@ -66,39 +68,7 @@
     z.style.left="0";
   }
 </script>
-<!--<div class="container-sm">-->
-<!--  <div class="text-center">-->
-<!--    <div th:if="${param.error}">-->
-<!--      Invalid username and password.-->
-<!--    </div>-->
-<!--    <div th:if="${param.logout}">-->
-<!--      You have been logged out.-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <form th:action="@{/login}" method="post">-->
-<!--    <div class="mb-3">-->
-<!--      <label for="exampleInputName" class="form-label">Login</label>-->
-<!--      <input type="text" name="username" class="form-control" id="exampleInputName" aria-describedby="loginHelp">-->
-<!--      <div id="loginHelp" class="form-text">We'll never share your login with anyone else.</div>-->
-<!--    </div>-->
-<!--    <div class="mb-3">-->
-<!--      <label for="exampleInputPassword1" class="form-label">Password</label>-->
-<!--      <input type="password" name="password" class="form-control" id="exampleInputPassword1">-->
-<!--    </div>-->
-<!--    <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--  </form>-->
-<!--  <a href = "forgetPassword"> Forget your password</a>-->
 
-<!--</div>-->
-
-<!--  <form th:method="POST" th:action="@{/manager/customer/show}">-->
-<!--    <input type = "email" name = "email" placeholder="Введите ваш email ">-->
-<!--    <input type="text" name="login" placeholder="Введите ваш логин">-->
-<!--    <input type="text" name="name" placeholder="Введите ваш name">-->
-<!--    <input type="text" name="password" placeholder="Введите ваш password">-->
-<!--    <br/>-->
-<!--    <input type="submit" value="Create!"/>-->
-<!--  </form>-->
 
 
 
