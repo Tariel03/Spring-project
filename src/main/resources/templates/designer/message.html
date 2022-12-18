@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}">Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<link rel="stylesheet" type="text/css" media="all"
+      href="/static/css/slick.css" th:href="@{/css/slick.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+      href="/static/css/message.css" th:href="@{/css/message.css}" />
+
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+<body>
+
+
+<!-- SIDEBAR -->
+<section id="sidebar">
+    <a href="#" class="brand">
+        <i class='bx bxs-smile'></i>
+        <span class="text">AdminHub</span>
+    </a>
+    <ul class="side-menu top">
+        <li >
+            <a href="/designer">
+                <i class='bx bxs-dashboard' ></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="#">
+                <i class='bx bxs-message-dots' ></i>
+                <span class="text">Message</span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bxs-group' ></i>
+                <span class="text">Team</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li>
+            <a href="/index" class="logout">
+                <i class='bx bxs-log-out-circle' ></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
+
+
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class='bx bx-menu' ></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+            </div>
+        </form>
+        <input type="checkbox" id="switch-mode" hidden>
+        <label for="switch-mode" class="switch-mode"></label>
+        <a href="#" class="notification">
+            <i class='bx bxs-bell' ></i>
+            <span class="num">8</span>
+        </a>
+        <a href="/designer/profiledes" class="profile">
+            <img src="/images/people.jpg">
+        </a>
+    </nav>
+    <!-- NAVBAR -->
+<div class="html">
+    <section class="msger">
+        <header class="msger-header">
+            <div class="msger-header-title">
+                <i class="fas fa-comment-alt"></i> SimpleChat
+            </div>
+            <div class="msger-header-options">
+                <span><i class="fas fa-cog"></i></span>
+            </div>
+        </header>
+
+        <main class="msger-chat">
+            <div class="msg left-msg">
+                <div
+                        class="msg-img"
+                        style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
+                ></div>
+
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">BOT</div>
+                        <div class="msg-info-time">12:45</div>
+                    </div>
+
+                    <div class="msg-text">
+                        Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+                    </div>
+                </div>
+            </div>
+
+            <div class="msg right-msg">
+                <div
+                        class="msg-img"
+                        style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
+                ></div>
+
+                <div class="msg-bubble">
+                    <div class="msg-info">
+                        <div class="msg-info-name">Sajad</div>
+                        <div class="msg-info-time">12:46</div>
+                    </div>
+
+                    <div class="msg-text">
+                        You can change your name in JS section!
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <form class="msger-inputarea">
+            <input type="text" class="msger-input" placeholder="Enter your message...">
+            <button type="submit" class="msger-send-btn">Send</button>
+        </form>
+    </section>
+</div>
+</section>
+<!-- CONTENT -->
+<script  type="text/javascript" media="all"
+         src="/static/js/message.js" th:src="@{/js/message.js}"></script>
+
+<script  type="text/javascript" media="all"
+         src="/static/js/script.js" th:src="@{/js/script.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

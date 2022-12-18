@@ -25,12 +25,12 @@
       <form id="login" class="input-group" method="post" th:action="@{/login} " >
         <input type="text" class="input-field"  id="username" name="username" placeholder="Login"  required/>
         <input type="password" class="input-field"  id="passwor" name="password" placeholder="Enter Pass" required/>
-        <input type="checkbox"  class="check-box"/><span>Remember Password</span>
+
         <button type="submit" class=" btn btn-primary submit px-3 submit-btn">Log in</button>
         <br>
       </form>
       <div th:if="${param.error}">
-        <div class="alert-danger">Invalid Email and Password.</div>
+        <a href="/forgetPassword">Forget password</a>
       </div>
 
 

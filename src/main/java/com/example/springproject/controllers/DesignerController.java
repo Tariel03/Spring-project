@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,14 +30,22 @@ public class DesignerController{
     }
     @GetMapping
     public String designer(Model model, @ModelAttribute("type") Type type, Zakaz zakaz) {
+
         List<Zakaz> zakazs=zakazRepository.findZakazByStatusLike("processing");
         model.addAttribute("zakazs",zakazs);
+
+        List<Zakaz> completedorder=zakazRepository.findZakazByStatusLike("completed");
+        model.addAttribute("completedorders",completedorder);
         List<Zakaz> zakazList = zakazRepository.findAll();
         currentUser(model);
         model.addAttribute(zakazList);
-        int counter= zakazList.size();
-        model.addAttribute("counter",counter);
+        List<Zakaz>counter=zakazRepository.findZakazByStatusNotLike("completed");
+        model.addAttribute("nocompletedorders",counter);
+        model.addAttribute("counter",counter.size());
         List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
+        model.addAttribute("countCustomers",CustomerList.size());
+        List<Zakaz>countcompleted=zakazRepository.findZakazByStatusLike("completed");
+        model.addAttribute("countcompleted",countcompleted.size());
         model.addAttribute("countCustomers",CustomerList.size());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
@@ -65,11 +74,17 @@ public class DesignerController{
 @PostMapping("process/{id}")
 public String process(@PathVariable(value = "id")Long id,Model model){
         Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+
         if(zakazOptional.isPresent()){
             Zakaz zakaz=zakazOptional.get();
+
+
             if (!zakaz.getStatus().equals("completed")) {
+                zakaz.setDate(LocalDate.now());
                 zakaz.setStatus("processing");
                 zakazRepository.save(zakaz);
+            } else if (zakaz.getStatus().equals("completed")) {
+                zakaz.setDate(LocalDate.now());
             }
 
         }return "redirect:/designer";
@@ -147,5 +162,9 @@ public String process(@PathVariable(value = "id")Long id,Model model){
             }
         }
         return username;
+    }
+    @GetMapping("/message")
+    public String message(Model model){
+        return "/designer/message";
     }
 }

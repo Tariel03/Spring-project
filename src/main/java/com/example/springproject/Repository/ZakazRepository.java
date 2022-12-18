@@ -14,5 +14,8 @@ public interface ZakazRepository extends JpaRepository<Zakaz, Long> {
 
     List<Zakaz> findZakazByStatusLike(String status);
 
+    List<Zakaz> findZakazByStatusNotLike(String status);
+
+
 
 }
