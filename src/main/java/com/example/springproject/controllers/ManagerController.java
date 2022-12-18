@@ -99,11 +99,19 @@ public class ManagerController {
                 int workers = 0;
                 int zakaz_cq = zakazCompletedList.size();
                 int zakaz_pq = zakazProcessList.size();
-
                 for (Designer design:designerList
                      ) {
                     salary += design.getSalary();
                     workers ++;
+                }
+                for(Manager manager1 : managerRepository.findAll()){
+                    salary += manager1.getSalary();
+                    workers ++;
+                }
+                for (Workers_info el: workers_infoList
+                     ) {
+                    salary += el.getSalary();
+                    workers++;
                 }
                 model.addAttribute("salary",salary);
                 model.addAttribute("workers",workers);
