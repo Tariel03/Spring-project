@@ -5,10 +5,9 @@ import javax.persistence.*;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title, anons, full_text;
-    private int views;
 
     public String getTitle() {
         return title;
@@ -32,14 +31,6 @@ public class Post {
 
     public void setFull_text(String full_text) {
         this.full_text = full_text;
-    }
-
-    public int getViews() {
-        return views;
-    }
-
-    public void setViews(int views) {
-        this.views = views;
     }
 
     public void setId(Long id) {

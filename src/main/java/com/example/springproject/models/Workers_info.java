@@ -5,10 +5,14 @@ import javax.persistence.*;
 @Entity
 public class Workers_info {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name, surname, orders;
     private int salary, bonus, taxes, work_experience;
+
+    private String available;
+
+
 
     public Long getId() {
         return id;
@@ -78,14 +82,25 @@ public class Workers_info {
 
     }
 
-    public Workers_info(String name, String surname, int salary, int bonus, int taxes, int work_experience, String orders) {
+    public String get_available() {
+        return available;
+    }
+
+    public void set_available(String available) {
+        this.available = available;
+    }
+
+    public Workers_info(Long id, String name, String surname, String orders, int salary, int bonus, int taxes, int work_experience, String available, Customer customer) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
+        this.orders = orders;
         this.salary = salary;
         this.bonus = bonus;
         this.taxes = taxes;
         this.work_experience = work_experience;
-        this.orders = orders;
+        this.available = available;
+        this.customer = customer;
     }
 
     @ManyToOne(cascade = CascadeType.REMOVE)

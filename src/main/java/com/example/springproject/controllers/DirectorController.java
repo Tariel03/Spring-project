@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.PostRemove;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -21,18 +22,23 @@ public class DirectorController {
     CustomerRepository customerRepository;
     DirectorRepository directorRepository;
     ZakazRepository zakazRepository;
-
+    SuggestWorkerRepository suggestWorkerRepository;
+    DesignerRepository designerRepository;
+    ManagerRepository managerRepository;
     @Autowired
-    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository) {
+    public DirectorController(CommentRepository commentRepository, ServiceRepository serviceRepository, CustomerRepository customerRepository, DirectorRepository directorRepository, ZakazRepository zakazRepository, SuggestWorkerRepository suggestWorkerRepository, DesignerRepository designerRepository, ManagerRepository managerRepository) {
         this.commentRepository = commentRepository;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
         this.directorRepository = directorRepository;
         this.zakazRepository = zakazRepository;
+        this.suggestWorkerRepository = suggestWorkerRepository;
+        this.designerRepository = designerRepository;
+        this.managerRepository = managerRepository;
     }
 
     @GetMapping
-    public String director(Model model, @ModelAttribute("type")Type type) {
+    public String director(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -53,16 +59,28 @@ public class DirectorController {
                 model.addAttribute(serviceList);
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
-                List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
+                List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNot("customer", "director");
                 model.addAttribute(customerList);
 
-                List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
-                model.addAttribute("typesList",typesList);
+                List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByStatusLike("sent");
+                model.addAttribute("suggestWorkerList",suggestWorkerList);
+
 
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
 
-                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("not completed");
+                List<Designer> designers = designerRepository.findDesignersByCustomerEquals(null);
+                model.addAttribute(designers);
+
+//                List<Designer> designerList = designerRepository.findDesignersByCustomerNot(null);
+//                model.addAttribute("designerList2",designerList);
+//
+//                List<Manager>managerList = managerRepository.findManagersByCustomerNot(null);
+//                model.addAttribute(managerList);
+//
+
+
+                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
                 return "director/director";
             } else {
@@ -79,6 +97,67 @@ public class DirectorController {
         System.out.println(commentList);
         return "director/comments";
     }
+
+    @PostMapping("add/customer/{id}")
+    public String addCustomerId(Model model,@RequestParam("customer_id") Customer customer, @PathVariable("id")Long id){
+        Optional<Designer> designer = designerRepository.findById(id);
+        if(designer.isPresent()){
+            Designer designer1 = designer.get();
+            designer1.setCustomer(customer);
+            designerRepository.save(designer1);
+        }
+        return "redirect:/director";
+    }
+
+    @PostMapping("edit/service/{id}")
+        public String edit(Model model, @RequestParam("price") int price,  @PathVariable("id")Long id){
+        Optional<Service> optionalService = serviceRepository.findById(id);
+        if(optionalService.isPresent()) {
+            Service service = optionalService.get();
+            service.setPrice(price);
+            serviceRepository.save(service);
+            model.addAttribute(service);
+        }
+
+        return "redirect:/director";
+
+    }
+
+    @PostMapping("delete/suggestWorker/{id}")
+    public String deleteSuggestWorker(@PathVariable("id") Long id){
+        Optional<SuggestWorker> suggestWorkerOptional = suggestWorkerRepository.findById(id);
+        if(suggestWorkerOptional.isPresent()){
+            SuggestWorker suggestWorker = suggestWorkerOptional.get();
+            suggestWorker.setStatus("declined");
+            suggestWorker.setAnswer("Do not need this person");
+            suggestWorkerRepository.save(suggestWorker);
+        }
+        return "redirect:/director";
+    }
+    @PostMapping("approve/suggestWorker/{id}")
+    public String approveSuggestWorker(@PathVariable("id") Long id){
+        Optional<SuggestWorker> suggestWorker = suggestWorkerRepository.findById(id);
+        if(suggestWorker.isPresent()){
+            SuggestWorker suggestWorker1 =suggestWorker.get();
+            suggestWorker1.setStatus("approved");
+            suggestWorker1.setAnswer("Approved, thanks!");
+            if(suggestWorker1.getType().equals("designer") ){
+                Designer designer = new Designer();
+                designer.setLastname(suggestWorker1.getLastname());
+                designer.setSalary(suggestWorker1.getSalary());
+                designer.setAddress(suggestWorker1.getAddress());
+                designerRepository.save(designer);
+            }
+            else if(suggestWorker1.getType().equals("manager")){
+                Manager manager = new Manager();
+                manager.setName(suggestWorker1.getLastname());
+                manager.setSalary(suggestWorker1.getSalary());
+                managerRepository.save(manager);
+            }
+        }
+        return "redirect:/director";
+    }
+
 
     @GetMapping("/services")
     public String getServices(Model model, @ModelAttribute("customer") Customer customer) {
@@ -142,7 +221,7 @@ public class DirectorController {
 
     }
     @PostMapping("/create/Account")
-    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")Type type)  {
+    public String createCustomer(@RequestParam("email")String email, @RequestParam("login")String login , @RequestParam("name")String name, @RequestParam("password")String password, @ModelAttribute("type")String type)  {
         Customer customer = new Customer();
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(login);
         if(optionalCustomer.isEmpty()) {
@@ -150,8 +229,7 @@ public class DirectorController {
             customer.setName(name);
             customer.setLogin(login);
             customer.setPassword(password);
-            customer.setType(type.getType());
-            System.out.println(type.getType());
+            customer.setType(type);
             customerRepository.save(customer);
             return "redirect:/director";
         }

@@ -1,8 +1,14 @@
 package com.example.springproject.Repository;
 
 import com.example.springproject.models.Workers_info;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface Workers_infoRepository extends CrudRepository<Workers_info, Long> {
+import java.util.List;
+import java.util.Optional;
 
+
+public interface Workers_infoRepository extends JpaRepository<Workers_info, Long> {
+    List<Workers_info> findWorkers_infoByavailableLike(String ava);
+
+    Optional<Workers_info>findWorkers_infoById(Long id);
 }
