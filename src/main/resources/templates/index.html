@@ -16,6 +16,13 @@
     <link rel="stylesheet" type="text/css" media="all"
           href="/static/css/responsive.css" th:href="@{/css/responsive.css}" />
 
+    <link rel="stylesheet" type="text/css" media="all"
+          href="/static/css/slick.css" th:href="@{/css/slick.css}" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="/static/css/message.css" th:href="@{/css/message.css}" />
+
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
@@ -371,6 +378,66 @@
 </div>
 
 
+<div class="modal fade" id="exampleModal8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel8">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal8" >Edit</button>
+            </div>
+            <div class="modal-body container-sm">
+                <div class="html">
+                    <section class="msger">
+                        <header class="msger-header">
+                            <div class="msger-header-title">
+                                <i class="fas fa-comment-alt"></i> SimpleChat
+                            </div>
+                            <div class="msger-header-options">
+                                <span><i class="fas fa-cog"></i></span>
+                            </div>
+                        </header>
+
+                        <main class="msger-chat">
+                            <div class="msg left-msg">
+                                <div
+                                        class="msg-img"
+                                        style="background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg)"
+                                ></div>
+
+                                <div class="msg-bubble">
+
+                                </div>
+                            </div>
+
+                            <div class="msg right-msg">
+                                <div
+                                        class="msg-img"
+                                        style="background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg)"
+                                ></div>
+
+                                <div class="msg-bubble">
+                                    <div class="msg-info">
+                                    </div>
+
+                                    <div class="msg-text">
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+
+                        <form class="msger-inputarea">
+                            <input type="text" class="msger-input" placeholder="Enter your message...">
+                            <button type="submit" class="msger-send-btn">Send</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 
@@ -491,6 +558,13 @@
 <!-- copyright section start -->
 
 <!-- copyright section end -->
+
+<script  type="text/javascript" media="all"
+         src="/static/js/message.js" th:src="@{/js/message.js}"></script>
+
+<script  type="text/javascript" media="all"
+         src="/static/js/script.js" th:src="@{/js/script.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"></script>
 
 <script src="js/jquery.min.js" th:src="@{js/jquery.min.js}"></script>
 <script src="js/popper.min.js" th:src="@{js/popper.min.js}"></script>

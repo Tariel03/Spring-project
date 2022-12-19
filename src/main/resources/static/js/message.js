@@ -3,14 +3,14 @@ const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
 
 const BOT_MSGS = [
-    "Hi, how are you? We have such services here..."
+    "Hi, how are you? We have such services Tiktok videos, Youtube shorts, Banners, Radio ad, Tv ad and others"
 ];
 
 // Icons made by Freepik from www.flaticon.com
 const BOT_IMG = "https://image.flaticon.com/icons/svg/327/327779.svg";
 const PERSON_IMG = "https://image.flaticon.com/icons/svg/145/145867.svg";
 const BOT_NAME = "BOT";
-const PERSON_NAME = "Sajad";
+const PERSON_NAME = "You";
 
 msgerForm.addEventListener("submit", event => {
     event.preventDefault();
