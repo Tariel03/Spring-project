@@ -209,7 +209,7 @@ button {
     background-image: url("/images/banner-bg.png");
     height: auto;
     background-size: 100%;
-    padding: 0px 0px 130px 0px;
+    padding: 0px 0px 350px 0px;
 }
 
 .bg-light {
@@ -1182,3 +1182,17 @@ span{
     color: #000; }
 .px-3 {
     padding-left: 1rem !important; }
+.chat{
+    position: fixed;
+    z-index:10000;
+    background-color: #2376e3;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px #bababa, inset 0px 0px 1px #ffffff!important;
+    padding: 5px 15px 5px 25px;
+    border-radius: 5px!important;
+    text-align: center;
+    right: 2%;
+    bottom: 2%;
+    color: white
+
+}

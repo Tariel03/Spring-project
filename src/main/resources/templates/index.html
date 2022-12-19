@@ -503,7 +503,7 @@
         <div class="text-center">
             <h1 class="fw-bold">Comments</h1>
         </div>
-        <div class="text-center container-sm ">
+        <div class="text-center container-sm" style="margin-left: 270px">
             <div th:each="comment: ${commentList}" class= "border border-dark p-2 mb-2 text-white bg-dark rounded-pill w-50" >
                 <div th:text = "${'Username: '+comment.getCustomer().getLogin()}" class="fw-bolder" ></div>
                 <div th:text="${'Comment: '+comment.getComment()}"><p>Comment :</p></div>
@@ -520,19 +520,7 @@
         <div id="tf-contact" class="text-center">
             <div class="container">
 
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
 
-                        <div class="section-title center text-light" >
-                            <h2 class="text-light">Feel free to <strong class="text-light">contact us</strong></h2>
-                            <div class="line">
-                                <hr>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
         </div>
