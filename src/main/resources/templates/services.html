@@ -6,13 +6,30 @@
 </head>
 <body>
 
-<div th:each="service : ${serviceList}">
-    <p th:text = "${service.getName() + ','+service.getPlatform() + ','+service.getPrice()}"></p>
-    <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${service.getId()})}">
-        <input type="submit" value="Order"/>
-    </form>
+
+<a href = "index">Link to main</a>
+
+
+<div class="text-center container-lg">
+    <div class="row gutters-sm" style="margin-left: 60px">
+        <div class="col-md-auto ms-8">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i></h6>
+                    <div th:each="service : ${serviceList}" class="mb-5">
+                        <p th:text = "${'Name: '+service.getName()}"></p>
+                        <p th:text = "${ 'Paltform: '+service.getPlatform()}"></p>
+                        <p th:text = "${'Price: '+service.getPrice()}"></p>
+                        <form th:method="POST" th:object="${zakaz}" th:action="@{/order/{id}(id=${service.getId()})}">
+                            <input type="submit" value="Order"/>
+                        </form>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<a href = "home">Link to main</a>
 
 </body>
 </html>

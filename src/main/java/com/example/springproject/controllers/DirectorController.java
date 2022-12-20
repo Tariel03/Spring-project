@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.PostRemove;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -62,8 +63,11 @@ public class DirectorController {
                 model.addAttribute(serviceList);
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
+
+
                 List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNotOrderById("customer", "director");
-                model.addAttribute(customerList);
+                model.addAttribute("customerList",customerList);
+
 
                 List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByStatusLike("sent");
                 model.addAttribute("suggestWorkerList",suggestWorkerList);
@@ -178,7 +182,7 @@ public class DirectorController {
     @PostMapping("/service/{id}")
     public String deleteService(@PathVariable("id") Long id) {
         serviceRepository.deleteById(id);
-        return "redirect:/director/services";
+        return "redirect:/director";
     }
     @PostMapping("/deleteComment/{id}")
     public String deleteComment(@PathVariable("id") Long id) {
@@ -200,7 +204,7 @@ public class DirectorController {
         service.setPrice(price);
         service.setLength(length);
         serviceRepository.save(service);
-        return "redirect:/director/services";
+        return "redirect:/director";
 
     }
     @PostMapping("/writeComment/{comment_id}")
@@ -219,10 +223,10 @@ public class DirectorController {
             Comment com = new Comment(comment,optionalCustomer.get());
 
             commentRepository.save(com);
-            return "redirect:/director/comments";
+            return "redirect:/director";
         }
         else {
-            return "redirect:/";
+            return "redirect:/index";
         }
 
     }

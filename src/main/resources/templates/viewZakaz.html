@@ -8,7 +8,7 @@
 
 
   <div class="text-center container-lg">
-      <div class="row gutters-sm" style="margin-left: 60px">
+      <div class="row gutters-sm" style="margin-left: 40%">
           <div class="col-md-auto ms-8">
               <div class="card h-100">
                   <div class="card-body">
@@ -16,8 +16,10 @@
                       <div th:object="${zakaz}"class = "alert alert-info mt-2 text-center">
                           <p th:text="${'Service: '+ zakaz.getService().getName()}"></p>
                           <p th:text="${'Status: '+ zakaz.getStatus()}"></p>
-                          <p th:text="${'Customer: '+zakaz.getCustomer().getName()}"></p>
-                          <p th:text="${'Designer: ' + zakaz.getDesigner().getLastname()+' '+zakaz.getDesigner().getCustomer().getName()}"></p>
+                          <a th:text="${'Customer: ' +zakaz.getCustomer().getName()}" th:href="@{/customer/{id}(id=${zakaz.getCustomer().getId()})}"></a>
+                          <br>
+                          <br>
+                          <a th:text="${'Designer: ' + zakaz.getDesigner().getLastname()+' '+zakaz.getDesigner().getCustomer().getName()}" th:href="@{/designer/{id}(id=${zakaz.getDesigner().getId()})}"></a>
                           <p th:text="${'Price: ' + zakaz.getService().getPrice()}"></p>
                           <p th:text="${'Platform: ' + zakaz.getService().getPlatform()}"></p>
                           <p th:text="${'Date: '+ zakaz.getDate()}"></p>

@@ -31,28 +31,6 @@ public class DesignerController{
     @GetMapping
     public String designer(Model model, @ModelAttribute("type") Type type, Zakaz zakaz) {
 
-        List<Zakaz> zakazs=zakazRepository.findZakazByStatusLike("processing");
-        model.addAttribute("zakazs",zakazs);
-
-        List<Zakaz> completedorder=zakazRepository.findZakazByStatusLike("completed");
-        model.addAttribute("completedorders",completedorder);
-
-        List<Zakaz> zakazList = zakazRepository.findAll();
-        currentUser(model);
-
-        model.addAttribute(zakazList);
-        List<Zakaz>counter=zakazRepository.findZakazByStatusNotLike("completed");
-
-        model.addAttribute("nocompletedorders",counter);
-        model.addAttribute("counter",counter.size());
-
-        List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
-        model.addAttribute("countCustomers",CustomerList.size());
-
-        List<Zakaz>countcompleted=zakazRepository.findZakazByStatusLike("completed");
-        model.addAttribute("countcompleted",countcompleted.size());
-
-        model.addAttribute("countCustomers",CustomerList.size());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -69,6 +47,26 @@ public class DesignerController{
             if (designerOptional.isPresent()) {
                 Designer designer = designerOptional.get();
                 model.addAttribute(designer);
+
+                List<Zakaz> zakazs=zakazRepository.findZakazsByDesignerAndStatusLike(designer,"processing");
+                model.addAttribute("zakazs",zakazs);
+
+                List<Zakaz> completedorder=zakazRepository.findZakazsByDesignerAndStatusLike(designer,"completed");
+                model.addAttribute("completedorders",completedorder);
+
+                currentUser(model);
+
+                List<Zakaz>counter=zakazRepository.findZakazByStatusLike("No completed");
+
+                model.addAttribute("nocompletedorders",counter);
+                model.addAttribute("counter",counter.size());
+
+                List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
+                model.addAttribute("countCustomers",CustomerList.size());
+
+                model.addAttribute("countcompleted",completedorder.size());
+
+                model.addAttribute("countCustomers",CustomerList.size());
 
                 return "designer/designer";
             } else {

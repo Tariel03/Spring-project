@@ -103,6 +103,9 @@
                     </button></div>
                 </div>
             </div>
+            <div class="text-center">
+                <div class="btn_main"><a href="services" type="button" class="btn btn-primary mb-5">All services</a></div>
+            </div>
 
         </div>
     </div>
@@ -329,7 +332,15 @@
                     <hr>
                     <h5 class="text-center">Your orders:</h5>
                     <div th:each="zakaz: ${zakazList}">
-                        <p th:text = "${zakaz.getCustomer().getName() + ', '+zakaz.getDate() + ', '+zakaz.getService().getName()  + ', '+zakaz.getService().getPrice()}"></p>
+                        <p th:text = "${'You: '+zakaz.getCustomer().getName()}"></p>
+                        <p th:text = "${'Date: '+zakaz.getDate() }"></p>
+                        <p th:text = "${'Service: '+zakaz.getService().getName()}"></p>
+                        <p th:text = "${'Price: '+zakaz.getService().getPrice()}"></p>
+                        <p th:text = "${'Status:'+zakaz.getStatus()}"></p>
+                        <td>
+                            <a th:if="${zakaz.getDesigner() == null}">Designer: Not taken by designer yet</a>
+                            <a th:text="${'Designer: ' + zakaz.getDesigner().getLastname()+' '+zakaz.getDesigner().getCustomer().getName()}" th:href="@{/designer/{id}(id=${zakaz.getDesigner().getId()})}" th:unless="${zakaz.getDesigner() == null} ">Male</a>
+                        </td>
                     </div>
                     <hr>
                 </div>
@@ -463,6 +474,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="text-center">
+    <div class="btn_main"><a href="designers" type="button" class="btn btn-primary mb-5">Designers</a></div>
 </div>
 <!-- about section end -->
 <!-- blog section start -->

@@ -1,6 +1,7 @@
 package com.example.springproject.Repository;
 
 import com.example.springproject.models.Customer;
+import com.example.springproject.models.Designer;
 import com.example.springproject.models.Zakaz;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface ZakazRepository extends JpaRepository<Zakaz, Long> {
 
     List<Zakaz> findZakazByStatusNotLike(String status);
     List<Zakaz>findZakazsByDesignerIsNotNullAndStatusLike(String status);
+    List<Zakaz>findZakazsByDesignerAndStatusLike(Designer designer, String status);
+    List<Zakaz>findZakazsByDesigner(Designer designer);
 
 
 

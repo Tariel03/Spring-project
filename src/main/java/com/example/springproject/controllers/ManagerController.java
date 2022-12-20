@@ -71,14 +71,6 @@ public class ManagerController {
                 Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
                 model.addAttribute("workersInfos", workersInfos);
 
-
-
-
-                List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
-
-                model.addAttribute(customerList);
-
-
                 List<Zakaz> zakazCompletedList = zakazRepository.findZakazsByDesignerIsNotNullAndStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
 

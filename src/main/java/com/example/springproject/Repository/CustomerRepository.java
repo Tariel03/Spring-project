@@ -22,10 +22,9 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     @Query("SELECT s from Customer s where s.login=?1 and s.password=?2")
     Optional<Customer>findByLoginAndPassword(String login, String password);
 
-    List<Customer> findCustomerByTypeNot(String type);
+    List<Customer> findCustomerByTypeNotOrderById(String type);
 
     List<Customer> findCustomerByType(String type);
-
 
     List<Customer>findCustomersByTypeNotAndTypeNotOrderById(String type1, String type2);
 

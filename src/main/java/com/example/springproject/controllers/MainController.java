@@ -1,13 +1,7 @@
 package com.example.springproject.controllers;
 
-import com.example.springproject.Repository.CommentRepository;
-import com.example.springproject.Repository.CustomerRepository;
-import com.example.springproject.Repository.ServiceRepository;
-import com.example.springproject.Repository.ZakazRepository;
-import com.example.springproject.models.Comment;
-import com.example.springproject.models.Customer;
-import com.example.springproject.models.Service;
-import com.example.springproject.models.Zakaz;
+import com.example.springproject.Repository.*;
+import com.example.springproject.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,14 +23,16 @@ import java.util.Optional;
     CommentRepository commentRepository;
     ZakazRepository zakazRepository;
     static Customer realCustomer;
-
+    DesignerRepository designerRepository;
 
     @Autowired
-    public MainController(ServiceRepository serviceRepository, CustomerRepository customerRepository, CommentRepository commentRepository, ZakazRepository zakazRepository) {
+    public MainController(HttpServletRequest httpServletRequest, ServiceRepository serviceRepository, CustomerRepository customerRepository, CommentRepository commentRepository, ZakazRepository zakazRepository, DesignerRepository designerRepository) {
+        this.httpServletRequest = httpServletRequest;
         this.serviceRepository = serviceRepository;
         this.customerRepository = customerRepository;
         this.commentRepository = commentRepository;
         this.zakazRepository = zakazRepository;
+        this.designerRepository = designerRepository;
     }
 
     @GetMapping("/index")
@@ -45,6 +41,8 @@ import java.util.Optional;
         model.addAttribute(serviceList);
         List<Comment> commentList = commentRepository.findAll();
         List<Comment> commentArrayList = new ArrayList<>();
+        List<Customer> customerList = customerRepository.findCustomerByTypeNotOrderById("customer");
+        model.addAttribute(customerList);
         if(commentList.size()>5){
             for (int i = commentList.size()-1; i > commentList.size()- 6; i--) {
                 commentArrayList.add(commentList.get(i));
@@ -84,11 +82,17 @@ import java.util.Optional;
 
 
     @GetMapping("/services")
-    public String getServices(Model model, @ModelAttribute("customer") Customer customer) {
+    public String getServices(Model model) {
         List<Service> serviceList = serviceRepository.findAll();
         model.addAttribute(serviceList);
         System.out.println(serviceList);
         return "services";
+    }
+    @GetMapping("/designers")
+    public String getWorkers(Model model) {
+        List<Designer> designers = designerRepository.findAll();
+        model.addAttribute("designers",designers);
+        return "workers";
     }
 
     @GetMapping("/forgetPassword")
@@ -115,12 +119,8 @@ import java.util.Optional;
             System.out.println(optionalCustomer.get());
             Comment com = new Comment(comment,optionalCustomer.get());
             commentRepository.save(com);
-            return "redirect:/index";
         }
-        else {
-            return "redirect:/";
-        }
-
+        return "redirect:/index";
     }
     @GetMapping("/profile")
     public String getProfile(Model model,@ModelAttribute("customer")Customer customer){
@@ -145,7 +145,6 @@ import java.util.Optional;
                 updatedCustomer.setLogin(login);
                 updatedCustomer.setName(name);
                 updatedCustomer.setEmail(email);
-            System.out.println(updatedCustomer.getLogin());
             customerRepository.save(updatedCustomer);
         }
         return "redirect:/login";
@@ -204,7 +203,6 @@ import java.util.Optional;
         customer.setLogin(login);
         customer.setPassword(password);
         customerRepository.save(customer);
-        System.out.println(customer);
         return "redirect:/login";
 
     }
@@ -221,11 +219,40 @@ import java.util.Optional;
             status = "No such email";
         }
         model.addAttribute(status);
-        System.out.println(status);
-        System.out.println(realCustomer);
+
 
         return "redirect:/forgetPassword";
     }
+
+    @GetMapping("customer/{id}")
+    public String viewCustomer(Model model,@PathVariable("id")Long id){
+        Optional<Customer> customer = customerRepository.findById(id);
+        Customer customer1 = new Customer();
+        if(customer.isPresent()){
+           customer1 = customer.get();
+        }
+        model.addAttribute(customer1);
+        return "viewCustomer";
+    }
+
+    @GetMapping("designer/{id}")
+    public String viewDesigner(Model model,@PathVariable("id")Long id){
+        Optional<Designer> designer = designerRepository.findById(id);
+        Designer designer1 = new Designer();
+        if(designer.isPresent()){
+            designer1 = designer.get();
+            List<Zakaz> completedZakazsList = zakazRepository.findZakazsByDesignerAndStatusLike(designer1,"completed");
+            model.addAttribute("completedZakazs",completedZakazsList.size());
+            List<Zakaz> processZakazsList = zakazRepository.findZakazsByDesignerAndStatusLike(designer1,"processing");
+            model.addAttribute("processZakazs",processZakazsList.size());
+            List<Zakaz> zakazList = zakazRepository.findZakazsByDesigner(designer1);
+            model.addAttribute("zakaz", zakazList.size());
+        }
+        model.addAttribute(designer1);
+        return "viewDesigner";
+    }
+
+
 
 
 

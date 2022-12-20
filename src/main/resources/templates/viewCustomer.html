@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<div class="text-center container-lg">
+  <div class="row gutters-sm" style="margin-left: 40%">
+    <div class="col-md-auto ms-8">
+      <div class="card h-100">
+        <div class="card-body">
+          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i></h6>
+          <div th:object="${customer}"class = "alert alert-info mt-2 text-center">
+            <p th:text="'Name: '+${customer.getName()}"></p>
+            <p th:text="${'Email: '+customer.getEmail()}"></p>
+            <p th:text="${'Login: '+ customer.getLogin()}"></p>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

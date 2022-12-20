@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<div class="text-center container-lg">
+  <div class="row gutters-sm" style="margin-left: 60px">
+    <div class="col-md-auto ms-8">
+      <div class="card h-100">
+        <div class="card-body">
+          <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i></h6>
+          <div th:each="designer : ${designers}" class="mb-5">
+            <p th:text="'Name: '+ ${designer.getCustomer().getName()}">1</p>
+            <p th:text="'Email: '+ ${designer.getCustomer().getEmail()}">2</p>
+            <p th:text="'Salary: '+ ${designer.getSalary()}">3</p>
+            <p th:text="'Type: '+ ${designer.getCustomer().getType()}">4</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
