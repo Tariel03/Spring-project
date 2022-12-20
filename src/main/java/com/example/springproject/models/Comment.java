@@ -13,9 +13,6 @@ public class Comment {
     private String comment;
     private LocalDate date;
 
-    public Comment getCommentt() {
-        return commentt;
-    }
 
     public Long getId() {
         return id;
@@ -25,13 +22,9 @@ public class Comment {
         this.id = id;
     }
 
-    public void setCommentt(Comment commentt) {
-        this.commentt = commentt;
-    }
 
 
-
-    @ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
@@ -50,18 +43,10 @@ public class Comment {
         this.date = LocalDate.now();
     }
 
-    public Comment(String comment, Comment commentt, Customer customer) {
-        this.comment = comment;
-        this.date = LocalDate.now();
-        this.commentt = commentt;
-        this.customer = customer;
-    }
+
 
     public Comment() {
     }
-    @ManyToOne
-    @JoinColumn(name = "comment_id")
-    private Comment commentt;
 
     public String getComment() {
         return comment;

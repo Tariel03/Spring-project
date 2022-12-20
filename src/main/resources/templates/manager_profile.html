@@ -96,8 +96,6 @@
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" target="__blank" >Designers</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" target="__blank" >Directors</a>
                                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Other workers</a>
-
-
                             </div>
                         </div>
                     </div>
@@ -109,7 +107,7 @@
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Completed</h6>
                                 <div th:each="zakaz:${zakazCompletedList}">
-                                    <small th:text="${zakaz.getService().getName()}"></small>
+                                    <a th:text="${zakaz.getId()+'.'+ zakaz.getService().getName()}" th:href="@{/manager/viewZakaz/{id}(id=${zakaz.getId()})}"></a>
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar"    aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -122,7 +120,7 @@
                             <div class="card-body">
                                 <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>In Process</h6>
                                 <div th:each="zakaz:${zakazProcessList}">
-                                    <small th:text="${zakaz.getService().getName()}"></small>
+                                    <a th:text="${zakaz.getId()+'.'+ zakaz.getService().getName()}" th:href="@{/manager/viewZakaz/{id}(id=${zakaz.getId()})}"></a>
                                     <div class="progress mb-3" style="height: 5px">
                                         <div class="progress-bar bg-primary" role="progressbar"    aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
@@ -220,7 +218,6 @@
                                     <div th:each="el : ${directorList}" class = "alert alert-info mt-2 text-center">
                                         <p th:text = "'Name: ' + ${el.getCustomer().getName()}"/>
                                         <p th:text = "'Email: ' + ${el.getCustomer().getEmail()}"/>
-                                        <!--                            <a th:href="'/manager/' + ${el.getId()}">Детальнее</a>-->
                                     </div>
                                 </div>
                             </div>

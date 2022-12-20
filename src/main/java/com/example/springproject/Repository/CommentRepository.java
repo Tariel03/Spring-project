@@ -11,7 +11,5 @@ import java.util.Optional;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> {
 
-    @Query("SELECT c from Comment c where c.commentt=?1 ")
-    Optional<Comment> findCommentsByForeignComment(Comment comment);
 
 }

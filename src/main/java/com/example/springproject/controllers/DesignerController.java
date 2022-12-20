@@ -36,16 +36,22 @@ public class DesignerController{
 
         List<Zakaz> completedorder=zakazRepository.findZakazByStatusLike("completed");
         model.addAttribute("completedorders",completedorder);
+
         List<Zakaz> zakazList = zakazRepository.findAll();
         currentUser(model);
+
         model.addAttribute(zakazList);
         List<Zakaz>counter=zakazRepository.findZakazByStatusNotLike("completed");
+
         model.addAttribute("nocompletedorders",counter);
         model.addAttribute("counter",counter.size());
+
         List<Customer>CustomerList=customerRepository.findCustomerByType("customer");
         model.addAttribute("countCustomers",CustomerList.size());
+
         List<Zakaz>countcompleted=zakazRepository.findZakazByStatusLike("completed");
         model.addAttribute("countcompleted",countcompleted.size());
+
         model.addAttribute("countCustomers",CustomerList.size());
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
@@ -73,14 +79,31 @@ public class DesignerController{
     }
 @PostMapping("process/{id}")
 public String process(@PathVariable(value = "id")Long id,Model model){
-        Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
 
-        if(zakazOptional.isPresent()){
-            Zakaz zakaz=zakazOptional.get();
+        } else {
+            username = principal.toString();
+        }
+        Designer  designer = new Designer();
+        Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
+        if(optionalCustomer.isPresent()){
+            Optional<Designer> designerOptional =designerRepository.findDesignerByCustomer(optionalCustomer.get());
+            if(designerOptional.isPresent()){
+                designer = designerOptional.get();
+            }
+        }
 
+    Optional<Zakaz> zakazOptional=zakazRepository.findById(id);
+
+        if(zakazOptional.isPresent()) {
+            Zakaz zakaz = zakazOptional.get();
 
             if (!zakaz.getStatus().equals("completed")) {
                 zakaz.setDate(LocalDate.now());
+                zakaz.setDesigner(designer);
                 zakaz.setStatus("processing");
                 zakazRepository.save(zakaz);
             } else if (zakaz.getStatus().equals("completed")) {
@@ -104,7 +127,7 @@ public String process(@PathVariable(value = "id")Long id,Model model){
 
 
 
-    private void currentUser(Model model) {
+    private Customer currentUser(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal() ;
         String username;
         if (principal instanceof UserDetails) {
@@ -112,12 +135,14 @@ public String process(@PathVariable(value = "id")Long id,Model model){
         } else {
             username = principal.toString();
         }
+        Customer customer = new Customer();
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
         if(optionalCustomer.isPresent()) {
             model.addAttribute(optionalCustomer.get());
             System.out.println(optionalCustomer.get());
+            customer = optionalCustomer.get();
         }
-        return ;
+        return customer;
     }
 
 

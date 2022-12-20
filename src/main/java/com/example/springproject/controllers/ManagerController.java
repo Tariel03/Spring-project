@@ -70,55 +70,32 @@ public class ManagerController {
 
                 Iterable<Workers_info> workersInfos = workersInfoRepository.findAll();
                 model.addAttribute("workersInfos", workersInfos);
+
+
+
+
                 List<Customer> customerList = customerRepository.findCustomerByTypeNot("customer");
-                List<Type> typesList = Arrays.asList(new Type("manager","manager"), new Type("customer","customer"), new Type("designer","designer"));
-                model.addAttribute("typesList",typesList);
+
                 model.addAttribute(customerList);
 
 
-                List<Zakaz> zakazCompletedList = zakazRepository.findZakazByStatusLike("completed");
+                List<Zakaz> zakazCompletedList = zakazRepository.findZakazsByDesignerIsNotNullAndStatusLike("completed");
                 model.addAttribute("zakazCompletedList",zakazCompletedList);
 
-                List<Zakaz> zakazProcessList = zakazRepository.findZakazByStatusLike("processing");
+                List<Zakaz> zakazProcessList = zakazRepository.findZakazsByDesignerIsNotNullAndStatusLike("processing");
                 model.addAttribute("zakazProcessList", zakazProcessList);
 
                 List<SuggestWorker> suggestWorkerList = suggestWorkerRepository.findSuggestWorkersByCustomer(optionalCustomer.get());
                 model.addAttribute("suggestWorkerList",suggestWorkerList);
 
-                List<Designer> designerList = designerRepository.findAll();
+                List<Designer> designerList = designerRepository.findDesignersByCustomerIsNotNull();
                 model.addAttribute(designerList);
 
-                List<Director> directorList = directorRepository.findAll();
+                List<Director> directorList = directorRepository.findDirectorsByCustomerIsNotNull();
                 model.addAttribute(directorList);
 
                 List<Workers_info> workers_infoList = workersInfoRepository.findAll();
                 model.addAttribute(workers_infoList);
-
-                int salary = 0;
-                int customer_q = customerRepository.findAll().size();
-                int workers = 0;
-                int zakaz_cq = zakazCompletedList.size();
-                int zakaz_pq = zakazProcessList.size();
-                for (Designer design:designerList
-                     ) {
-                    salary += design.getSalary();
-                    workers ++;
-                }
-                for(Manager manager1 : managerRepository.findAll()){
-                    salary += manager1.getSalary();
-                    workers ++;
-                }
-                for (Workers_info el: workers_infoList
-                     ) {
-                    salary += el.getSalary();
-                    workers++;
-                }
-                model.addAttribute("salary",salary);
-                model.addAttribute("workers",workers);
-                model.addAttribute("customer_q", customer_q);
-                model.addAttribute("zakaz_q",zakaz_pq);
-                model.addAttribute("zakaz_cq",zakaz_cq);
-                model.addAttribute("zakaz_q",zakaz_pq+zakaz_cq);
 
                 return "manager_profile";
             } else {
@@ -126,6 +103,17 @@ public class ManagerController {
             }
         }
         return username;
+    }
+
+    @GetMapping("manager/viewZakaz/{id}")
+        public String viewZakaz(Model model,@PathVariable("id")Long id){
+        Optional<Zakaz> optionalZakaz = zakazRepository.findById(id);
+        Zakaz zakaz = new Zakaz();
+        if(optionalZakaz.isPresent()){
+            zakaz = optionalZakaz.get();
+        }
+        model.addAttribute(zakaz);
+        return "viewZakaz";
     }
 
     @GetMapping("/manager/add")

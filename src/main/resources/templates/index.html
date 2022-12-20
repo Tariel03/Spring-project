@@ -349,7 +349,6 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel7">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal8" >Edit</button>
             </div>
             <div class="modal-body">
                 <form th:method="POST" th:action="@{/edit}">
@@ -384,7 +383,6 @@
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel8">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal8" >Edit</button>
             </div>
             <div class="modal-body container-sm">
                 <div class="html">
@@ -499,11 +497,11 @@
 <!-- choose section end -->
 <!-- footer section start -->
 <div class="footer_section layout_padding">
-    <div class="container">
+    <div class="container ">
         <div class="text-center">
             <h1 class="fw-bold">Comments</h1>
         </div>
-        <div class="text-center container-sm" style="margin-left: 270px">
+        <div class="text-center container-sm" style="margin-left: 300px">
             <div th:each="comment: ${commentList}" class= "border border-dark p-2 mb-2 text-white bg-dark rounded-pill w-50" >
                 <div th:text = "${'Username: '+comment.getCustomer().getLogin()}" class="fw-bolder" ></div>
                 <div th:text="${'Comment: '+comment.getComment()}"><p>Comment :</p></div>

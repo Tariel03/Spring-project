@@ -29,11 +29,8 @@
         <button type="submit" class=" btn btn-primary submit px-3 submit-btn">Log in</button>
         <br>
       </form>
-
       <div th:if="${param.error}">
       </div>
-
-
 
       <div>
         <form id="register" class="input-group" method="POST" role="form" th:action="@{manager/customer/show}">
@@ -45,9 +42,16 @@
           <button type="submit" class="form-control btn btn-primary submit px-3 submit-btn">Register</button>
         </form>
       </div>
+
   </div>
+
+
+
 </div>
+
 </div>
+
+
 
 <script >
   const x = document.getElementById("login");

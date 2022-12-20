@@ -16,7 +16,7 @@ public interface DesignerRepository extends JpaRepository<Designer,Long> {
 
     List<Designer> findDesignersByCustomerEquals(Customer customer);
 
-    List<Designer> findDesignersByCustomerNot(Customer customer);
+    List<Designer> findDesignersByCustomerIsNotNull();
 
 
 }

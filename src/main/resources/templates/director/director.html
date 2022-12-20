@@ -104,8 +104,8 @@
             <div class="row">
               <div class="col-sm-12">
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" target="__blank" >Create an account</a>
-                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" target="__blank" >Services</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" target="__blank" >Comments</a>
+                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" target="__blank" >Services</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" target="__blank" >Employees</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Create a service</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal5" target="__blank" >View potential workers</a>
@@ -115,34 +115,6 @@
         </div>
 
 
-        <div class="row gutters-sm">
-          <div class="col-sm-6 mb-3">
-            <div class="card h-100">
-              <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>Completed</h6>
-                <div th:each="zakaz:${zakazCompletedList}">
-                  <small th:text="${zakaz.getService().getName()}"></small>
-                  <div class="progress mb-3" style="height: 5px">
-                    <div class="progress-bar bg-primary" role="progressbar"    aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6 mb-3">
-            <div class="card h-100">
-              <div class="card-body">
-                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2"></i>In Process</h6>
-                <div th:each="zakaz:${zakazProcessList}">
-                  <small th:text="${zakaz.getService().getName()}"></small>
-                  <div class="progress mb-3" style="height: 5px">
-                    <div class="progress-bar bg-primary" role="progressbar"    aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
 
 <!--        <div class="row gutters-sm">-->

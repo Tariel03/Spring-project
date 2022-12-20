@@ -7,11 +7,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = "zakaz")
 public class Zakaz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     LocalDate localDate;
     String status;
 
@@ -31,13 +31,7 @@ public class Zakaz {
         this.status = status;
     }
 
-    public Set<Comment> getComments() {
-        return comments;
-    }
 
-    public void setComments(Set<Comment> comments) {
-        this.comments = comments;
-    }
 
 
     public Zakaz(Customer customer, Service service) {
@@ -72,20 +66,22 @@ public class Zakaz {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
-    private Set<Comment> comments = new LinkedHashSet<>();
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "designer_id")
+    private Designer designer;
+
+    public Designer getDesigner() {
+        return designer;
+    }
+
+    public void setDesigner(Designer designer) {
+        this.designer = designer;
+    }
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "service_id")
     private Service service;
 
-    public Service getOrder() {
-        return service;
-    }
-
-    public void setOrder(Service service) {
-        this.service =service;
-    }
 
 
     public Customer getCustomer() {

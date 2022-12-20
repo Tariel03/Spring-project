@@ -45,9 +45,15 @@ import java.util.Optional;
         model.addAttribute(serviceList);
         List<Comment> commentList = commentRepository.findAll();
         List<Comment> commentArrayList = new ArrayList<>();
-        for (int i = commentList.size()-1; i > commentList.size()- 6; i--) {
-            commentArrayList.add(commentList.get(i));
+        if(commentList.size()>5){
+            for (int i = commentList.size()-1; i > commentList.size()- 6; i--) {
+                commentArrayList.add(commentList.get(i));
+            }
         }
+        else {
+            commentArrayList =commentList;
+        }
+
         model.addAttribute(commentArrayList);
 
         List<Zakaz> zakazList = zakazRepository.findZakazByCustomer_Id(currentUser(model));
