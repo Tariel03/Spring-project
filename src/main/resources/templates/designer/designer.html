@@ -47,22 +47,22 @@
 <!-- CONTENT -->
 <section id="content">
   <!-- NAVBAR -->
-  <nav>
-    <i class='bx bx-menu' ></i>
-    <a href="#" class="nav-link">Categories</a>
-    <form action="#">
-      <div class="form-input">
-        <input type="search" placeholder="Search...">
-        <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
-      </div>
-    </form>
-    <input type="checkbox" id="switch-mode" hidden>
-    <label for="switch-mode" class="switch-mode"></label>
+    <nav>
+      <i class='bx bx-menu' ></i>
+      <a href="#" class="nav-link">Categories</a>
+      <form action="#">
+        <div class="form-input">
+          <input type="search" placeholder="Search...">
+          <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
+        </div>
+      </form>
+      <input type="checkbox" id="switch-mode" hidden>
+      <label for="switch-mode" class="switch-mode"></label>
 
-    <a href="designer/profiledes" class="profile">
-      <img src="images/people.jpg">
-    </a>
-  </nav>
+      <a href="designer/profiledes" class="profile">
+        <img src="images/people.jpg">
+      </a>
+    </nav>
   <!-- NAVBAR -->
 
   <!-- MAIN -->
@@ -105,6 +105,7 @@
           <th>Type of service</th>
           <th>Date Order</th>
           <th>Deadline</th>
+          <th>Change date</th>
           <th>Status</th>
         </tr>
         </thead>
@@ -117,7 +118,21 @@
           </td>
           <td><p th:text="${nocompleted.getService().getName()}"></p></td>
           <td><p th:text="${nocompleted.getDate()}"></p></td>
-          <td><p th:text="${nocompleted.getService().getLength()}+'days'"></p></td>
+
+          <td><p th:text="${nocompleted.getDeadline()}"></p></td>
+
+          <td>
+            <form th:method="POST" th:object="${nocompleted}" th:action="@{/designer/edit/date/{id}(id=${nocompleted.getId()})}" class="btn btn-primary">
+            <input type="int" name="length">
+            <input  class="status process" type="submit" value="Add days to deadline"/>
+          </form>
+            <br>
+            <form th:method="POST" th:object="${nocompleted}" th:action="@{/designer/edit/minus/{id}(id=${nocompleted.getId()})}" class="btn btn-primary">
+              <input type="int" name="length">
+              <input  class="status process" type="submit" value="Subtract days from deadline"/>
+            </form>
+          </td>
+
           <td><form th:method="POST" th:object="${nocompleted}" th:action="@{/designer/process/{id}(id=${nocompleted.getId()})}" class="btn btn-primary">
             <input  class="status process" type="submit" th:value="${nocompleted.getStatus()}"/>
           </form></td>

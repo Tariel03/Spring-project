@@ -15,6 +15,16 @@ public class Zakaz {
     LocalDate localDate;
     String status;
 
+    LocalDate deadline;
+
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
     public LocalDate getLocalDate() {
         return localDate;
     }
@@ -22,6 +32,10 @@ public class Zakaz {
     public void setLocalDate(LocalDate localDate) {
         this.localDate = localDate;
     }
+
+
+
+
 
     public String getStatus() {
         return status;

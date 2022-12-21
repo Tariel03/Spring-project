@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -189,6 +190,9 @@ import java.util.Optional;
             Zakaz zakaz = new Zakaz();
             zakaz.setCustomer(optionalCustomer.get());
             zakaz.setService(optionalService.get());
+            LocalDate today = zakaz.getDate();
+            LocalDate deadline = today.plusDays(zakaz.getService().getLength());
+            zakaz.setDeadline(deadline);
             zakazRepository.save(zakaz);
             zakaz.setStatus("received");
         }

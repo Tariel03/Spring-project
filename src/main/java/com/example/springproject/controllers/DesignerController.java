@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,7 +123,30 @@ public String process(@PathVariable(value = "id")Long id,Model model){
 
     }
 
-
+    @PostMapping("edit/date/{id}")
+    public String edit_date(Model model, @PathVariable("id")Long id, @RequestParam("length")int length){
+        Optional<Zakaz> zakazOptional = zakazRepository.findById(id);
+        if(zakazOptional.isPresent()){
+            Zakaz zakaz = zakazOptional.get();
+            LocalDate deadline = zakaz.getDeadline();
+            LocalDate new_deadline = deadline.plusDays(length);
+            zakaz.setDeadline(new_deadline);
+            zakazRepository.save(zakaz);
+        }
+        return "redirect:/designer";
+    }
+    @PostMapping("edit/minus/{id}")
+    public String minus_date(Model model, @PathVariable("id")Long id, @RequestParam("length")int length){
+        Optional<Zakaz> zakazOptional = zakazRepository.findById(id);
+        if(zakazOptional.isPresent()){
+            Zakaz zakaz = zakazOptional.get();
+            LocalDate deadline = zakaz.getDeadline();
+            LocalDate new_deadline = deadline.minusDays(length);
+            zakaz.setDeadline(new_deadline);
+            zakazRepository.save(zakaz);
+        }
+        return "redirect:/designer";
+    }
 
 
     private Customer currentUser(Model model) {
@@ -137,7 +161,6 @@ public String process(@PathVariable(value = "id")Long id,Model model){
         Optional<Customer> optionalCustomer = customerRepository.findByLogin(username);
         if(optionalCustomer.isPresent()) {
             model.addAttribute(optionalCustomer.get());
-            System.out.println(optionalCustomer.get());
             customer = optionalCustomer.get();
         }
         return customer;

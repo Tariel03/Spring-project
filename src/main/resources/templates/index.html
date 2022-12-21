@@ -337,12 +337,13 @@
                         <p th:text = "${'Service: '+zakaz.getService().getName()}"></p>
                         <p th:text = "${'Price: '+zakaz.getService().getPrice()}"></p>
                         <p th:text = "${'Status:'+zakaz.getStatus()}"></p>
+                        <p th:text="${'Deadline: '+zakaz.getDeadline()}"></p>
                         <td>
                             <a th:if="${zakaz.getDesigner() == null}">Designer: Not taken by designer yet</a>
                             <a th:text="${'Designer: ' + zakaz.getDesigner().getLastname()+' '+zakaz.getDesigner().getCustomer().getName()}" th:href="@{/designer/{id}(id=${zakaz.getDesigner().getId()})}" th:unless="${zakaz.getDesigner() == null} ">Male</a>
                         </td>
+                        <hr>
                     </div>
-                    <hr>
                 </div>
             </div>
             <div class="modal-footer">
