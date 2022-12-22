@@ -64,8 +64,10 @@ public class DirectorController {
                 List<Comment> commentList = commentRepository.findAll();
                 model.addAttribute(commentList);
 
+                model.addAttribute("exCustomers", customerRepository.findExCustomers());
 
-                List<Customer> customerList = customerRepository.findCustomersByTypeNotAndTypeNotOrderById("customer", "director");
+
+                List<Customer> customerList = customerRepository.findWorkers();
                 model.addAttribute("customerList",customerList);
 
 
@@ -163,8 +165,6 @@ public class DirectorController {
                 workersInfo.setType(suggestWorker1.getType());
                 workersInfo.setAddress(suggestWorker1.getAddress());
                 workersInfoRepository.save(workersInfo);
-
-
             }
         }
         return "redirect:/director";

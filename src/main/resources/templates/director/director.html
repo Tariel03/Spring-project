@@ -101,14 +101,18 @@
               </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row text-center">
               <div class="col-sm-12">
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" target="__blank" >Create an account</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2" target="__blank" >Comments</a>
                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1" target="__blank" >Services</a>
-                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" target="__blank" >Employees</a>
-                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Create a service</a>
-                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal5" target="__blank" >View potential workers</a>
+                <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3" target="__blank" >Free accounts</a>
+               <div class="col-sm-12 mt-3">
+                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4" target="__blank" >Create a service</a>
+                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal5" target="__blank" >View potential workers</a>
+                 <a class="btn btn-info" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal6" target="__blank" >Employees</a>
+
+               </div>
               </div>
             </div>
           </div>
@@ -218,7 +222,7 @@
       </div>
       <div class="modal-body justify-content-center">
         <div class="text-center container-sm">
-          <div th:each="customer: ${customerList}" >
+          <div th:each="customer: ${exCustomers}" >
             <div th:text = "${'Id: '+customer.getId()+' Username: '+customer.getLogin()+', Name: ' +customer.getName() + ', Email: '+customer.getEmail() +', Account type: '+customer.getType()}" class="fw-bolder" ></div>
             <br>
             <form th:method="POST" th:object="${customer}" th:action="@{/director/deleteCustomer/{id}(id=${customer.getId()})}">
@@ -301,6 +305,27 @@
       </div>
 
 
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel6">Account list</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body justify-content-center">
+        <div class="text-center container-sm">
+          <div th:each="customer: ${customerList}" >
+            <div th:text = "${'Id: '+customer.getId()+' Username: '+customer.getLogin()+', Name: ' +customer.getName() + ', Email: '+customer.getEmail() +', Account type: '+customer.getType()}" class="fw-bolder" ></div>
+            <br>
+          </div>
+
+          <hr>
+        </div>
+      </div>
     </div>
   </div>
 </div>

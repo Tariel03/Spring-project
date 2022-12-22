@@ -21,6 +21,14 @@ public interface CustomerRepository extends JpaRepository<Customer,Long> {
     Optional<Customer>findByEmail(String email);
     @Query("SELECT s from Customer s where s.login=?1 and s.password=?2")
     Optional<Customer>findByLoginAndPassword(String login, String password);
+    @Query("SELECT s from Customer  s where s not in(select  des.customer from Designer des )" +
+            " and s not in (select dir.customer FROM Director  dir) " +
+            "and s not in (select man.customer From Manager man) and s.type not like 'customer'")
+    List<Customer>findExCustomers();
+
+    @Query("SELECT s from Customer  s where s  in(select  des.customer from Designer des )" +
+            " or  s in (select man.customer From Manager man) and s.type not like 'customer' and  s.type not like 'director'")
+    List<Customer>findWorkers();
 
     List<Customer> findCustomerByTypeNotOrderById(String type);
 
